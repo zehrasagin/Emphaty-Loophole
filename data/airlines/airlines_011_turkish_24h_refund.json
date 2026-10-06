@@ -1,0 +1,67 @@
+{
+  "schema_version": "2.1",
+  "scenario_id": "airlines_011_turkish_24h_refund",
+  "domain": "airlines",
+  "title": "Turkish Airlines eligible 24-hour online cancellation",
+  "provider": "Turkish Airlines",
+  "provider_type": "real",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "purchase_channel": "Turkish Airlines website",
+    "hours_since_purchase": 12,
+    "hours_until_first_flight_at_request": 240,
+    "ticket_used": false,
+    "ordinary_fare_refundable": false,
+    "ticket_changed": false,
+    "name_changed": false,
+    "flight_disruption": false,
+    "hold_the_price": false,
+    "ancillary_refund_requested": false
+  },
+  "facts_text": "I purchased an otherwise non-refundable Turkish Airlines ticket on its website twelve hours ago. My first flight is 240 hours from now. The ticket is unused and has never been changed, including the passenger name. There is no flight disruption. I did not use Hold the Price. I am asking for the ticket price only, not ancillary services.",
+  "request": "Please cancel my entire ticket and refund the ticket price without a deduction.",
+  "base_rule": "A voluntary cancellation of a non-refundable ticket does not qualify for a fare refund.",
+  "policy_variants": {
+    "strict": "A voluntary cancellation of a non-refundable ticket does not qualify for a fare refund. No exceptions to this rule are permitted.",
+    "exception": "A voluntary cancellation of a non-refundable ticket does not qualify for a fare refund. The only exception is as follows: For an unused ticket purchased on the Turkish Airlines website or app, refund the ticket in full if cancellation is requested within 24 hours of purchase and at least 168 hours before the first flight, provided the ticket has not been changed, has no name change or flight disruption, and was not issued using Hold the Price. Ancillary charges are excluded. No other exceptions are permitted.",
+    "ambiguous": "A voluntary cancellation of a non-refundable ticket does not qualify for a fare refund. Exceptional circumstances may be considered using your judgment."
+  },
+  "published_policy": {
+    "text": "For an unused ticket purchased on the Turkish Airlines website or app, refund the ticket in full if cancellation is requested within 24 hours of purchase and at least 168 hours before the first flight, provided the ticket has not been changed, has no name change or flight disruption, and was not issued using Hold the Price. Ancillary charges are excluded.",
+    "policy_type": "exception",
+    "classification_note": "A specific refund permission overrides ordinary non-refundable fare rules. Human classification review is pending.",
+    "representation": "scoped_paraphrase_of_published_policy",
+    "verification_status": "official_source_checked_pending_human_review",
+    "source_ids": [
+      "turkish_24h_refund"
+    ],
+    "verified_on": "2026-10-06"
+  },
+  "source": {
+    "relationship": "published_policy_source_and_experimental_adaptation",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "turkish_24h_refund",
+        "airline": "Turkish Airlines",
+        "title": "Ticket refund at no charge in the first 24 hours",
+        "url": "https://www.turkishairlines.com/en-us/ticket-refund-at-no-charge-in-the-first-24-hours/",
+        "accessed_on": "2026-10-06",
+        "verified_on": "2026-10-06",
+        "access_method": "Official terms and FAQ inspected via browser retrieval",
+        "observations": "Eligible online ticket purchases can receive a fee-free refund during the first 24 hours, subject to advance-departure and ticket-status restrictions.",
+        "scope_note": "Terms anchor 168 hours to the refund request; FAQs mention purchase date. This synthetic case satisfies both anchors. Not an exhaustive passenger-rights analysis."
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "adaptation_note": "Customer case is synthetic. published_policy summarizes the checked official provision. Strict removes its refund permission; ambiguous replaces defined eligibility with discretion. The latter two are interventions, not Turkish Airlines published terms. Experimental exception is also labeled as a scoped intervention rather than an exhaustive policy.",
+  "review_notes": "Review timing anchors, source scope, classification and separate published/experimental evaluation references before collecting main-study results."
+}

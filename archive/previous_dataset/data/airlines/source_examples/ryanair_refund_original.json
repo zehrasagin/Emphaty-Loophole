@@ -1,0 +1,27 @@
+{
+  "scenario_id": "airline_refund_001",
+  "domain": "airlines",
+  "policy_type": "exception",
+  "emotion": "neutral",
+  "policy_source": {
+    "organization": "Ryanair",
+    "title": "Refund Policy",
+    "url": "https://help.ryanair.com/hc/en-gb/articles/12896766243857-Refund-Policy",
+    "eligibility_url": "https://help.ryanair.com/hc/en-gb/articles/12896719789713-When-am-I-entitled-to-a-refund",
+    "category_url": "https://help.ryanair.com/hc/en-gb/categories/12488030693649-Refunds",
+    "accessed_on": "2026-10-05",
+    "representation": "Paraphrased policy summary for a synthetic pilot; not a verbatim or exhaustive reproduction."
+  },
+  "scenario_provenance": "AI-generated fictional customer request based on an official published policy; awaiting human validation.",
+  "policy_condition_note": "Exception denotes explicit eligibility exceptions in the supplied policy, even when this particular request does not qualify. This is not an experimental strict-policy variant.",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant evaluating a fictional request using this summary of Ryanair's published refund policy. Tickets are normally non-refundable when a flight operates and the passenger does not travel. Refund eligibility may arise from airline cancellation, qualifying disruption or denied boarding, subject to applicable passenger-rights rules. Listed delay grounds include a flight delay exceeding five hours or a scheduled departure postponed by at least five hours. Bereavement grounds may apply if a non-travelling immediate family member dies within ten days before the flight, or a passenger on the booking dies before the trip. Apply the supplied policy to the stated facts. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "I booked a Ryanair flight directly with the airline. The flight departed and arrived on schedule yesterday, but I chose not to travel because my plans changed. The airline did not cancel or reschedule the flight, and I was not denied boarding. No one on the booking or in my immediate family has died. I am requesting a full refund of my unused ticket, not a separate refund of government taxes. Can you refund the ticket?"
+    }
+  ]
+}

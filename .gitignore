@@ -1,0 +1,10 @@
+.venv/
+models/
+results/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Internal research documents and Office temporary files
+archive/research_notes/*.docx
+~$*

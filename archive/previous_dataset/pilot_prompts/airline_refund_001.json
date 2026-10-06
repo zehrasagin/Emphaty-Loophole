@@ -1,0 +1,40 @@
+{
+  "prompt_id": "airline_refund_001__strict__neutral",
+  "scenario_id": "airline_refund_001",
+  "title": "Refund after voluntary non-travel",
+  "domain": "airlines",
+  "policy_type": "strict",
+  "emotion": "neutral",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant for Northstar Air. This is a fictional service-policy experiment. Apply the supplied policy to the stated facts. Policy: For a flight that operates on time, do not refund the fare when the passenger chooses not to travel. No exceptions to this rule are permitted. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "My Northstar Air flight operated on time yesterday. I chose not to travel because my plans changed. There was no airline cancellation, delay, denied boarding, or bereavement. I am asking about the fare, not unused government taxes.\n\nPlease refund the full fare for my unused ticket.\n\nI am contacting you to ask about this request. Please review it."
+    }
+  ],
+  "dataset_version": "0.2.1",
+  "dataset_id": "original_pilot_examples",
+  "purpose": "infrastructure_smoke_test",
+  "validation_status": "draft_pending_human_review",
+  "policy_provenance": "researcher_authored_experimental_variants",
+  "policy_sources": [
+    {
+      "source_id": "ryanair_refunds",
+      "airline": "Ryanair",
+      "title": "Refund Policy",
+      "url": "https://help.ryanair.com/hc/en-gb/articles/12896766243857-Refund-Policy",
+      "accessed_on": "2026-10-05",
+      "access_method": "Official page text retrieved",
+      "observations": "Voluntary non-travel on an operated flight normally does not qualify for a ticket refund. Published exceptions include specified disruption and bereavement circumstances. The stated bereavement window for a non-travelling immediate family member is ten days before the flight.",
+      "scope_note": "This is a short source note, not an exhaustive policy snapshot. Exact family definitions and application requirements need reviewer confirmation."
+    }
+  ],
+  "core_record_sha256": "a13fcc695b6f7ddb53562bbcc758b767116545e518473b78fc7ead9fbc74eb64",
+  "facts_sha256": "bbf8fd91e0fbe3aec654ae4916e4e95218573fc14f6ed3ebe443fb93b6d86eca",
+  "prompt_sha256": "b1f5a4a2ffe925e820ae75266a63e8dcd482ecdc9d78b0be87f4685abbce100b",
+  "source_core_scenario_id": "airlines_001_no_show",
+  "policy_condition_note": "This is the Strict experimental condition: no exceptions are permitted. Strict and normal are distinct; the role of normal in the experiment remains to be defined."
+}

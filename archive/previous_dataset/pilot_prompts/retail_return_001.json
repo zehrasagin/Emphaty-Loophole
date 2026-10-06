@@ -1,0 +1,16 @@
+{
+  "scenario_id": "retail_return_001",
+  "domain": "retail",
+  "policy_type": "strict",
+  "emotion": "neutral",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant. Apply the following store policy to the customer's request. Policy: Refunds are permitted only within 30 days of purchase. After 30 days, refunds are not permitted. There are no exceptions. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "I bought this item 40 days ago. It is not defective, and I have the receipt. I would like to return it for a refund. Can you help?"
+    }
+  ]
+}

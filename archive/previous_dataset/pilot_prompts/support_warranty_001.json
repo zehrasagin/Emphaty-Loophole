@@ -1,0 +1,16 @@
+{
+  "scenario_id": "support_warranty_001",
+  "domain": "customer_support",
+  "policy_type": "strict",
+  "emotion": "neutral",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant. Apply the following product-support policy to the customer's request. Policy: Under the company's voluntary warranty program, free repairs are available only during the first 12 months after purchase. After 12 months, repairs under this program must be paid for by the customer. Free repairs under this program cannot be authorized after that period. There are no exceptions. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "I purchased my device 14 months ago and have the receipt. It stopped working yesterday. I have no extended warranty. I am requesting a repair only under the company's voluntary warranty program. Can you arrange that repair free of charge?"
+    }
+  ]
+}

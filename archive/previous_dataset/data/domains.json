@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "allocation_note": "Ten core scenarios per domain is a provisional equal-allocation assumption, pending team agreement.",
+  "domains": [
+    {"id": "retail", "label": "Retail", "target_core_scenarios": 10},
+    {"id": "airlines", "label": "Airlines", "target_core_scenarios": 10},
+    {"id": "hotels", "label": "Hotels", "target_core_scenarios": 10},
+    {"id": "telecom", "label": "Telecom", "target_core_scenarios": 10},
+    {"id": "customer_support", "label": "Customer support", "target_core_scenarios": 10}
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "source_id": "ryanair_refunds",
+    "airline": "Ryanair",
+    "title": "Refund Policy",
+    "url": "https://help.ryanair.com/hc/en-gb/articles/12896766243857-Refund-Policy",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official page text retrieved",
+    "observations": "Voluntary non-travel on an operated flight normally does not qualify for a ticket refund. Published exceptions include specified disruption and bereavement circumstances. The stated bereavement window for a non-travelling immediate family member is ten days before the flight.",
+    "scope_note": "This is a short source note, not an exhaustive policy snapshot. Exact family definitions and application requirements need reviewer confirmation."
+  },
+  {
+    "source_id": "easyjet_terms",
+    "airline": "easyJet",
+    "title": "Terms and Conditions",
+    "url": "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official-domain indexed excerpts retrieved; direct page rendering requires JavaScript",
+    "observations": "The indexed terms describe cancellation within 24 hours with a cancellation-fee deduction, unavailable less than two hours before departure. Voluntary flight changes can require a change fee and any fare increase.",
+    "scope_note": "Full-page human verification remains pending. No current fee amount is asserted; fees in the experimental scenarios are invented."
+  },
+  {
+    "source_id": "ba_customer_commitment",
+    "airline": "British Airways",
+    "title": "Our Customer Commitment",
+    "url": "https://www.britishairways.com/content/information/legal/our-customer-commitment",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official page text retrieved",
+    "observations": "The booking-error cancellation option describes a 24-hour window for direct bookings, excluding bookings for travel within 24 hours and specified holiday bookings.",
+    "scope_note": "The page states that the customer commitment is not legally or contractually binding. This source supplies a scenario topic; the experiment does not determine real passenger entitlements."
+  },
+  {
+    "source_id": "ba_seating",
+    "airline": "British Airways",
+    "title": "Seat changes and refunds",
+    "url": "https://www.britishairways.com/content/information/seating/seating-changes-and-refunds",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official page text retrieved",
+    "observations": "A voluntary move to a cheaper paid seat does not receive the price difference back. The page separately describes refund circumstances following airline-driven seating changes.",
+    "scope_note": "The experimental policy simplifies the seat-change distinction and is not a complete reproduction of the carrier's terms."
+  },
+  {
+    "source_id": "klm_extra_options",
+    "airline": "KLM",
+    "title": "Refunds for extra options",
+    "url": "https://www.klm.nl/en/information/refund-compensation/extra-options",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official Netherlands English page text retrieved",
+    "observations": "Extra-baggage refunds can be requested within 24 hours of purchase or after rebooking to a non-KLM-operated flight. A paid meal unavailable after qualifying cancellation or rebooking can also support a refund request.",
+    "scope_note": "The experiment uses only selected eligibility concepts. Other options and full linked conditions are outside this source note."
+  },
+  {
+    "source_id": "lufthansa_refunds",
+    "airline": "Lufthansa",
+    "title": "Cancellation and refund",
+    "url": "https://www.lufthansa.com/cz/en/cancellations-and-refunds",
+    "accessed_on": "2026-10-05",
+    "access_method": "Official Czech-region English page text retrieved",
+    "observations": "Refundability depends on fare conditions and used segments. The page describes payment to the original payment method and calculation of the unused portion for partly used tickets.",
+    "scope_note": "Do not infer that every unused ticket is fully refundable. The pilot explicitly supplies fictional fare values and refundability facts."
+  }
+]

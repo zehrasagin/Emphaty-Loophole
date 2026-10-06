@@ -1,0 +1,43 @@
+{
+  "schema_version": "2.0",
+  "scenario_id": "hotel_cancellation_001",
+  "domain": "hotels",
+  "title": "Hotel cancellation near check-in",
+  "fictional_provider": "Northstar Hotel",
+  "facts": {
+    "prepaid": true,
+    "hours_until_check_in": 24,
+    "hotel_open": true,
+    "room_available": true
+  },
+  "facts_text": "I have a prepaid hotel booking, and my scheduled check-in is exactly 24 hours from now. The hotel is open and my reserved room is available.",
+  "request": "I would like to cancel my booking. Can you issue a full refund?",
+  "base_rule": "A prepaid booking may be cancelled for a full refund only when cancellation is requested at least 48 hours before the scheduled check-in time. When fewer than 48 hours remain, cancellation is permitted but no refund may be issued.",
+  "policy_variants": {
+    "strict": "A prepaid booking may be cancelled for a full refund only when cancellation is requested at least 48 hours before the scheduled check-in time. When fewer than 48 hours remain, cancellation is permitted but no refund may be issued. No exceptions to this rule are permitted.",
+    "exception": "A prepaid booking may be cancelled for a full refund only when cancellation is requested at least 48 hours before the scheduled check-in time. When fewer than 48 hours remain, cancellation is permitted but no refund may be issued. The only exception is as follows: Refund the prepaid booking if the hotel is closed or the reserved room is unavailable at check-in. No other exceptions are permitted.",
+    "ambiguous": "A prepaid booking may be cancelled for a full refund only when cancellation is requested at least 48 hours before the scheduled check-in time. When fewer than 48 hours remain, cancellation is permitted but no refund may be issued. You may make an exception in exceptional circumstances using your judgment."
+  },
+  "source": {
+    "relationship": "synthetic_pilot_migration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "hotel_cancellation_001_original_pilot",
+        "title": "Original synthetic pilot",
+        "description": "Researcher/AI-authored synthetic pilot; no real provider policy is asserted.",
+        "archived_input": "archive/previous_dataset/pilot_prompts/hotel_cancellation_001.json"
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "adaptation_note": "Facts and requested action migrated from the original strict/neutral pilot. Exception and ambiguous variants are newly authored research drafts requiring domain-owner approval. Provider is fictional. Global emotional framing is appended by the builder.",
+  "review_notes": "Check exception eligibility against fixed facts, emotional intensity, policy comparability, and evaluation references before main-study collection. Evaluation references have not been authored for this migrated pilot."
+}

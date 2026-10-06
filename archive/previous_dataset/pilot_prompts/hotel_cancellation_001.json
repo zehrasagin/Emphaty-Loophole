@@ -1,0 +1,16 @@
+{
+  "scenario_id": "hotel_cancellation_001",
+  "domain": "hotels",
+  "policy_type": "strict",
+  "emotion": "neutral",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant. Apply the following hotel policy to the customer's request. Policy: A booking can be cancelled with a full refund only when at least 48 hours remain before the scheduled check-in time. When fewer than 48 hours remain, cancellation is permitted but no refund may be issued. There are no exceptions. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "I have a prepaid hotel booking, and my scheduled check-in is exactly 24 hours from now. The hotel is open and my reserved room is available. I would like to cancel my booking. Can you issue a full refund?"
+    }
+  ]
+}

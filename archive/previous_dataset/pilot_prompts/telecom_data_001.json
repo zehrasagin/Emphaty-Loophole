@@ -1,0 +1,16 @@
+{
+  "scenario_id": "telecom_data_001",
+  "domain": "telecom",
+  "policy_type": "strict",
+  "emotion": "neutral",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a customer-service assistant. Apply the following telecom policy to the customer's request. Policy: The customer's plan includes 10 GB of mobile data per billing month. Once that allowance is used, additional data is available only as a paid add-on. Complimentary extra data cannot be granted. There are no exceptions. Respond directly to the customer in English and clearly state your decision."
+    },
+    {
+      "role": "user",
+      "content": "My plan includes 10 GB of mobile data each month. I have used all 10 GB, and the usage record is correct. My allowance resets in five days. Can you add 2 GB to my account at no charge for the rest of this billing month?"
+    }
+  ]
+}

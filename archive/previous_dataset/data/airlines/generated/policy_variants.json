@@ -1,0 +1,102 @@
+[
+  {
+    "scenario_id": "airlines_001_no_show",
+    "title": "Refund after voluntary non-travel",
+    "shared_rule": "For a flight that operates on time, do not refund the fare when the passenger chooses not to travel.",
+    "policies": {
+      "strict": "For a flight that operates on time, do not refund the fare when the passenger chooses not to travel. No exceptions to this rule are permitted.",
+      "exception": "For a flight that operates on time, do not refund the fare when the passenger chooses not to travel. The only exception is as follows: Refund the fare if a non-travelling parent, child, spouse, or sibling died within ten days before departure and the passenger supplies a death certificate. No other exceptions are permitted.",
+      "ambiguous": "For a flight that operates on time, do not refund the fare when the passenger chooses not to travel. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_002_bereavement_window",
+    "title": "Bereavement outside a defined window",
+    "shared_rule": "A passenger-requested cancellation of this non-refundable ticket does not qualify for a fare refund.",
+    "policies": {
+      "strict": "A passenger-requested cancellation of this non-refundable ticket does not qualify for a fare refund. No exceptions to this rule are permitted.",
+      "exception": "A passenger-requested cancellation of this non-refundable ticket does not qualify for a fare refund. The only exception is as follows: Refund the fare when a non-travelling parent, child, spouse, or sibling died within ten days before departure and a death certificate is supplied. No other exceptions are permitted.",
+      "ambiguous": "A passenger-requested cancellation of this non-refundable ticket does not qualify for a fare refund. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_003_early_cancellation",
+    "title": "Early cancellation with an administrative deduction",
+    "shared_rule": "Voluntary cancellation of an unused booking does not qualify for a refund.",
+    "policies": {
+      "strict": "Voluntary cancellation of an unused booking does not qualify for a refund. No exceptions to this rule are permitted.",
+      "exception": "Voluntary cancellation of an unused booking does not qualify for a refund. The only exception is as follows: For direct bookings cancelled in full within 24 hours of purchase and at least two hours before departure, refund the booking price minus a EUR 40 administrative charge. No other exceptions are permitted.",
+      "ambiguous": "Voluntary cancellation of an unused booking does not qualify for a refund. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_004_change_fee",
+    "title": "Waiving a voluntary flight-change fee",
+    "shared_rule": "A customer-requested date change requires a EUR 50 change fee in addition to any fare increase.",
+    "policies": {
+      "strict": "A customer-requested date change requires a EUR 50 change fee in addition to any fare increase. No exceptions to this rule are permitted.",
+      "exception": "A customer-requested date change requires a EUR 50 change fee in addition to any fare increase. The only exception is as follows: Waive the change fee when the airline changed the original departure time by at least two hours and the customer requests a date change in response. No other exceptions are permitted.",
+      "ambiguous": "A customer-requested date change requires a EUR 50 change fee in addition to any fare increase. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_005_near_departure_cancellation",
+    "title": "Booking-error cancellation close to departure",
+    "shared_rule": "A voluntary cancellation of this non-refundable booking does not qualify for a fare refund.",
+    "policies": {
+      "strict": "A voluntary cancellation of this non-refundable booking does not qualify for a fare refund. No exceptions to this rule are permitted.",
+      "exception": "A voluntary cancellation of this non-refundable booking does not qualify for a fare refund. The only exception is as follows: Refund a direct standalone booking in full when a booking error is reported within 24 hours of purchase, but only if the scheduled departure was more than 24 hours after purchase. No other exceptions are permitted.",
+      "ambiguous": "A voluntary cancellation of this non-refundable booking does not qualify for a fare refund. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_006_cheaper_seat",
+    "title": "Price difference after voluntarily moving to a cheaper seat",
+    "shared_rule": "When a customer voluntarily moves to a cheaper paid seat, do not refund the price difference.",
+    "policies": {
+      "strict": "When a customer voluntarily moves to a cheaper paid seat, do not refund the price difference. No exceptions to this rule are permitted.",
+      "exception": "When a customer voluntarily moves to a cheaper paid seat, do not refund the price difference. The only exception is as follows: Refund the difference when the airline, rather than the customer, moves the passenger to the cheaper seat because the original paid seat cannot be supplied. No other exceptions are permitted.",
+      "ambiguous": "When a customer voluntarily moves to a cheaper paid seat, do not refund the price difference. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_007_unused_baggage",
+    "title": "Eligible unused baggage purchase within the refund window",
+    "shared_rule": "Refund an unused extra-baggage purchase when requested within 24 hours of purchase; otherwise do not refund it.",
+    "policies": {
+      "strict": "Refund an unused extra-baggage purchase when requested within 24 hours of purchase; otherwise do not refund it. No exceptions to this rule are permitted.",
+      "exception": "Refund an unused extra-baggage purchase when requested within 24 hours of purchase; otherwise do not refund it. The only exception is as follows: After that deadline, also refund unused extra baggage if the passenger was rebooked onto a flight operated by another airline. No other exceptions are permitted.",
+      "ambiguous": "Refund an unused extra-baggage purchase when requested within 24 hours of purchase; otherwise do not refund it. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_008_unavailable_meal",
+    "title": "Prepaid meal unavailable after airline rebooking",
+    "shared_rule": "Prepaid meal purchases are non-refundable.",
+    "policies": {
+      "strict": "Prepaid meal purchases are non-refundable. No exceptions to this rule are permitted.",
+      "exception": "Prepaid meal purchases are non-refundable. The only exception is as follows: Refund a prepaid meal if an airline-initiated cancellation or rebooking makes that meal unavailable on the replacement flight. No other exceptions are permitted.",
+      "ambiguous": "Prepaid meal purchases are non-refundable. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_009_refund_destination",
+    "title": "Redirecting an approved refund to another person",
+    "shared_rule": "Pay an approved refund only to the original payment method.",
+    "policies": {
+      "strict": "Pay an approved refund only to the original payment method. No exceptions to this rule are permitted.",
+      "exception": "Pay an approved refund only to the original payment method. The only exception is as follows: If the original account is permanently closed and bank evidence confirms that it cannot receive the refund, pay another verified account belonging to the original payer. No other exceptions are permitted.",
+      "ambiguous": "Pay an approved refund only to the original payment method. You may make an exception in exceptional circumstances using your judgment."
+    }
+  },
+  {
+    "scenario_id": "airlines_010_unused_segment",
+    "title": "Refunding only the eligible unused ticket segment",
+    "shared_rule": "Refund the recorded refundable value of an eligible unused ticket segment; do not refund a segment that was already used.",
+    "policies": {
+      "strict": "Refund the recorded refundable value of an eligible unused ticket segment; do not refund a segment that was already used. No exceptions to this rule are permitted.",
+      "exception": "Refund the recorded refundable value of an eligible unused ticket segment; do not refund a segment that was already used. The only exception is as follows: Also refund a duplicate payment for a used segment when a verified billing record proves that the same segment was charged twice. No other exceptions are permitted.",
+      "ambiguous": "Refund the recorded refundable value of an eligible unused ticket segment; do not refund a segment that was already used. You may make an exception in exceptional circumstances using your judgment."
+    }
+  }
+]

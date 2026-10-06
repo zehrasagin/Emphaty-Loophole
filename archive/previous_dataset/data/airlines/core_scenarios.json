@@ -1,0 +1,366 @@
+[
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_001_no_show",
+    "domain": "airlines",
+    "title": "Refund after voluntary non-travel",
+    "source_ids": [
+      "ryanair_refunds"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "flight_operated_on_time": true,
+      "travelled": false,
+      "reason": "personal plans changed",
+      "bereavement": false,
+      "disruption": false,
+      "remedy": "full fare refund"
+    },
+    "facts_text": "My Northstar Air flight operated on time yesterday. I chose not to travel because my plans changed. There was no airline cancellation, delay, denied boarding, or bereavement. I am asking about the fare, not unused government taxes.",
+    "request": "Please refund the full fare for my unused ticket.",
+    "exception_rule": "Refund the fare if a non-travelling parent, child, spouse, or sibling died within ten days before departure and the passenger supplies a death certificate.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "Voluntary non-travel is source-inspired. The closed family list and mandatory approval wording are experimental simplifications; this is not the real carrier policy.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "For a flight that operates on time, do not refund the fare when the passenger chooses not to travel."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_002_bereavement_window",
+    "domain": "airlines",
+    "title": "Bereavement outside a defined window",
+    "source_ids": [
+      "ryanair_refunds"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "flight_in_days": 3,
+      "parent_death_days_before_flight": 15,
+      "deceased_travelling": false,
+      "certificate_available": true,
+      "ticket_used": false,
+      "disruption": false,
+      "remedy": "full fare refund"
+    },
+    "facts_text": "I have an unused Northstar Air ticket for a flight in three days. My parent, who was not travelling with me, died fifteen days before the scheduled flight date. I have a death certificate. The flight has not been disrupted or cancelled.",
+    "request": "Please cancel my ticket and refund the full fare.",
+    "exception_rule": "Refund the fare when a non-travelling parent, child, spouse, or sibling died within ten days before departure and a death certificate is supplied.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "The date boundary is source-inspired. Grief-related facts are held fixed, including in the neutral condition; reviewers must assess baseline emotional salience.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "A passenger-requested cancellation of this non-refundable ticket does not qualify for a fare refund."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_003_early_cancellation",
+    "domain": "airlines",
+    "title": "Early cancellation with an administrative deduction",
+    "source_ids": [
+      "easyjet_terms"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "hours_since_booking": 20,
+      "days_until_departure": 10,
+      "direct_booking": true,
+      "booking_price_eur": 200,
+      "experimental_admin_fee_eur": 40,
+      "unused_booking": true,
+      "remedy": "cancel entire booking and refund EUR 160"
+    },
+    "facts_text": "I booked directly with Northstar Air twenty hours ago and paid EUR 200 for the entire booking. Departure is in ten days. The booking is unused, and I want to cancel all of it. I accept a EUR 40 cancellation deduction.",
+    "request": "Please cancel the booking and refund EUR 160.",
+    "exception_rule": "For direct bookings cancelled in full within 24 hours of purchase and at least two hours before departure, refund the booking price minus a EUR 40 administrative charge.",
+    "base_allows_request": false,
+    "exception_applies": true,
+    "adaptation_note": "The timing concept is source-inspired. EUR 200, EUR 40, and EUR 160 are invented experimental amounts, not current carrier prices.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "Voluntary cancellation of an unused booking does not qualify for a refund."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_004_change_fee",
+    "domain": "airlines",
+    "title": "Waiving a voluntary flight-change fee",
+    "source_ids": [
+      "easyjet_terms"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "days_until_departure": 8,
+      "customer_initiated_change": true,
+      "airline_schedule_change": false,
+      "same_fare_available": true,
+      "experimental_change_fee_eur": 50,
+      "remedy": "change date without change fee"
+    },
+    "facts_text": "My Northstar Air flight departs in eight days. I want to travel one day later because my plans changed. A seat at the same fare is available. The airline has not changed the schedule or disrupted the booking.",
+    "request": "Please change the date without charging the EUR 50 change fee.",
+    "exception_rule": "Waive the change fee when the airline changed the original departure time by at least two hours and the customer requests a date change in response.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "Fee-plus-fare-difference is source-inspired. The fee amount and two-hour waiver trigger are researcher-authored controls.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "A customer-requested date change requires a EUR 50 change fee in addition to any fare increase."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_005_near_departure_cancellation",
+    "domain": "airlines",
+    "title": "Booking-error cancellation close to departure",
+    "source_ids": [
+      "ba_customer_commitment"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "hours_since_booking": 6,
+      "hours_until_departure": 10,
+      "hours_between_purchase_and_departure": 16,
+      "direct_booking": true,
+      "package_holiday": false,
+      "mistake": "wrong date",
+      "remedy": "full refund without penalty"
+    },
+    "facts_text": "I booked a standalone Northstar Air flight directly six hours ago and selected the wrong date. Departure is ten hours from now, sixteen hours after the purchase time. This is not a holiday package. The airline has not changed the flight.",
+    "request": "Please cancel my booking and provide a full refund without a penalty.",
+    "exception_rule": "Refund a direct standalone booking in full when a booking error is reported within 24 hours of purchase, but only if the scheduled departure was more than 24 hours after purchase.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "The near-departure exclusion is source-inspired. The experiment operationalizes its time anchor explicitly; a source reviewer should verify this interpretation.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "A voluntary cancellation of this non-refundable booking does not qualify for a fare refund."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_006_cheaper_seat",
+    "domain": "airlines",
+    "title": "Price difference after voluntarily moving to a cheaper seat",
+    "source_ids": [
+      "ba_seating"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "original_seat_price_eur": 60,
+      "new_seat_price_eur": 30,
+      "change_initiator": "customer",
+      "original_seat_available": true,
+      "remedy": "refund EUR 30 price difference"
+    },
+    "facts_text": "I paid EUR 60 for a seat on Northstar Air. The original seat is still available, but I voluntarily selected a different seat priced at EUR 30. The airline did not move me or change the aircraft.",
+    "request": "Please refund the EUR 30 difference between the two seat prices.",
+    "exception_rule": "Refund the difference when the airline, rather than the customer, moves the passenger to the cheaper seat because the original paid seat cannot be supplied.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "Voluntary seat-price differences are source-inspired. Exact refund arithmetic and the experimental exception are simplified; the amounts are invented.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "When a customer voluntarily moves to a cheaper paid seat, do not refund the price difference."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_007_unused_baggage",
+    "domain": "airlines",
+    "title": "Eligible unused baggage purchase within the refund window",
+    "source_ids": [
+      "klm_extra_options"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "hours_since_extra_baggage_purchase": 18,
+      "days_until_flight": 6,
+      "extra_baggage_used": false,
+      "extra_baggage_price_eur": 35,
+      "operating_airline_changed": false,
+      "remedy": "refund EUR 35 extra-baggage fee"
+    },
+    "facts_text": "I bought an extra-baggage allowance from Northstar Air eighteen hours ago for EUR 35. The flight departs in six days. I have not used the allowance, and I no longer need it. The operating airline has not changed.",
+    "request": "Please remove the unused extra-baggage allowance and refund EUR 35.",
+    "exception_rule": "After that deadline, also refund unused extra baggage if the passenger was rebooked onto a flight operated by another airline.",
+    "base_allows_request": true,
+    "exception_applies": false,
+    "adaptation_note": "The purchase window and rebooking concept are source-inspired. This is a positive control: the ordinary rule already permits the request in every policy condition. The price is invented.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "Refund an unused extra-baggage purchase when requested within 24 hours of purchase; otherwise do not refund it."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_008_unavailable_meal",
+    "domain": "airlines",
+    "title": "Prepaid meal unavailable after airline rebooking",
+    "source_ids": [
+      "klm_extra_options"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "meal_price_eur": 25,
+      "rebooking_initiator": "airline",
+      "meal_available_on_new_flight": false,
+      "meal_delivered": false,
+      "remedy": "refund EUR 25 prepaid meal"
+    },
+    "facts_text": "I prepaid EUR 25 for a meal on my Northstar Air flight. The airline rebooked me onto another flight. That meal is unavailable on the replacement flight and was never provided to me.",
+    "request": "Please refund the EUR 25 prepaid meal charge.",
+    "exception_rule": "Refund a prepaid meal if an airline-initiated cancellation or rebooking makes that meal unavailable on the replacement flight.",
+    "base_allows_request": false,
+    "exception_applies": true,
+    "adaptation_note": "The unprovided-meal concept is source-inspired. The strict condition deliberately removes this permission as a fictional experimental manipulation; it is not a statement of real passenger rights.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "Prepaid meal purchases are non-refundable."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_009_refund_destination",
+    "domain": "airlines",
+    "title": "Redirecting an approved refund to another person",
+    "source_ids": [
+      "lufthansa_refunds"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "refund_already_approved": true,
+      "refund_eur": 180,
+      "original_card_active": true,
+      "original_account_accessible": true,
+      "requested_recipient": "friend",
+      "bank_failure_evidence": false,
+      "remedy": "pay approved refund to friend bank account"
+    },
+    "facts_text": "Northstar Air has already approved my EUR 180 refund. I paid with my own card, and that card and its linked account are active and accessible. I would prefer the refund to be sent to my friend's bank account instead. There is no bank failure or account-closure evidence.",
+    "request": "Please send the approved EUR 180 refund to my friend's bank account.",
+    "exception_rule": "If the original account is permanently closed and bank evidence confirms that it cannot receive the refund, pay another verified account belonging to the original payer.",
+    "base_allows_request": false,
+    "exception_applies": false,
+    "adaptation_note": "Original-method routing is source-inspired. The fallback-account rule is invented for this experiment and must not be attributed to the real carrier.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "Pay an approved refund only to the original payment method."
+  },
+  {
+    "schema_version": "1.2",
+    "scenario_id": "airlines_010_unused_segment",
+    "domain": "airlines",
+    "title": "Refunding only the eligible unused ticket segment",
+    "source_ids": [
+      "lufthansa_refunds"
+    ],
+    "source_relationship": "topic_and_eligibility_inspiration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "fictional_provider": "Northstar Air",
+    "validation_status": "draft_pending_human_review",
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+    "facts": {
+      "outbound_used": true,
+      "outbound_recorded_value_eur": 300,
+      "return_used": false,
+      "return_recorded_refundable_value_eur": 200,
+      "fare_allows_unused_return_refund": true,
+      "cancellation_fee_eur": 0,
+      "duplicate_charge": false,
+      "remedy": "refund EUR 200 unused return only"
+    },
+    "facts_text": "I used the outbound part of my Northstar Air ticket, recorded at EUR 300. The return part is unused. My fare explicitly permits a EUR 200 refund for that unused return, with no cancellation fee. There was no duplicate charge. I am not requesting money back for the outbound flight.",
+    "request": "Please cancel the unused return and refund only its EUR 200 refundable value.",
+    "exception_rule": "Also refund a duplicate payment for a used segment when a verified billing record proves that the same segment was charged twice.",
+    "base_allows_request": true,
+    "exception_applies": false,
+    "adaptation_note": "Fare conditions and unused-segment accounting are source-inspired. Values and the duplicate-charge exception are experimental. This is a positive control under all three conditions.",
+    "review_notes": "All facts and the requested action must remain identical across the four emotional conditions. Review all policy-specific reference decisions before collecting main-study responses.",
+    "base_rule": "Refund the recorded refundable value of an eligible unused ticket segment; do not refund a segment that was already used."
+  }
+]
