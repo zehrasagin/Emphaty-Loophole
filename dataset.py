@@ -16,8 +16,10 @@ POLICY_LABELS = {'strict': 'Strict (base rule, no exceptions)',
                  'ambiguous': 'Ambiguous (discretionary language)'}
 DOMAIN_LABELS = {'retail': 'Retail', 'airlines': 'Airlines', 'hotels': 'Hotels',
                  'telecom': 'Telecom', 'customer_support': 'Customer support'}
-VERSION = '0.4.0'
+VERSION = '0.7.0'
 POLICY_BASES = ('experimental', 'published')
+SHARED_POLICY_FIELDS = ('provider', 'provider_type', 'base_rule', 'policy_variants',
+                        'source', 'published_policy', 'adaptation_note', 'policy_topics')
 
 
 def condition_id(scenario_id, policy, emotion, policy_basis='experimental'):
@@ -46,6 +48,17 @@ def validate_scenario(core, domain=None):
         raise ValueError(f'{cid}: invalid or mismatched domain')
     if not isinstance(core['facts'], dict) or not core['facts']:
         raise ValueError(f'{cid}: facts must be a nonempty object')
+    topics = core.get('policy_topics')
+    if topics is not None:
+        if (not isinstance(topics, list) or not topics
+                or any(not isinstance(t, str) or not re.fullmatch(r'[a-z][a-z0-9_]*', t) for t in topics)
+                or len(set(topics)) != len(topics)):
+            raise ValueError(f'{cid}: policy_topics must be unique nonempty topic IDs')
+        if core.get('policy_topic') not in topics:
+            raise ValueError(f'{cid}: policy_topic must belong to the shared policy_topics')
+    elif 'policy_topic' in core and (not isinstance(core['policy_topic'], str)
+            or not re.fullmatch(r'[a-z][a-z0-9_]*', core['policy_topic'])):
+        raise ValueError(f'{cid}: invalid policy_topic')
     provider = core.get('provider', core.get('fictional_provider'))
     if not isinstance(provider, str) or not provider.strip():
         raise ValueError(f'{cid}: provider must be nonempty text')
@@ -90,7 +103,11 @@ def validate_scenario(core, domain=None):
             raise ValueError(f'{cid}: published sources need URLs and verification dates')
     if core['validation_status'] not in ('draft_pending_human_review', 'human_validated'):
         raise ValueError(f'{cid}: invalid validation status')
+    if core.get('policy_validation_status', core['validation_status']) not in ('draft_pending_human_review', 'human_validated'):
+        raise ValueError(f'{cid}: invalid shared policy validation status')
     if core['validation_status'] == 'human_validated':
+        if core.get('policy_validation_status', 'human_validated') != 'human_validated':
+            raise ValueError(f'{cid}: shared policy must also be human validated')
         review = core.get('human_review', {})
         if not isinstance(review, dict) or not review.get('reviewer') or any(review.get(k) is not True for k in
                 ('facts_equivalent', 'emotion_validated', 'policy_validated', 'references_validated')):
@@ -102,6 +119,46 @@ def validate_scenario(core, domain=None):
     if not isinstance(references, dict) or (references and (set(references) != set(POLICIES)
                        or any(not isinstance(r, dict) for r in references.values()))):
         raise ValueError(f'{cid}: evaluation references must cover all three policies')
+
+
+def load_scenario(path):
+    """Load one core, resolving its domain's optional shared _policy.json."""
+    path = Path(path)
+    try:
+        core = json.loads(path.read_text(encoding='utf-8'))
+        if not isinstance(core, dict):
+            raise ValueError('Each scenario file must contain one JSON object')
+        policy_path = path.parent / '_policy.json'
+        if policy_path.exists():
+            policy = json.loads(policy_path.read_text(encoding='utf-8'))
+            if not isinstance(policy, dict):
+                raise ValueError('Shared policy must contain one JSON object')
+            policy_id = policy.get('policy_id')
+            if not isinstance(policy_id, str) or not re.fullmatch(r'[a-z][a-z0-9_]*', policy_id):
+                raise ValueError('Shared policy needs a valid policy_id')
+            if policy.get('domain') != core.get('domain') or core.get('policy_id') != policy_id:
+                raise ValueError('Scenario must reference its domain\'s shared policy_id')
+            overrides = [key for key in SHARED_POLICY_FIELDS if key in core]
+            if overrides:
+                raise ValueError(f'Scenario cannot override shared policy fields: {overrides}')
+            status = policy.get('validation_status')
+            if status not in ('draft_pending_human_review', 'human_validated'):
+                raise ValueError('Shared policy needs a validation_status')
+            if status == 'human_validated':
+                review = policy.get('human_review', {})
+                if (not isinstance(review, dict) or not review.get('reviewer')
+                        or review.get('policy_validated') is not True or review.get('source_validated') is not True):
+                    raise ValueError('Shared policy validation requires a reviewer, policy_validated and source_validated')
+            core = {**{key: policy[key] for key in SHARED_POLICY_FIELDS if key in policy}, **core,
+                    'policy_record_sha256': digest(policy), 'policy_validation_status': status}
+        elif 'policy_id' in core:
+            raise ValueError('Scenario references a shared policy but _policy.json is missing')
+        validate_scenario(core, path.parent.name if path.parent.name in DOMAIN_LABELS else None)
+        if path.stem != core['scenario_id']:
+            raise ValueError('Filename must match scenario_id')
+    except (ValueError, OSError) as exc:
+        raise ValueError(f'{path}: {exc}') from exc
+    return core
 
 
 def load_scenarios(domain=None, data_root=DATA):
@@ -117,17 +174,17 @@ def load_scenarios(domain=None, data_root=DATA):
     cores, seen = [], set()
     for selected in ([domain] if domain else DOMAIN_LABELS):
         for path in sorted((root / selected).glob('*.json')):
-            try:
-                core = json.loads(path.read_text(encoding='utf-8'))
-                validate_scenario(core, selected)
-            except (ValueError, OSError) as exc:
-                raise ValueError(f'{path}: {exc}') from exc
+            if path.name == '_policy.json':
+                continue
+            core = load_scenario(path)
             if core['scenario_id'] in seen:
                 raise ValueError(f'Duplicate scenario ID: {core["scenario_id"]}')
-            if path.stem != core['scenario_id']:
-                raise ValueError(f'{path}: filename must match scenario_id')
             seen.add(core['scenario_id'])
             cores.append(core)
+    for selected in {c['domain'] for c in cores if c.get('policy_id')}:
+        hashes = {c.get('policy_record_sha256') for c in cores if c['domain'] == selected}
+        if len(hashes) != 1:
+            raise ValueError(f'{selected}: shared policy changed while loading; retry with a stable dataset')
     return cores
 
 
@@ -150,6 +207,9 @@ def expand_scenario(core, policy_basis='experimental'):
             'policy_type': policy, 'emotion': emotion, 'messages': messages,
             'dataset_version': VERSION, 'dataset_id': f'empathy_loophole_{policy_basis}',
             'policy_basis': policy_basis, 'provider': core.get('provider', core.get('fictional_provider')),
+            'policy_id': core.get('policy_id'), 'policy_record_sha256': core.get('policy_record_sha256'),
+            'policy_topic': core.get('policy_topic'),
+            'policy_validation_status': core.get('policy_validation_status'),
             'provider_type': core.get('provider_type', 'fictional'),
             'scenario_provenance': core.get('scenario_provenance', 'synthetic_customer_scenario'),
             'policy_representation': 'researcher_modified_experimental_variant' if policy_basis == 'experimental' else core['published_policy']['representation'],

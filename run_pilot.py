@@ -13,7 +13,7 @@ from pathlib import Path
 from trace_parser import parse_output
 from prompting import effective_messages
 from dataset import (DATA, DOMAIN_LABELS, EMOTIONS, POLICIES, POLICY_BASES,
-                     condition_id, digest, expand_scenario, load_cases)
+                     condition_id, digest, expand_scenario, load_cases, load_scenario)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -197,7 +197,8 @@ def main():
             supplied = json.loads(args.prompt.read_text())
             if not isinstance(supplied, dict):
                 raise ValueError('Expected a JSON object')
-            cases = expand_scenario(supplied, args.policy_basis) if 'policy_variants' in supplied else [supplied]
+            is_core = 'messages' not in supplied and ('policy_variants' in supplied or 'policy_id' in supplied)
+            cases = expand_scenario(load_scenario(args.prompt), args.policy_basis) if is_core else [supplied]
         except (OSError, ValueError) as exc:
             parser.error(str(exc))
     else:

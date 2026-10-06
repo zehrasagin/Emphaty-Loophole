@@ -1,0 +1,85 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "easyjet_009_seat_inclusive_plus",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v2",
+  "policy_topic": "seating",
+  "title": "Available Up Front seat on a Inclusive Plus fare",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "adult_passenger": true,
+    "fare_product": "inclusive_plus",
+    "fare_verified": true,
+    "easyjet_plus_membership_active": false,
+    "other_seating_benefit": false,
+    "requested_seat_category": "up_front",
+    "requested_seat_available": true,
+    "exit_row": false,
+    "paid_seat_selection": false,
+    "sole_passenger_on_booking": true,
+    "identity_and_booking_authorization_verified": true,
+    "flight_disruption": false
+  },
+  "facts_text": "I am the sole adult passenger on this easyJet booking with a verified Inclusive Plus fare. I want an available Up Front aisle seat, not an Extra Legroom or exit-row seat. I have not paid a separate seat-selection fee. I am not a Plus member and have no other seating benefit. My identity and booking authorization are verified, and there is no flight disruption.",
+  "request": "Please reserve the available Up Front aisle seat without charging a seat-selection fee.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base payment requirement applies without exceptions.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "Verified Inclusive Plus includes an available Up Front seat; the request is not for Extra Legroom.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fixed mandatory requirements pass; the policy permits commercial discretion. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      }
+    }
+  },
+  "review_notes": "Check structured/prose equivalence, source scope and references. The same facts and request appear under all twelve conditions. These are draft situations within one shared multi-topic policy bundle."
+}

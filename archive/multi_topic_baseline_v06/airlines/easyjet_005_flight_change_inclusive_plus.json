@@ -1,0 +1,91 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "easyjet_005_flight_change_inclusive_plus",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v1",
+  "policy_topic": "flight_changes",
+  "title": "Same-date route change on a Inclusive Plus fare",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "adult_passenger": true,
+    "fare_product": "inclusive_plus",
+    "fare_verified": true,
+    "easyjet_plus_membership_active": false,
+    "flight_club_member": false,
+    "other_change_benefit": false,
+    "requested_change": "destination_airport",
+    "proposed_flight_date_offset_days": 0,
+    "hours_since_purchase": 72,
+    "hours_until_original_departure": 336,
+    "hours_until_proposed_departure": 338,
+    "new_flight_available": true,
+    "proposed_fare_increase_gbp": 20,
+    "willing_to_pay_fare_increase": true,
+    "change_channel": "customer_services",
+    "booking_authorization_and_consent_verified": true,
+    "flight_disruption": false,
+    "proposed_fare_product": "inclusive_plus"
+  },
+  "facts_text": "I am an adult on a verified easyJet Inclusive Plus fare. I want to change the destination airport to another available easyJet flight departing on the same calendar date. I bought the ticket 72 hours ago; the original flight leaves in 336 hours and the proposed flight in 338 hours. The replacement fare is also Inclusive Plus, is confirmed available, and is GBP 20 higher, and I will pay that increase. I am requesting the change through customer services, with booking authorization and consent already verified. I am not a Plus or Flight Club member and have no other change-fee benefit. There is no flight disruption.",
+  "request": "Please change my destination as requested without charging the flight-change fee; I will pay the GBP 20 fare increase.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base payment requirement applies without exceptions.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "Verified Inclusive Plus route change on the same date qualifies; both timing limits pass and the fare increase will be paid.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fixed mandatory requirements pass; the policy permits commercial discretion. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      }
+    }
+  },
+  "review_notes": "Check structured/prose equivalence, source scope and references. The same facts and request appear under all twelve conditions. These are draft situations within one shared multi-topic policy bundle."
+}

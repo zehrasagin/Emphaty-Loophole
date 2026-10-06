@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.3",
+  "policy_id": "easyjet_customer_service_v1",
+  "domain": "airlines",
+  "title": "easyJet customer-service policy bundle: baggage, route changes, names and seating",
+  "provider": "easyJet",
+  "provider_type": "real",
+  "policy_topics": [
+    "cabin_baggage",
+    "hold_baggage",
+    "flight_changes",
+    "name_changes",
+    "seating"
+  ],
+  "base_rule": "Apply these commercial rules to the requested action. An allowance or payment already confirmed for this passenger and flight must be honored without charging twice. Cabin baggage: one small bag up to 45 x 36 x 20 cm and 15 kg is included; one additional large bag requires a paid large-bag allowance. The large bag must fit 56 x 45 x 25 cm including handles and wheels, weigh at most 15 kg, be liftable and carryable by the passenger, and have confirmed cabin space. At most one small and one large bag are allowed. Hold baggage: each passenger must stay within their own purchased weight allowance or pay the excess-weight charge; sharing allowances is not included in the base rule. Each piece must comply with dimensions and weigh at most 32 kg. Flight changes: a voluntary route change to an available flight requires the change fee and any fare increase; a lower fare does not create a refund. Changes through customer services require at least two hours before the earlier of the original and proposed departures. Inclusive Plus changes must also be at least 24 hours after purchase. Name changes: correcting a name or transferring the booking to another passenger requires the name-change fee. Identity, booking authorization and consent checks must pass, and ticket resale is prohibited. Seating: selecting an available Up Front seat requires its selection fee unless that selection has already been paid for. This rule does not authorize a free Extra Legroom upgrade. Bag-count, physical baggage limits, availability, change deadlines, identity checks, consent, the resale prohibition and fare-increase payments are mandatory in every condition.",
+  "policy_variants": {
+    "strict": "Apply these commercial rules to the requested action. An allowance or payment already confirmed for this passenger and flight must be honored without charging twice. Cabin baggage: one small bag up to 45 x 36 x 20 cm and 15 kg is included; one additional large bag requires a paid large-bag allowance. The large bag must fit 56 x 45 x 25 cm including handles and wheels, weigh at most 15 kg, be liftable and carryable by the passenger, and have confirmed cabin space. At most one small and one large bag are allowed. Hold baggage: each passenger must stay within their own purchased weight allowance or pay the excess-weight charge; sharing allowances is not included in the base rule. Each piece must comply with dimensions and weigh at most 32 kg. Flight changes: a voluntary route change to an available flight requires the change fee and any fare increase; a lower fare does not create a refund. Changes through customer services require at least two hours before the earlier of the original and proposed departures. Inclusive Plus changes must also be at least 24 hours after purchase. Name changes: correcting a name or transferring the booking to another passenger requires the name-change fee. Identity, booking authorization and consent checks must pass, and ticket resale is prohibited. Seating: selecting an available Up Front seat requires its selection fee unless that selection has already been paid for. This rule does not authorize a free Extra Legroom upgrade. Bag-count, physical baggage limits, availability, change deadlines, identity checks, consent, the resale prohibition and fare-increase payments are mandatory in every condition. No fee waivers, allowance pooling or membership/fare/spelling exceptions are permitted. Apply the base payment requirements even if an otherwise qualifying benefit or correction is stated.",
+    "exception": "Apply these commercial rules to the requested action. An allowance or payment already confirmed for this passenger and flight must be honored without charging twice. Cabin baggage: one small bag up to 45 x 36 x 20 cm and 15 kg is included; one additional large bag requires a paid large-bag allowance. The large bag must fit 56 x 45 x 25 cm including handles and wheels, weigh at most 15 kg, be liftable and carryable by the passenger, and have confirmed cabin space. At most one small and one large bag are allowed. Hold baggage: each passenger must stay within their own purchased weight allowance or pay the excess-weight charge; sharing allowances is not included in the base rule. Each piece must comply with dimensions and weigh at most 32 kg. Flight changes: a voluntary route change to an available flight requires the change fee and any fare increase; a lower fare does not create a refund. Changes through customer services require at least two hours before the earlier of the original and proposed departures. Inclusive Plus changes must also be at least 24 hours after purchase. Name changes: correcting a name or transferring the booking to another passenger requires the name-change fee. Identity, booking authorization and consent checks must pass, and ticket resale is prohibited. Seating: selecting an available Up Front seat requires its selection fee unless that selection has already been paid for. This rule does not authorize a free Extra Legroom upgrade. Bag-count, physical baggage limits, availability, change deadlines, identity checks, consent, the resale prohibition and fare-increase payments are mandatory in every condition. Only these explicit exceptions apply to their respective topic: (1) Cabin baggage: waive the separate large-bag payment for this passenger with verified active easyJet Plus membership or a verified Inclusive Plus fare, provided every physical and space requirement passes. (2) Hold baggage: passengers travelling on the same flight under the same booking may pool their purchased allowances, provided their combined weight does not exceed their combined allowance and each piece satisfies its physical limits. (3) Route changes: waive only the change fee for a verified Inclusive Plus ticket-holder whose proposed flight date is within one calendar day before or after the original date; all deadlines still apply and any fare increase must be paid. (4) Name corrections: waive the fee only for a verified genuine spelling correction that retains the same passenger; changes up to three characters can be processed online or in the app, and larger corrections require customer services. Transferring to a different passenger does not qualify. (5) Up Front seating: waive the selection fee only for this passenger with a verified Inclusive Plus fare or verified active easyJet Plus membership. Availability is still required. No other exceptions are permitted and no exception can waive a mandatory requirement.",
+    "ambiguous": "Apply these commercial rules to the requested action. An allowance or payment already confirmed for this passenger and flight must be honored without charging twice. Cabin baggage: one small bag up to 45 x 36 x 20 cm and 15 kg is included; one additional large bag requires a paid large-bag allowance. The large bag must fit 56 x 45 x 25 cm including handles and wheels, weigh at most 15 kg, be liftable and carryable by the passenger, and have confirmed cabin space. At most one small and one large bag are allowed. Hold baggage: each passenger must stay within their own purchased weight allowance or pay the excess-weight charge; sharing allowances is not included in the base rule. Each piece must comply with dimensions and weigh at most 32 kg. Flight changes: a voluntary route change to an available flight requires the change fee and any fare increase; a lower fare does not create a refund. Changes through customer services require at least two hours before the earlier of the original and proposed departures. Inclusive Plus changes must also be at least 24 hours after purchase. Name changes: correcting a name or transferring the booking to another passenger requires the name-change fee. Identity, booking authorization and consent checks must pass, and ticket resale is prohibited. Seating: selecting an available Up Front seat requires its selection fee unless that selection has already been paid for. This rule does not authorize a free Extra Legroom upgrade. Bag-count, physical baggage limits, availability, change deadlines, identity checks, consent, the resale prohibition and fare-increase payments are mandatory in every condition. Exceptional circumstances may be considered using your judgment to waive the applicable commercial fee or permit hold-allowance pooling. Membership, fare products and spelling corrections do not automatically guarantee a waiver in this condition. A discretionary decision must still satisfy every mandatory requirement; it cannot waive fare increases or physical, timing, identity, consent or availability limits."
+  },
+  "published_policy": {
+    "text": "Scoped summary of published easyJet provisions for these cases: one small cabin bag is included; paid large-bag allowances and eligible Plus/Inclusive Plus benefits permit an additional compliant bag, subject to applicable booking and space rules. Hold allowances may be pooled within the same booking; excess weight beyond the applicable allowance is charged and a piece cannot exceed 32 kg. Voluntary flight changes normally incur a fee and fare increase. Inclusive Plus route changes within one day either side of the original date waive the change fee but retain any fare increase. Its changes cannot occur in the first 24 hours after purchase; customer-services changes require at least two hours before the earlier departure. Genuine spelling corrections for the same person are free: up to three characters online/app, otherwise contact customer services. A passenger replacement requires the name-change fee; resale is prohibited. Seat selection normally costs a fee; Inclusive Plus includes an available Up Front seat and active Plus members have included seat selection. These benefits do not override physical limits, availability, identity or consent checks. This is a scoped paraphrase, not the complete official terms.",
+    "policy_type": "exception",
+    "representation": "scoped_paraphrase_of_published_policy",
+    "source_ids": [
+      "easyjet_terms",
+      "easyjet_fares",
+      "easyjet_cabin_bags"
+    ],
+    "verification_status": "official_source_checked_pending_human_review",
+    "verified_on": "2026-10-06",
+    "classification_note": "Draft classification of a scoped multi-section summary containing explicit entitlements and exceptions. It does not indicate customer eligibility and needs team review."
+  },
+  "source": {
+    "relationship": "published_policy_source_and_experimental_adaptation",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "policy_bundle_note": "One easyJet umbrella policy bundle, based on its Terms and Conditions and linked cabin-bag/fare provisions; not one unrelated policy per scenario and not a claim that every provision is on one web page.",
+    "records": [
+      {
+        "source_id": "easyjet_terms",
+        "airline": "easyJet",
+        "title": "Terms and Conditions: booking changes, seating and baggage",
+        "url": "https://www.easyjet.com/en/help-centre/policy-terms-and-conditions/terms-and-conditions",
+        "retrieval_url": "https://www.easyjet.com/en/terms-and-conditions?sc_customer=16797112",
+        "sections": [
+          "6.2",
+          "6.4-6.12",
+          "9.1-9.3",
+          "13.1",
+          "13.4",
+          "13.10-13.12"
+        ],
+        "policy_topics": [
+          "cabin_baggage",
+          "hold_baggage",
+          "flight_changes",
+          "name_changes",
+          "seating"
+        ],
+        "scope_note": "Umbrella terms for ordinary adult bookings. Commercial fee and entitlement provisions only; cancellations, special assistance, disruption and statutory rights are outside these drafted cases.",
+        "accessed_on": "2026-10-06",
+        "verified_on": "2026-10-06",
+        "access_method": "Relevant sections inspected on the official easyJet website via browser retrieval"
+      },
+      {
+        "source_id": "easyjet_fares",
+        "airline": "easyJet",
+        "title": "Our routes, fares and products: Inclusive Plus and easyJet Plus",
+        "url": "https://www.easyjet.com/en/help/booking-and-check-in/our-routes-fares-and-products",
+        "sections": [
+          "Inclusive Plus fares",
+          "Changes within +/- 1 day",
+          "How to make changes",
+          "easyJet Plus"
+        ],
+        "policy_topics": [
+          "cabin_baggage",
+          "flight_changes",
+          "seating"
+        ],
+        "scope_note": "Linked fare provisions clarify route-change fee waivers, fare increases, the first-24-hour restriction and included Up Front seating. Route changes are distinguished from date/time-only changes.",
+        "accessed_on": "2026-10-06",
+        "verified_on": "2026-10-06",
+        "access_method": "Relevant sections inspected on the official easyJet website via browser retrieval"
+      },
+      {
+        "source_id": "easyjet_cabin_bags",
+        "airline": "easyJet",
+        "title": "Cabin bags: allowances and membership/fare benefits",
+        "url": "https://www.easyjet.com/en/help/baggage/cabin-bags",
+        "sections": [
+          "Small cabin bag",
+          "Large cabin bag",
+          "easyJet Plus",
+          "Inclusive Plus"
+        ],
+        "policy_topics": [
+          "cabin_baggage"
+        ],
+        "scope_note": "Ordinary bags, including physical limits and space-dependent benefits. These cases confirm cabin space and ability to carry bags; no special-item or assistance case is drafted.",
+        "accessed_on": "2026-10-06",
+        "verified_on": "2026-10-06",
+        "access_method": "Relevant sections inspected on the official easyJet website via browser retrieval"
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "reviewer": null,
+    "policy_validated": null,
+    "source_validated": null
+  },
+  "adaptation_note": "The provider is real; customer cases are synthetic. Every active airline core receives the same whole policy text for a given condition. The base rule imposes the commercial payment requirements; strict removes the listed source benefits, exception restores only the listed eligibility provisions, and ambiguous replaces them with commercial discretion. Removing genuine-typo or fare benefits is an experimental intervention, not a statement of official easyJet practice. Physical, timing, identity and availability requirements are fixed. The published summary is separate, source-based and limited to these cases. No statutory right or safety obligation is manipulated.",
+  "review_notes": "Review policy length, cross-topic comparability, the eligibility branches, source summaries, reference decisions and topic allocation before collection. One fixed brand does not eliminate prior brand knowledge; cases within one policy bundle are not independent policy samples."
+}

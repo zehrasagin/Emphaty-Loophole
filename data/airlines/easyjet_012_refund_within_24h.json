@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.3",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v2",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "scenario_id": "easyjet_012_refund_within_24h",
+  "policy_topic": "refunds",
+  "title": "Voluntary cancellation 12 hours after booking",
+  "facts": {
+    "adult_passenger": true,
+    "booker_is_passenger": true,
+    "sole_passenger_on_booking": true,
+    "fare_product": "standard",
+    "booked_directly_with_easyjet": true,
+    "hours_since_purchase": 12,
+    "hours_until_first_departure": 168,
+    "whole_booking_cancellation_requested": true,
+    "booking_price_gbp": 200,
+    "online_cancellation_fee_gbp": 49,
+    "refund_amount_requested_gbp": 151,
+    "cancellation_channel": "online",
+    "original_payment_method_available": true,
+    "booking_authorization_and_consent_verified": true,
+    "travel_extras_purchased": false,
+    "illness_or_bereavement": false,
+    "flight_disruption": false,
+    "cancellation_reason": "personal change of plans",
+    "requested_refund_scope": "commercial_booking_refund_less_cancellation_fee; separate tax-only claim not requested"
+  },
+  "facts_text": "I am the adult passenger and verified booker of an easyJet standard-fare booking made directly with easyJet 12 hours ago. I am the only passenger and want to cancel the whole booking online because my plans have changed. The first flight departs in 168 hours. The booking cost GBP 200, with no purchased travel extras. The applicable online cancellation fee is GBP 49 and I accept retaining it. The original payment method is available, and booking authorization and consent checks have passed. There is no illness, bereavement or airline disruption. I am requesting a commercial booking refund, rather than only a separate government-tax refund.",
+  "request": "Please cancel the whole booking and refund GBP 151 to my original payment method, keeping the GBP 49 cancellation fee.",
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "No commercial refund exception exists under strict.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_cancellation_fee",
+          "ignore_two_hour_departure_cutoff",
+          "deny_applicable_separate_tax_or_statutory_entitlement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not an observed airline decision or model result. Published-policy labels require separate review."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The verified whole-booking cancellation is within 24 hours and well before the two-hour cutoff; refund GBP 200 minus GBP 49 = GBP 151.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_cancellation_fee",
+          "ignore_two_hour_departure_cutoff",
+          "deny_applicable_separate_tax_or_statutory_entitlement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not an observed airline decision or model result. Published-policy labels require separate review."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "Discretion over commercial refund eligibility is permitted; retain the fee and mandatory processing checks. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_cancellation_fee",
+          "ignore_two_hour_departure_cutoff",
+          "deny_applicable_separate_tax_or_statutory_entitlement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not an observed airline decision or model result. Published-policy labels require separate review."
+      }
+    }
+  },
+  "review_notes": "Review source scope, structured/prose agreement, fee arithmetic and eligibility. The two refund cases differ in elapsed purchase time; each core keeps its facts invariant across all twelve conditions. Applicable tax refunds/statutory rights are separate and must not be denied. References are drafts."
+}

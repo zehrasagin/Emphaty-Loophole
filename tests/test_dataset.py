@@ -90,15 +90,18 @@ class DatasetTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp) / 'airlines'
             folder.mkdir()
-            (folder / (self.core['scenario_id'] + '.json')).write_text(json.dumps(self.core))
+            raw = json.loads((ROOT / 'data/airlines' / (self.core['scenario_id'] + '.json')).read_text())
+            (folder / '_policy.json').write_bytes((ROOT / 'data/airlines/_policy.json').read_bytes())
+            (folder / (raw['scenario_id'] + '.json')).write_text(json.dumps(raw))
             self.assertEqual(len(load_cases(data_root=Path(tmp))), 12)
-            new = copy.deepcopy(self.core)
+            new = copy.deepcopy(raw)
             new['scenario_id'] = 'airline_011'
             (folder / 'airline_011.json').write_text(json.dumps(new))
             self.assertEqual(len(load_cases(data_root=Path(tmp))), 24)
             retail = Path(tmp) / 'retail'
             retail.mkdir()
-            new['scenario_id'], new['domain'] = 'retail_002', 'retail'
+            new = json.loads((ROOT / 'data/retail/retail_return_001.json').read_text())
+            new['scenario_id'] = 'retail_002'
             (retail / 'retail_002.json').write_text(json.dumps(new))
             self.assertEqual(len(load_cases(data_root=Path(tmp))), 36)
             new['domain'] = 'airlines'
@@ -112,7 +115,8 @@ class DatasetTests(unittest.TestCase):
         self.assertTrue(all('Northstar Air' in p['messages'][0]['content'] for p in old.values()))
         baseline = json.loads((ROOT / 'archive/fictional_airline_baseline/airlines_003_early_cancellation.json').read_text())
         self.assertEqual(baseline['facts']['experimental_admin_fee_eur'], 40)
-        refs = {r['prompt_id']: r for r in reference_rows(self.cores)}
+        archived_cores = load_scenarios('airlines', ROOT / 'archive/multi_airline_baseline_v04')
+        refs = {r['prompt_id']: r for r in reference_rows(archived_cores)}
         prior = {r['prompt_id']: r for r in map(json.loads, (archived / 'reference_labels.jsonl').read_text().splitlines())}
         for pid, reference in prior.items():
             self.assertEqual(refs[pid], reference)
@@ -126,7 +130,8 @@ class DatasetTests(unittest.TestCase):
             self.assertIn('researcher-modified', text)
             self.assertNotIn('evaluation', prompt)
             self.assertEqual(prompt['prompt_sha256'], digest(prompt['messages']))
-        baseline = next(p for p in self.prompts if p['prompt_id'] == 'airlines_001_no_show__strict__neutral')
+        archived_cores = load_scenarios('airlines', ROOT / 'archive/multi_airline_baseline_v04')
+        baseline = expand_scenario(archived_cores[0])[0]
         pilot = json.loads((ROOT / 'archive/previous_dataset/pilot_prompts/airline_refund_001.json').read_text())
         self.assertNotEqual(baseline['messages'], pilot['messages'])
         self.assertEqual(pilot['source_core_scenario_id'], baseline['scenario_id'])
@@ -164,8 +169,8 @@ class DatasetTests(unittest.TestCase):
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 validate_scenario(core)
 
-    def test_turkish_airlines_and_corrected_easyjet_fee(self):
-        cores = {c['scenario_id']: c for c in self.cores}
+    def test_previous_turkish_airlines_and_corrected_easyjet_fee_are_archived(self):
+        cores = {c['scenario_id']: c for c in load_scenarios('airlines', ROOT / 'archive/multi_airline_baseline_v04')}
         tk = cores['airlines_011_turkish_24h_refund']
         self.assertEqual(tk['provider'], 'Turkish Airlines')
         self.assertEqual(tk['scenario_provenance'], 'synthetic_customer_scenario')
@@ -173,6 +178,87 @@ class DatasetTests(unittest.TestCase):
         self.assertEqual(ej['facts']['published_online_cancellation_fee_gbp'], 49)
         self.assertEqual(ej['facts']['booking_price_gbp'] - 49, 151)
         self.assertNotIn('EUR 40', str(ej['policy_variants']))
+
+    def test_airline_cases_share_one_company_and_identical_policy_wording(self):
+        self.assertEqual({c['provider'] for c in self.cores}, {'easyJet'})
+        self.assertEqual(len({c['policy_id'] for c in self.cores}), 1)
+        self.assertEqual(len({c['base_rule'] for c in self.cores}), 1)
+        self.assertEqual(len({c['policy_record_sha256'] for c in self.cores}), 1)
+        self.assertEqual(len({digest(c['facts']) for c in self.cores}), len(self.cores))
+        for policy in POLICIES:
+            self.assertEqual(len({p['messages'][0]['content'] for p in self.prompts if p['policy_type'] == policy}), 1)
+        self.assertTrue(any(c['evaluation']['exception_applies'] for c in self.cores))
+        self.assertTrue(any(not c['evaluation']['exception_applies'] for c in self.cores))
+        self.assertTrue(any(c['evaluation']['base_allows_request'] for c in self.cores))
+        for prompt in self.prompts:
+            self.assertEqual(prompt['policy_id'], self.core['policy_id'])
+            self.assertEqual(prompt['policy_record_sha256'], self.core['policy_record_sha256'])
+
+    def test_shared_policy_rejects_overrides_missing_reference_and_invalid_variants(self):
+        original = json.loads((ROOT / 'data/airlines' / (self.core['scenario_id'] + '.json')).read_text())
+        policy = json.loads((ROOT / 'data/airlines/_policy.json').read_text())
+        for mutation in ('provider', 'policy_variants', 'policy_topics', 'wrong_reference', 'missing_reference', 'missing_policy_file', 'missing_variant'):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp:
+                folder = Path(tmp) / 'airlines'
+                folder.mkdir()
+                raw, shared = copy.deepcopy(original), copy.deepcopy(policy)
+                if mutation == 'provider':
+                    raw['provider'] = 'A different company'
+                elif mutation == 'policy_variants':
+                    raw['policy_variants'] = self.core['policy_variants']
+                elif mutation == 'policy_topics':
+                    raw['policy_topics'] = ['different_topic']
+                elif mutation == 'wrong_reference':
+                    raw['policy_id'] = 'another_policy'
+                elif mutation == 'missing_reference':
+                    del raw['policy_id']
+                elif mutation == 'missing_variant':
+                    del shared['policy_variants']['exception']
+                if mutation != 'missing_policy_file':
+                    (folder / '_policy.json').write_text(json.dumps(shared))
+                (folder / (raw['scenario_id'] + '.json')).write_text(json.dumps(raw))
+                with self.assertRaises(ValueError):
+                    load_scenarios(data_root=Path(tmp))
+
+    def test_shared_policy_review_cannot_be_bypassed_by_a_scenario(self):
+        core = copy.deepcopy(self.core)
+        core['validation_status'] = 'human_validated'
+        core['human_review'] = {'reviewer': 'test reviewer', 'facts_equivalent': True,
+                                'emotion_validated': True, 'policy_validated': True, 'references_validated': True}
+        with self.assertRaisesRegex(ValueError, 'shared policy must also be human validated'):
+            validate_scenario(core)
+
+    def test_topics_are_shared_metadata_without_changing_policy_wording(self):
+        self.assertEqual({c['policy_topic'] for c in self.cores}, set(self.core['policy_topics']))
+        for row in self.prompts:
+            core = next(c for c in self.cores if c['scenario_id'] == row['scenario_id'])
+            self.assertEqual(row['policy_topic'], core['policy_topic'])
+        for topic in (None, '', 'unknown_topic', 12):
+            core = copy.deepcopy(self.core)
+            core['policy_topic'] = topic
+            with self.subTest(topic=topic), self.assertRaisesRegex(ValueError, 'policy_topic'):
+                validate_scenario(core)
+        for topics in ([], ['cabin_baggage', 'cabin_baggage'], [''], [12]):
+            core = copy.deepcopy(self.core)
+            core['policy_topics'] = topics
+            with self.subTest(topics=topics), self.assertRaisesRegex(ValueError, 'policy_topics'):
+                validate_scenario(core)
+
+    def test_refund_cases_keep_fees_timing_and_facts_controlled(self):
+        refunds = [c for c in self.cores if c.get('policy_topic') == 'refunds']
+        self.assertTrue(refunds)
+        self.assertEqual({c['evaluation']['exception_applies'] for c in refunds}, {True, False})
+        for core in refunds:
+            facts = core['facts']
+            self.assertEqual(facts['booking_price_gbp'] - facts['online_cancellation_fee_gbp'],
+                             facts['refund_amount_requested_gbp'])
+            self.assertGreaterEqual(facts['hours_until_first_departure'], 2)
+            self.assertEqual(core['evaluation']['exception_applies'], facts['hours_since_purchase'] <= 24)
+            rows = expand_scenario(core)
+            self.assertEqual(len(rows), 12)
+            self.assertEqual(len({r['facts_sha256'] for r in rows}), 1)
+            for reference in core['evaluation']['reference_decisions'].values():
+                self.assertIn('waive_cancellation_fee', reference['forbidden_actions'])
 
     def test_runner_and_build_support_published_policies(self):
         result = subprocess.run([sys.executable, str(ROOT / 'run_pilot.py'), '--domain', 'airlines',
@@ -199,6 +285,14 @@ class DatasetTests(unittest.TestCase):
             self.assertIn('Selected 1 prompts', result.stdout)
             self.assertIn(self.core['scenario_id'] + '__exception__anger', result.stdout)
             self.assertNotIn('Loading', result.stdout)
+        with tempfile.TemporaryDirectory() as tmp:
+            row = next(p for p in self.prompts if p['policy_type'] == 'exception' and p['emotion'] == 'anger')
+            path = Path(tmp) / 'expanded.json'
+            path.write_text(json.dumps(row))
+            result = subprocess.run([sys.executable, str(ROOT / 'run_pilot.py'), '--prompt', str(path), '--dry-run'],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn(row['prompt_id'], result.stdout)
 
     def test_build_exports_current_inputs_and_separate_references(self):
         with tempfile.TemporaryDirectory() as tmp:

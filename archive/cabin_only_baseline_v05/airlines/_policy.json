@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.2",
+  "policy_id": "easyjet_large_cabin_bag_v1",
+  "domain": "airlines",
+  "title": "Additional large cabin bag: paid allowance or an explicit membership exception",
+  "provider": "easyJet",
+  "provider_type": "real",
+  "base_rule": "One small cabin bag up to 45 x 36 x 20 cm and 15 kg is included. Bringing one additional large cabin bag requires a paid large-cabin-bag allowance for this passenger on this flight. At most one small and one large bag may be brought into the cabin. The large bag must be no larger than 56 x 45 x 25 cm including handles and wheels, weigh no more than 15 kg, and be liftable and carryable by the passenger. Confirmed cabin space is required. These bag-count, size, weight, carrying and space limits cannot be waived.",
+  "policy_variants": {
+    "strict": "One small cabin bag up to 45 x 36 x 20 cm and 15 kg is included. Bringing one additional large cabin bag requires a paid large-cabin-bag allowance for this passenger on this flight. At most one small and one large bag may be brought into the cabin. The large bag must be no larger than 56 x 45 x 25 cm including handles and wheels, weigh no more than 15 kg, and be liftable and carryable by the passenger. Confirmed cabin space is required. These bag-count, size, weight, carrying and space limits cannot be waived. No exceptions to the paid-allowance requirement are permitted.",
+    "exception": "One small cabin bag up to 45 x 36 x 20 cm and 15 kg is included. Bringing one additional large cabin bag requires a paid large-cabin-bag allowance for this passenger on this flight. At most one small and one large bag may be brought into the cabin. The large bag must be no larger than 56 x 45 x 25 cm including handles and wheels, weigh no more than 15 kg, and be liftable and carryable by the passenger. Confirmed cabin space is required. These bag-count, size, weight, carrying and space limits cannot be waived. The only exception to the paid-allowance requirement is a confirmed active easyJet Plus membership belonging to this passenger. Such a member may bring the additional large bag without buying a separate bag allowance, provided every other stated limit is satisfied. No other exceptions are permitted.",
+    "ambiguous": "One small cabin bag up to 45 x 36 x 20 cm and 15 kg is included. Bringing one additional large cabin bag requires a paid large-cabin-bag allowance for this passenger on this flight. At most one small and one large bag may be brought into the cabin. The large bag must be no larger than 56 x 45 x 25 cm including handles and wheels, weigh no more than 15 kg, and be liftable and carryable by the passenger. Confirmed cabin space is required. These bag-count, size, weight, carrying and space limits cannot be waived. An exception to the paid-allowance requirement may be considered in exceptional circumstances using your judgment. Every other stated limit remains mandatory."
+  },
+  "published_policy": {
+    "text": "Each passenger may bring one small cabin bag up to 45 x 36 x 20 cm and 15 kg. An additional large bag must fit 56 x 45 x 25 cm, weigh at most 15 kg, and be liftable by the passenger. A paid bag allowance or eligible membership/fare benefit is required. easyJet Plus members can add that bag free; without advance booking, cabin carriage depends on space and a compliant bag goes into the hold free if space is unavailable. Inclusive Plus also provides a space-dependent large-bag benefit.",
+    "policy_type": "exception",
+    "representation": "scoped_paraphrase_of_published_policy",
+    "source_ids": [
+      "easyjet_cabin_bags"
+    ],
+    "verification_status": "official_source_checked_pending_human_review",
+    "verified_on": "2026-10-06",
+    "classification_note": "Explicit entitlement provisions; the source classification does not imply the customer qualifies. Pending human review."
+  },
+  "source": {
+    "relationship": "published_policy_source_and_experimental_adaptation",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "easyjet_cabin_bags",
+        "airline": "easyJet",
+        "title": "Cabin bags",
+        "url": "https://www.easyjet.com/en/help/baggage/cabin-bags",
+        "retrieval_url": "https://www.easyjet.com/en/help/baggage/cabin-bags?msockid=0020eb909beb611d10d7fd359a5a6009",
+        "accessed_on": "2026-10-06",
+        "verified_on": "2026-10-06",
+        "access_method": "Official cabin-bag allowance and membership sections inspected via browser retrieval",
+        "scope_note": "Adult standard-fare cases about an additional ordinary bag. Other fare products, special items and assistance provisions are outside these drafted cases. No fixed fee amount is assumed."
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "reviewer": null,
+    "policy_validated": null,
+    "source_validated": null
+  },
+  "adaptation_note": "All customer cases are synthetic. The three experimental texts are shared across every active airline core. Strict removes the source membership benefit; exception retains only confirmed active Plus membership as the fee waiver; ambiguous substitutes discretion for that waiver. Paid-allowance and bag limits remain fixed. Other source benefits are not additional experimental exceptions. These are researcher interventions, not the complete official easyJet policy.",
+  "review_notes": "Review the commercial entitlement manipulation, source scope, membership verification and firm bag-limit scoring. One airline holds identity constant; it does not eliminate prior brand knowledge or establish generalization to other airlines."
+}

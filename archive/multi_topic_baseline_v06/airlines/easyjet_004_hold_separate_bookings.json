@@ -1,0 +1,90 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "easyjet_004_hold_separate_bookings",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v1",
+  "policy_topic": "hold_baggage",
+  "title": "Hold-bag weight sharing on separate bookings",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "adult_passengers": 2,
+    "fare_product": "standard",
+    "same_flight": true,
+    "same_booking": false,
+    "purchased_hold_allowances_kg": [
+      23,
+      23
+    ],
+    "hold_bag_weights_kg": [
+      27,
+      19
+    ],
+    "hold_bag_count": 2,
+    "hold_bag_dimensions_compliant": true,
+    "ordinary_permitted_contents": true,
+    "bag_drop_open": true,
+    "flight_disruption": false
+  },
+  "facts_text": "We are two adults travelling on the same easyJet flight with standard fares. We have separate bookings with different booking references. Each of us has purchased one 23 kg hold-bag allowance. My one bag weighs 27 kg and the other passenger's one bag weighs 19 kg, totaling 46 kg against 46 kg purchased. Both bags meet the size limits and contain only ordinary permitted items. Bag drop is open and there is no flight disruption.",
+  "request": "Please accept my 27 kg bag using the other passenger's unused allowance without charging an excess-weight fee.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base payment requirement applies without exceptions.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "Separate bookings do not qualify for pooling; my bag exceeds my own allowance by 4 kg.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fixed mandatory requirements pass; the policy permits commercial discretion. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      }
+    }
+  },
+  "review_notes": "Check structured/prose equivalence, source scope and references. The same facts and request appear under all twelve conditions. These are draft situations within one shared multi-topic policy bundle."
+}

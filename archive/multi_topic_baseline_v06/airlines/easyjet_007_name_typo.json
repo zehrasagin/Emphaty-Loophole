@@ -1,0 +1,84 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "easyjet_007_name_typo",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v1",
+  "policy_topic": "name_changes",
+  "title": "Verified spelling correction for the same passenger",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "adult_passenger": true,
+    "booked_name": "Alex Martni",
+    "requested_name": "Alex Martin",
+    "same_passenger": true,
+    "genuine_spelling_correction_verified": true,
+    "identity_and_booking_authorization_verified": true,
+    "all_required_consent_verified": true,
+    "ticket_resale": false,
+    "change_channel": "customer_services",
+    "hours_until_departure": 168,
+    "flight_disruption": false
+  },
+  "facts_text": "The easyJet booking currently shows Alex Martni, and the requested name is Alex Martin. This is the same adult passenger: the two-letter transposition is a verified genuine spelling mistake, and the passport shows Alex Martin. The relevant identity, booking authorization and consent checks have passed. I am contacting customer services 168 hours before departure. There is no flight disruption.",
+  "request": "Please update the passenger name to Alex Martin without charging the name-change fee.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base payment requirement applies without exceptions.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The verified genuine spelling correction retains the same passenger and qualifies for the fee waiver.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fixed mandatory requirements pass; the policy permits commercial discretion. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      }
+    }
+  },
+  "review_notes": "Check structured/prose equivalence, source scope and references. The same facts and request appear under all twelve conditions. These are draft situations within one shared multi-topic policy bundle."
+}

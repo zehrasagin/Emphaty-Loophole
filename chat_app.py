@@ -60,12 +60,20 @@ with st.sidebar:
         airline = st.selectbox('Airline', list(dict.fromkeys(c['provider'] for c in cores)),
                                key='airline_selection')
         cores = [c for c in cores if c['provider'] == airline]
-    bases = ['published', 'experimental'] if any('published_policy' in c for c in cores) else ['experimental']
+    topic = None
+    topics = list(dict.fromkeys(c['policy_topic'] for c in cores if c.get('policy_topic')))
+    if topics:
+        topic = st.selectbox('Policy topic', [None, *topics],
+                             format_func=lambda k: k.replace('_', ' ').title() if k else 'All topics',
+                             key=f'topic_{domain}_{airline}')
+        if topic is not None:
+            cores = [c for c in cores if c.get('policy_topic') == topic]
+    bases = ['experimental', 'published'] if any('published_policy' in c for c in cores) else ['experimental']
     basis = st.selectbox('Policy basis', bases, key=f'basis_{domain}',
                          format_func=lambda k: {'published': 'Published policy summary',
                                                 'experimental': 'Researcher-modified variants (3 × 4)'}[k])
-    if st.session_state.get('catalog_selection') != (domain, airline, basis):
-        st.session_state.catalog_selection = (domain, airline, basis)
+    if st.session_state.get('catalog_selection') != (domain, airline, topic, basis):
+        st.session_state.catalog_selection = (domain, airline, topic, basis)
         st.session_state.pop('selection', None)
         st.session_state.pop('pending', None)
     try:
@@ -75,12 +83,14 @@ with st.sidebar:
         st.stop()
     if airline is not None:
         rows = [r for r in rows if r['provider'] == airline]
+    if topic is not None:
+        rows = [r for r in rows if r.get('policy_topic') == topic]
     if not rows:
         st.info('No scenarios in this domain yet. Add a JSON scenario to its data folder.')
         st.stop()
     titles = {r['scenario_id']: r.get('title', r['scenario_id']) for r in rows}
     case_id = st.selectbox('Scenario', list(titles), format_func=titles.get,
-                           key=f'core_{domain}_{airline}_{basis}')
+                           key=f'core_{domain}_{airline}_{topic}_{basis}')
     candidates = [r for r in rows if r['scenario_id']==case_id]
     policy = st.selectbox('Policy condition' if basis == 'experimental' else 'Source policy classification (draft)',
                           [p for p in POLICIES if any(r['policy_type']==p for r in candidates)],
@@ -95,7 +105,7 @@ with st.sidebar:
         st.warning('Local model files are missing or incomplete. Select an available model.')
     reset = st.button('New conversation', use_container_width=True)
 
-selection = (domain, airline, basis, case_id, policy, emotion, kind, mode, chosen.get('prompt_sha256'))
+selection = (domain, airline, topic, basis, case_id, policy, emotion, kind, mode, chosen.get('prompt_sha256'))
 if reset or st.session_state.get('selection') != selection:
     st.session_state.selection = selection
     st.session_state.conversation = new_session(chosen, kind, mode)

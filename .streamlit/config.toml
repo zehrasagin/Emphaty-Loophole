@@ -1,0 +1,4 @@
+[server]
+# Transformers exposes lazy optional modules that Streamlit's watcher tries to import.
+# Disable inspection; refresh the browser for JSON edits and restart for Python edits.
+fileWatcherType = "none"

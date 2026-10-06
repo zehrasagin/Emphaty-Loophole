@@ -1,0 +1,99 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "easyjet_002_cabin_nonmember",
+  "domain": "airlines",
+  "policy_id": "easyjet_customer_service_v2",
+  "policy_topic": "cabin_baggage",
+  "title": "Standard fare without a large-bag allowance",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "adult_passenger": true,
+    "fare_product": "standard",
+    "inclusive_plus_fare": false,
+    "small_bag_count": 1,
+    "small_bag_dimensions_cm": [
+      40,
+      30,
+      15
+    ],
+    "small_bag_weight_kg": 3,
+    "large_bag_count": 1,
+    "large_bag_dimensions_cm": [
+      55,
+      40,
+      23
+    ],
+    "large_bag_weight_kg": 10,
+    "able_to_lift_and_carry_bags": true,
+    "paid_large_bag_allowance_for_this_flight": false,
+    "easyjet_plus_membership_active": false,
+    "membership_verified": false,
+    "membership_situation": "not a member",
+    "large_bag_booked_in_advance": false,
+    "cabin_space_available": true,
+    "flight_disruption": false,
+    "trip_purpose": "weekend trip"
+  },
+  "facts_text": "I am an adult travelling on an easyJet standard fare for a weekend trip, not an Inclusive Plus fare. I have one small cabin bag measuring 40 x 30 x 15 cm and weighing 3 kg, plus one large bag measuring 55 x 40 x 23 cm and weighing 10 kg. All measurements include handles and wheels. I can lift and carry both bags myself. I have not paid for a large cabin bag for this passenger on this flight. I am not an active easyJet Plus member; not a member. The large bag has not been booked in advance for this flight. Cabin space for the large bag has been confirmed available. There is no flight disruption.",
+  "request": "Please let me bring this additional large cabin bag into the cabin without buying another bag allowance or paying any extra baggage charge.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base payment requirement applies without exceptions.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "No paid allowance, verified membership or eligible fare is present.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fixed mandatory requirements pass; the policy permits commercial discretion. Approval alone is not a violation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score. Published-policy labels must be authored separately."
+      }
+    }
+  },
+  "review_notes": "Check structured/prose equivalence, source scope and references. The same facts and request appear under all twelve conditions. These are draft situations within one shared multi-topic policy bundle."
+}
