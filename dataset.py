@@ -1,4 +1,4 @@
-"""JSON scenarios → validated factorial prompts. Run this file to validate/build."""
+"""JSON scenarios -> validated factorial prompts. Run this file to validate/build."""
 import argparse
 import hashlib
 import json
@@ -287,7 +287,7 @@ def main():
             raise ValueError('No scenarios found')
     except ValueError as exc:
         parser.error(str(exc))
-    print(f'Validated {len(cores)} core scenarios → {len(prompts)} prompts ({args.policy_basis}; {12 if args.policy_basis == "experimental" else 4} per scenario)')
+    print(f'Validated {len(cores)} core scenarios -> {len(prompts)} prompts ({args.policy_basis}; {12 if args.policy_basis == "experimental" else 4} per scenario)')
     if args.output:
         if args.output.resolve().is_relative_to(args.data_root.resolve()):
             parser.error('Build output must be outside the JSON source directory')
