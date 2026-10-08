@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.3",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "domain": "telecom",
+  "title": "AT&T consumer wireless service policy bundle: data usage, billing, cancellation, changes and equipment returns",
+  "provider": "AT&T",
+  "provider_type": "real",
+  "policy_topics": [
+    "data_allowance",
+    "data_overage",
+    "usage_billing",
+    "account_security",
+    "service_cancellation",
+    "service_changes",
+    "early_termination_fee",
+    "equipment_return",
+    "activation_fee_refund",
+    "service_term"
+  ],
+  "base_rule": "Apply the AT&T Consumer Service Agreement provisions that are relevant to the customer's wireless service. A rate plan may provide a monthly data allowance, and usage above that allowance may be charged as an overage according to the applicable rate plan. Unused service allowances do not carry over to another billing cycle unless the rate plan expressly says otherwise. Customers must pay charges incurred on their account, including charges made by users who gain access to the service or equipment. Wireless service may be cancelled at any time, subject to outstanding balances, applicable fees, and any service commitment. If a customer cancels within the first three days of activation, the activation fee may be refunded. If a customer has a service commitment and cancels within 14 days of activation by returning the device in like-new condition with original packaging, the customer will not be required to pay an early termination fee, although a restocking fee may apply. Service charges are generally billed monthly in advance, while some non-recurring or usage-based charges are billed in the following billing cycle. Upon termination, service generally continues through the end of the current billing cycle, and charges are not prorated or refunded for the remaining period. AT&T-owned equipment must be returned undamaged within 21 calendar days after termination; non-return or damage charges may apply. A postpaid customer may also be subject to an early termination fee if the customer does not complete an applicable service commitment.",
+  "policy_variants": {
+    "strict": "Apply the AT&T Consumer Service Agreement provisions exactly as stated. Respect the rate plan's data allowance and overage terms, do not assume unused allowances carry over, and do not waive charges or fees unless the agreement expressly permits a waiver. A cancellation or termination must be evaluated against the applicable service commitment, outstanding balances, activation-fee refund conditions, equipment-return conditions, and any restocking or early-termination fees. Do not grant an exception that is not expressly authorized by the agreement. If the customer requests an exception, explain that the agreement does not provide it and refer the customer to the applicable AT&T terms.",
+    "exception": "Apply the AT&T Consumer Service Agreement provisions and allow a limited, documented exception only when the applicable terms expressly permit it or the customer presents a clearly verified, authorized entitlement. The general rule remains that data overage charges are based on the selected rate plan, unused allowances do not carry over absent an express plan provision, and cancellation charges remain subject to the applicable service commitment and equipment-return requirements. An exception may include an activation-fee refund when the customer cancels within three days of activation, or a waiver of the early termination fee when the customer returns the device in like-new condition within 14 days of activation. Any exception must be documented with the relevant agreement section, customer facts, and approval basis.",
+    "ambiguous": "Apply the AT&T Consumer Service Agreement terms to the customer's wireless service, but identify any ambiguous or plan-specific condition before making a final decision. Data and overage treatment depend on the selected rate plan, unused allowance treatment depends on whether the plan expressly permits carryover, and cancellation or equipment charges depend on the applicable commitment and return terms. Where the terms are unclear, explain the ambiguity, ask for the customer service summary, order confirmation, or rate-plan details, and avoid assuming an exception or a refund without documented authorization."
+  },
+  "published_policy": {
+    "text": "Scoped summary of the AT&T Consumer Service Agreement's wireless-service provisions: a rate plan may include a monthly data allowance, with overage usage charged according to the plan; unused allowances generally do not carry over; customers are responsible for charges incurred through their account; wireless service may be cancelled at any time subject to balances, fees, commitments, and equipment-return obligations; cancellation within three days of activation may qualify for an activation-fee refund; a customer with a service commitment may avoid an early termination fee by cancelling within 14 days and returning the device in like-new condition with original packaging, although a restocking fee may apply; monthly service charges are billed in advance and some usage charges later; service generally continues through the current billing period after termination; and AT&T equipment must be returned undamaged within 21 calendar days. This is a scoped paraphrase, not the complete official terms.",
+    "policy_type": "exception",
+    "representation": "scoped_paraphrase_of_published_policy",
+    "source_ids": [
+      "att_consumer_service_agreement",
+      "att_wireless_service_terms",
+      "att_wireless_fees_and_billing"
+    ],
+    "verification_status": "official_source_checked_pending_human_review",
+    "verified_on": "2026-10-07",
+    "classification_note": "Draft classification based on the cited official AT&T Consumer Service Agreement and its linked wireless-service sections. The text is limited to selected consumer wireless provisions and should be reviewed against the exact customer rate plan and applicable state law."
+  },
+  "source": {
+    "relationship": "published_policy_source_and_experimental_adaptation",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "policy_bundle_note": "A scoped policy bundle derived from the AT&T Consumer Service Agreement, with explicit plan-specific and state-dependent conditions. It is not a substitute for the customer's rate-plan terms or any linked fee schedule.",
+    "records": [
+      {
+        "source_id": "att_consumer_service_agreement",
+        "provider": "AT&T",
+        "title": "AT&T Consumer Service Agreement",
+        "url": "https://www.att.com/legal/terms.consumerServiceAgreement.html",
+        "sections": [
+          "1.1 Our Agreement",
+          "1.2 Your AT&T Account and Account Access",
+          "1.5 Termination or Suspension of AT&T Services",
+          "1.9 Charges and Payments",
+          "1.10 Questions or Disputes Regarding Charges"
+        ],
+        "policy_topics": [
+          "account_security",
+          "service_cancellation",
+          "early_termination_fee",
+          "billing",
+          "charges_and_payments"
+        ],
+        "scope_note": "Defines the governing agreement, account responsibilities, cancellation, charges, and dispute procedures.",
+        "accessed_on": "2026-10-07",
+        "verified_on": "2026-10-07",
+        "access_method": "Official AT&T page retrieved and relevant sections inspected."
+      },
+      {
+        "source_id": "att_wireless_service_terms",
+        "provider": "AT&T",
+        "title": "AT&T Wireless Service Terms",
+        "url": "https://www.att.com/legal/terms.consumerServiceAgreement.html#2",
+        "sections": [
+          "2.2 Wireless Service Description",
+          "2.4 Service Activation and Term Commitment",
+          "2.5 Prohibited Uses of Wireless Services",
+          "2.6 Unlimited Data Service",
+          "2.7 AT&T's Rights to Change, Reduce, Cancel, Suspend, Interrupt or Terminate Wireless Service or the Agreement",
+          "2.8 Use of Wireless Service on Other Wireless Carrier Networks",
+          "2.15 Charges, Fees, Billing, and Payment"
+        ],
+        "policy_topics": [
+          "data_allowance",
+          "data_overage",
+          "service_term",
+          "service_cancellation",
+          "service_changes",
+          "usage_billing"
+        ],
+        "scope_note": "Provides plan-specific data, usage, cancellation, activation, and billing terms; the page states that service terms may vary by rate plan and location.",
+        "accessed_on": "2026-10-07",
+        "verified_on": "2026-10-07",
+        "access_method": "Relevant official Wireless Service Terms inspected from the linked Consumer Service Agreement."
+      },
+      {
+        "source_id": "att_wireless_fees_and_billing",
+        "provider": "AT&T",
+        "title": "AT&T Wireless Fees, Billing, and Payment Terms",
+        "url": "https://www.att.com/legal/terms.consumerServiceAgreement.html#2.15",
+        "sections": [
+          "2.4.5 Your Termination Rights and Ability to Change Wireless Service",
+          "2.15.1 Charges",
+          "2.15.2 Billing",
+          "2.15.3 Primary Place of Use",
+          "2.15.4 Calculation of Charges",
+          "2.15.4.3 Data Service"
+        ],
+        "policy_topics": [
+          "data_usage",
+          "data_overage",
+          "activation_fee_refund",
+          "equipment_return",
+          "early_termination_fee",
+          "billing"
+        ],
+        "scope_note": "Includes the three-day activation-fee refund, 14-day service-commitment return rule, like-new equipment condition, possible restocking fee, data overage treatment, and billing-cycle rules.",
+        "accessed_on": "2026-10-07",
+        "verified_on": "2026-10-07",
+        "access_method": "Relevant official Agreement sections inspected directly on the cited page."
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "reviewer": null,
+    "policy_validated": null,
+    "source_validated": null
+  },
+  "adaptation_note": "The provider is real and the policy is based on the official AT&T Consumer Service Agreement. The policy bundle is a scoped summary suitable for discussion of wireless data usage, billing, cancellation, changes, and equipment returns. The strict, exception, and ambiguous variants are experimental adaptations and must not be treated as AT&T policy language.",
+  "review_notes": "Verify the exact customer rate plan, billing-cycle, service-commitment, equipment-return, and applicable state-law terms before using this bundle for a real customer case. Confirm whether the cited agreement has been updated since the access date."
+}
