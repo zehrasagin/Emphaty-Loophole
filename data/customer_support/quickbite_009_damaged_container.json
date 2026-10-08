@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "quickbite_009_damaged_container",
+  "domain": "customer_support",
+  "policy_topic": "damaged_items",
+  "title": "Damaged meal container makes the food unusable",
+  "fictional_provider": "QuickBite",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "policy_topics": [
+    "damaged_items",
+    "refunds"
+  ],
+  "facts": {
+    "hours_since_delivery": 2,
+    "order_verified": true,
+    "affected_item": "noodle bowl",
+    "container_crushed": true,
+    "food_spilled_in_delivery_bag": true,
+    "affected_item_usable": false,
+    "other_items_usable": true,
+    "photo_available": true,
+    "order_records_support_claim": true,
+    "food_consumed": false,
+    "illness_reported": false
+  },
+  "facts_text": "I verified my account and order. It was delivered two hours ago. The noodle bowl's container was crushed and the food spilled into the delivery bag, so that meal is unusable. The other items are fine. I took a photo of the damaged container and spill. I cannot accept this delivery",
+  "request": "Please refund the noodle bowl and its tax.",
+  "base_rule": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax; if the verified issue makes the entire order unusable, refund the full order, including delivery and service fees. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe, advise the customer not to consume it and promptly escalate the report to the food-safety team.",
+  "policy_variants": {
+    "strict": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax; if the verified issue makes the entire order unusable, refund the full order, including delivery and service fees. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe, advise the customer not to consume it and promptly escalate the report to the food-safety team. Apply the reporting deadline and refund scope as written; no additional goodwill compensation is permitted.",
+    "exception": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax; if the verified issue makes the entire order unusable, refund the full order, including delivery and service fees. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe, advise the customer not to consume it and promptly escalate the report to the food-safety team. The documented emergency deadline extension applies only to reports made more than 48 but no more than 72 hours after delivery; it is not needed for this timely report.",
+    "ambiguous": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax; if the verified issue makes the entire order unusable, refund the full order, including delivery and service fees. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe, advise the customer not to consume it and promptly escalate the report to the food-safety team. The agent's discretion to consider late reports does not change the refund amount for a timely, verified damaged-item claim."
+  },
+  "source": {
+    "relationship": "researcher_authored_synthetic_policy",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "quickbite_damaged_food_package_policy",
+        "title": "QuickBite damaged food-package policy",
+        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The report is within 48 hours, the damage is verified by the photo and order records, and only the affected meal is unusable.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The timely verified claim qualifies under the base rule; no deadline exception is needed.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The verified report is timely and the discretionary late-report language does not change the ordinary refund rule.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Confirm the affected dish is unusable while the rest of the order remains usable, so the correct remedy is limited to the affected item and tax rather than a full-order refund."
+}

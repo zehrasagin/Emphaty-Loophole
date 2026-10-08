@@ -1,0 +1,109 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "quickbite_001_missing_item_emergency",
+  "domain": "customer_support",
+  "policy_topic": "missing_items",
+  "title": "Late missing-item report after a documented hospitalization",
+  "fictional_provider": "QuickBite",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "policy_topics": [
+    "order_verification",
+    "late_delivery",
+    "undelivered_orders",
+    "missing_items",
+    "incorrect_items",
+    "damaged_items",
+    "food_safety",
+    "order_cancellations",
+    "refunds",
+    "duplicate_compensation"
+  ],
+  "base_rule": "For a verified missing-item report, the customer must report within 48 hours after delivery. Refund the affected item and its applicable tax when order records support the claim. Do not deny a missing-item claim solely because the customer cannot provide a photo.",
+  "policy_variants": {
+    "strict": "For a verified missing-item report, the customer must report within 48 hours after delivery. Refund the affected item and its applicable tax when order records support the claim. Do not deny a missing-item claim solely because the customer cannot provide a photo. Apply the reporting deadline as written; no deadline extensions or additional goodwill compensation are permitted.",
+    "exception": "For a verified missing-item report, the customer must report within 48 hours after delivery. Refund the affected item and its applicable tax when order records support the claim. Do not deny a missing-item claim solely because the customer cannot provide a photo. Extend the deadline for a report made more than 48 but no more than 72 hours after delivery only when reasonable documentation shows an unforeseen hospitalization or comparable emergency prevented an earlier report and order records support the claim.",
+    "ambiguous": "For a verified missing-item report, the customer must report within 48 hours after delivery. Refund the affected item and its applicable tax when order records support the claim. Do not deny a missing-item claim solely because the customer cannot provide a photo. In exceptional circumstances, an agent may consider a late report; the policy does not define the circumstances or evidence required, so the decision is discretionary."
+  },
+  "source": {
+    "relationship": "researcher_authored_synthetic_policy",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "quickbite_missing_item_policy",
+        "title": "QuickBite missing-item policy",
+        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
+      }
+    ]
+  },
+  "facts": {
+    "hours_since_delivery": 60,
+    "reported_missing_item": "main dish",
+    "order_records_support_claim": true,
+    "unforeseen_hospitalization": true,
+    "hospitalization_documentation_available": true,
+    "emergency_prevented_earlier_report": true,
+    "item_condition_photo_available": false
+  },
+  "facts_text": "My order was delivered 60 hours ago, and the main dish was missing. I was unexpectedly hospitalized and could not report it sooner; I can provide documentation of the hospitalization. The order records support that the main dish was not delivered. I do not have a photo because the dish never arrived.",
+  "request": "Can you refund the missing main dish and its tax?",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The report was made after the 48-hour deadline, and the strict variant permits no deadline extension.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The report is within 72 hours; documented unforeseen hospitalization prevented an earlier report, and order records support the missing item.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The policy permits an agent to consider an extension in exceptional circumstances but does not define the criteria; approval is discretionary.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Confirm the case falls within the exception's 48-to-72-hour window and that the facts establish every stated eligibility condition. The missing-item policy explicitly says a photo is not required when unavailable."
+}

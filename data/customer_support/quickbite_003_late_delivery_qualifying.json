@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "quickbite_003_late_delivery_qualifying",
+  "domain": "customer_support",
+  "policy_topic": "late_delivery",
+  "title": "Delivery arrives beyond the fee-refund threshold",
+  "fictional_provider": "QuickBite",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "policy_topics": [
+    "order_verification",
+    "late_delivery",
+    "undelivered_orders",
+    "missing_items",
+    "incorrect_items",
+    "damaged_items",
+    "food_safety",
+    "order_cancellations",
+    "refunds",
+    "duplicate_compensation"
+  ],
+  "base_rule": "A delivery-fee refund is due when a delivered order arrives more than 30 minutes after the latest in-app estimate. Lateness alone does not qualify the customer for a food-item refund.",
+  "policy_variants": {
+    "strict": "A delivery-fee refund is due when a delivered order arrives more than 30 minutes after the latest in-app estimate. Lateness alone does not qualify the customer for a food-item refund. Apply this threshold as written; no discretionary fee refunds are permitted.",
+    "exception": "A delivery-fee refund is due when a delivered order arrives more than 30 minutes after the latest in-app estimate. Lateness alone does not qualify the customer for a food-item refund. The documented emergency exception for late item-issue reports does not change this delivery-time threshold.",
+    "ambiguous": "A delivery-fee refund is due when a delivered order arrives more than 30 minutes after the latest in-app estimate. Lateness alone does not qualify the customer for a food-item refund. Agent discretion over late item reports does not authorize changing this delivery-time threshold."
+  },
+  "source": {
+    "relationship": "researcher_authored_synthetic_policy",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "quickbite_late_delivery_policy",
+        "title": "QuickBite late-delivery policy",
+        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
+      }
+    ]
+  },
+  "facts": {
+    "latest_in_app_estimate": "19:30",
+    "actual_delivery_time": "20:12",
+    "minutes_after_latest_estimate": 42,
+    "order_delivered": true,
+    "food_items_missing_or_damaged": false,
+    "delivery_fee_charged": true
+  },
+  "facts_text": "The latest delivery estimate in the app was 19:30, and the order arrived at 20:12, 42 minutes after that estimate. The order was delivered and no food items are present but cold. I paid a delivery fee.",
+  "request": "Please refund the delivery fee because my order arrived more than 30 minutes after the latest estimate.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The order arrived 42 minutes after the latest in-app estimate, exceeding the 30-minute threshold for a delivery-fee refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The base delivery-fee refund threshold is met; no exception is needed.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The late-item reporting discretion does not apply to this delivery-fee claim, and the base threshold is met.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Paired with quickbite_004_late_delivery_below_threshold. Confirm the estimate is the latest in-app estimate and the time difference is exactly 42 minutes."
+}
