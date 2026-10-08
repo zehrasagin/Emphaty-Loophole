@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 from dataset import (DOMAIN_LABELS, EMOTIONS, POLICIES, digest, expand_scenario,
-                     load_cases, load_scenarios, reference_rows, validate_grid, validate_scenario)
+                     load_cases, load_scenarios, load_shared_policy, reference_rows, validate_grid, validate_scenario)
 from prompting import FRAMES, render_messages
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +34,59 @@ class DatasetTests(unittest.TestCase):
                 self.assertEqual(len({p['messages'][1]['content'] for p in group if p['emotion'] == emotion}), 1)
             for policy in POLICIES:
                 self.assertEqual(len({p['messages'][0]['content'] for p in group if p['policy_type'] == policy}), 1)
+
+    def test_current_catalog_uses_new_policies_without_legacy_mock_scenarios(self):
+        cores = load_scenarios()
+        self.assertEqual({c['domain'] for c in cores}, {'airlines', 'customer_support', 'telecom', 'retail'})
+        self.assertEqual({c.get('provider', c.get('fictional_provider')) for c in cores},
+                         {'easyJet', 'QuickBite', 'AT&T', 'Amazon.nl'})
+        self.assertFalse(any('Northstar' in str(p['messages']) for p in load_cases()))
+        self.assertEqual(load_scenarios('hotels'), [])
+        self.assertNotIn('support_warranty_001', {c['scenario_id'] for c in cores})
+        self.assertEqual(len(load_cases()), len(cores) * 12)
+        for domain, provider in (('retail', 'Amazon.nl'), ('telecom', 'AT&T')):
+            core = load_scenarios(domain)[0]
+            path, policy = load_shared_policy(ROOT / 'data' / domain)
+            self.assertEqual(path.name, f'policy_{domain}.json')
+            self.assertEqual(core['provider'], provider)
+            self.assertEqual(core['policy_id'], policy['policy_id'])
+            self.assertEqual(core['policy_record_sha256'], digest(policy))
+            self.assertEqual(core['policy_variants'], policy['policy_variants'])
+            self.assertEqual(len(load_cases(domain, policy_basis='published')), 4)
+            self.assertEqual(len(reference_rows([core])), 12)
+
+    def test_named_policy_discovery_rejects_malformed_documents(self):
+        policy = json.loads((ROOT / 'data/telecom/policy_telecom.json').read_text())
+        for mutation in ('domain', 'policy_id', 'policy_variants', 'scenario_id', 'invalid_json'):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp:
+                folder = Path(tmp) / 'telecom'
+                folder.mkdir()
+                draft = copy.deepcopy(policy)
+                draft[mutation] = 'invalid value'
+                (folder / 'policy_telecom.json').write_text('{' if mutation == 'invalid_json' else json.dumps(draft))
+                with self.assertRaises(ValueError):
+                    load_scenarios('telecom', tmp)
+
+    def test_named_policies_reject_overrides_wrong_references_and_duplicate_bundles(self):
+        raw = json.loads((ROOT / 'data/telecom/telecom_data_001.json').read_text())
+        policy = json.loads((ROOT / 'data/telecom/policy_telecom.json').read_text())
+        for mutation in ('provider', 'policy_variants', 'missing_reference', 'wrong_reference', 'duplicate_bundle'):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp:
+                folder = Path(tmp) / 'telecom'
+                folder.mkdir()
+                core = copy.deepcopy(raw)
+                if mutation in ('provider', 'policy_variants'):
+                    core[mutation] = policy[mutation]
+                elif mutation == 'missing_reference':
+                    del core['policy_id']
+                elif mutation == 'wrong_reference':
+                    core['policy_id'] = 'another_policy'
+                elif mutation == 'duplicate_bundle':
+                    (folder / '_policy.json').write_text(json.dumps(policy))
+                (folder / 'policy_telecom.json').write_text(json.dumps(policy))
+                (folder / 'telecom_data_001.json').write_text(json.dumps(core))
+                with self.assertRaises(ValueError):
+                    load_cases('telecom', tmp)
 
     def test_grid_rejects_missing_duplicate_and_modified_inputs(self):
         with self.assertRaises(ValueError):
@@ -100,7 +153,7 @@ class DatasetTests(unittest.TestCase):
             self.assertEqual(len(load_cases(data_root=Path(tmp))), 24)
             retail = Path(tmp) / 'retail'
             retail.mkdir()
-            new = json.loads((ROOT / 'data/retail/retail_return_001.json').read_text())
+            new = json.loads((ROOT / 'archive/mock_pilots_before_v08/retail/retail_return_001.json').read_text())
             new['scenario_id'] = 'retail_002'
             (retail / 'retail_002.json').write_text(json.dumps(new))
             self.assertEqual(len(load_cases(data_root=Path(tmp))), 36)

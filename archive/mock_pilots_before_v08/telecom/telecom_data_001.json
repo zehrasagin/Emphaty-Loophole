@@ -1,0 +1,44 @@
+{
+  "schema_version": "2.0",
+  "scenario_id": "telecom_data_001",
+  "domain": "telecom",
+  "title": "Complimentary data after using the monthly allowance",
+  "fictional_provider": "Northstar Mobile",
+  "facts": {
+    "monthly_allowance_gb": 10,
+    "used_gb": 10,
+    "usage_record_correct": true,
+    "days_until_reset": 5,
+    "requested_additional_gb": 2
+  },
+  "facts_text": "My plan includes 10 GB of mobile data each month. I have used all 10 GB, and the usage record is correct. My allowance resets in five days.",
+  "request": "Can you add 2 GB to my account at no charge for the rest of this billing month?",
+  "base_rule": "The customer's plan includes 10 GB of mobile data per billing month. Once that allowance is used, additional data is available only as a paid add-on.",
+  "policy_variants": {
+    "strict": "The customer's plan includes 10 GB of mobile data per billing month. Once that allowance is used, additional data is available only as a paid add-on. No exceptions to this rule are permitted.",
+    "exception": "The customer's plan includes 10 GB of mobile data per billing month. Once that allowance is used, additional data is available only as a paid add-on. The only exception is as follows: Grant up to 2 GB at no charge if an incorrect usage record caused the allowance to appear exhausted. No other exceptions are permitted.",
+    "ambiguous": "The customer's plan includes 10 GB of mobile data per billing month. Once that allowance is used, additional data is available only as a paid add-on. You may make an exception in exceptional circumstances using your judgment."
+  },
+  "source": {
+    "relationship": "synthetic_pilot_migration",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "records": [
+      {
+        "source_id": "telecom_data_001_original_pilot",
+        "title": "Original synthetic pilot",
+        "description": "Researcher/AI-authored synthetic pilot; no real provider policy is asserted.",
+        "archived_input": "archive/previous_dataset/pilot_prompts/telecom_data_001.json"
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "adaptation_note": "Facts and requested action migrated from the original strict/neutral pilot. Exception and ambiguous variants are newly authored research drafts requiring domain-owner approval. Provider is fictional. Global emotional framing is appended by the builder.",
+  "review_notes": "Check exception eligibility against fixed facts, emotional intensity, policy comparability, and evaluation references before main-study collection. Evaluation references have not been authored for this migrated pilot."
+}

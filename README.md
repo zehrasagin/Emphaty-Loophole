@@ -7,7 +7,7 @@ This repository lets our research team author customer-service scenarios, genera
 If you are joining the project, start with the setup below, read one scenario JSON, and follow the code map. **Adding a scenario normally means adding one JSON file, without changing Python.**
 
 ```text
-data/<domain>/<scenario>.json + optional shared _policy.json
+data/<domain>/<scenario>.json + shared _policy.json or policy_<domain>.json
     → dataset.py: load, validate, expand conditions
     → prompting.py: construct model-facing messages
     → run_pilot.py: execute a local model
@@ -35,7 +35,9 @@ python3 run_pilot.py --domain airlines --scenario easyjet_001_cabin_member --pol
 
 The first command checks the JSON dataset. The tests check expansion, validation, parsing, execution bookkeeping and chat isolation using small examples and simulated generation. The dry run lists the selected condition; it does not load weights or generate an answer.
 
-Current data contains **17 core scenarios: 13 easyJet cases across six policy topics and one in each of the other four domains**. Validation currently reports **204 experimental prompts**, including 156 airline prompts, or **52 published-policy prompts** when selecting airlines with the published basis. These counts grow automatically as teammates add files. All current scenarios are research drafts awaiting human review.
+Current version 0.8 contains **25 active core scenarios: 13 easyJet cases, 10 QuickBite cases, one AT&T case and one Amazon.nl case**. Validation reports **300 experimental prompts** and **60 published-policy prompts** (52 airline, 4 telecom, 4 retail). These counts grow automatically as teammates add files. All current scenarios and reference decisions are research drafts awaiting human review. See [the project review](docs/PROJECT_REVIEW_2026-10-08.md) for research limitations and migration notes.
+
+`data/retail/policy_retail.json` and `data/telecom/policy_telecom.json` are **active shared policies**. Each domain's scenarios reference the corresponding `policy_id` and receive the complete selected policy. The old Northstar retail, telecom, hotel and warranty mock examples are preserved under [archive/mock_pilots_before_v08](archive/mock_pilots_before_v08/README.md), outside default discovery. Hotels remains a supported domain, but is hidden in the UI until an active scenario is added. QuickBite remains an intentionally fictional provider in the newly supplied food-delivery scenarios.
 
 ### Set up the model runner and chatbot
 
@@ -67,10 +69,9 @@ When sharing the project, include source files, `data/`, `tests/`, configuration
 │   ├── airlines/
 │   │   ├── _policy.json            # one shared easyJet policy bundle and three variants
 │   │   └── easyjet_*.json           # thirteen customer cases referencing that policy
-│   ├── retail/retail_return_001.json
-│   ├── hotels/hotel_cancellation_001.json
-│   ├── telecom/telecom_data_001.json
-│   └── customer_support/support_warranty_001.json
+│   ├── retail/                     # policy_retail.json + Amazon.nl scenario
+│   ├── telecom/                    # policy_telecom.json + AT&T scenario
+│   └── customer_support/           # ten QuickBite scenarios with inline policies
 ├── dataset.py                      # loading, validation, expansion/build CLI
 ├── prompting.py                    # shared emotion frames and prompt construction
 ├── run_pilot.py                    # controlled runs and shared execution function
@@ -83,7 +84,8 @@ When sharing the project, include source files, `data/`, `tests/`, configuration
 ├── tests/
 │   ├── test_dataset.py              # condition grid, sources and prompt controls
 │   ├── test_execution.py            # parser and result/raw-output handling
-│   └── test_chat.py                 # fresh sessions and exploratory history
+│   ├── test_chat.py                 # fresh sessions and exploratory history
+│   └── test_ui.py                   # active-domain widgets, retries and conversation flows
 ├── README.md                       # this onboarding guide
 ├── .gitignore                      # excludes environments, weights and outputs
 ├── archive/                        # earlier data, exports, documents and baseline
@@ -108,7 +110,7 @@ For example, `load_cases('airlines')` loads each airline JSON, calls `expand_sce
 
 ## 3. Research design and policy choices
 
-The planned benchmark is **50 core scenarios × 3 policies × 4 emotions = 600 prompts per model**, across `retail`, `airlines`, `hotels`, `telecom` and `customer_support`. The code does not require ten scenarios per domain.
+The original benchmark plan was **50 core scenarios × 3 policies × 4 emotions = 600 prompts per model** across five domains. The current active collection contains four domains and 25 core scenarios; hotels has no active cases. Final allocation and statistical sample size still require a study-design decision. The code does not require ten scenarios per domain.
 
 | Experimental condition | Construction |
 | --- | --- |
@@ -120,7 +122,9 @@ There is no fourth `normal` condition. Each variant retains the same `base_rule`
 
 ### Published policies versus experimental variants
 
-The active airline collection now uses **one company (easyJet) and one shared policy bundle covering cabin baggage, hold baggage, flight changes, name changes, seating and refunds**. The bundle is based on easyJet’s umbrella Terms and Conditions and linked fare/baggage provisions. Every case receives the whole bundle: its wording is identical across all topics for a given condition. A topic is a section of that bundle, not a different policy or company. Customer facts are **synthetic research cases**, not collected passenger records. The other four current domain pilots still use fictional providers and synthetic policies.
+The active airline collection uses **one company (easyJet) and one shared policy bundle covering cabin baggage, hold baggage, flight changes, name changes, seating and refunds**. Every case receives the whole bundle: its wording is identical across all topics for a given condition. Telecom and retail now use shared AT&T and Amazon.nl bundles respectively. QuickBite uses the newly supplied fictional food-delivery policies. Customer facts are **synthetic research cases**, not collected customer records; the AT&T case uses a hypothetical metered plan, not an assertion that the provider offers that exact plan.
+
+The supplied AT&T condition clauses are retained after the common base rule. Its ambiguous clause requests clarification rather than granting general discretion. Activating it satisfies the code schema, but does not make its manipulation scientifically equivalent to the airline or QuickBite variants. Keep this distinction in analyses and obtain human review.
 
 | Policy basis | Policy text used | Prompts per core | Purpose |
 | --- | --- | --- | --- |
@@ -177,7 +181,7 @@ Published IDs include a marker, for example `easyjet_001_cabin_member__published
 
 ## 5. Scenario fields and adding your own case
 
-Read the [shared easyJet policy](data/airlines/_policy.json) and [first airline case](data/airlines/easyjet_001_cabin_member.json) together. The [retail pilot](data/retail/retail_return_001.json) shows the older self-contained format. Keep one core per `data/<domain>/<scenario_id>.json`; the filename must match the ID.
+Read the [shared easyJet policy](data/airlines/_policy.json) and [first airline case](data/airlines/easyjet_001_cabin_member.json) together. Retail and telecom follow the same reference-based format using [policy_retail.json](data/retail/policy_retail.json) and [policy_telecom.json](data/telecom/policy_telecom.json). QuickBite cases retain inline policies. Keep one core per `data/<domain>/<scenario_id>.json`; the filename must match the ID.
 
 | Field | What the scenario author supplies |
 | --- | --- |
@@ -197,7 +201,7 @@ Read the [shared easyJet policy](data/airlines/_policy.json) and [first airline 
 | `adaptation_note`, `review_notes` | Explain interventions, source scope and unresolved issues |
 | `evaluation` | Optional experimental reference decisions; excluded from prompts |
 
-For airline cases, the table describes the resolved record: **do not copy provider, rule, variants, sources, published summary or adaptation note or allowed topic list into each case**. Those fields belong in `_policy.json`. The loader rejects overrides, a missing shared policy or a mismatched `policy_id`. Existing inline records in other domains still work; a domain owner can adopt the same `_policy.json` layout without editing Python.
+For shared-policy cases, the table describes the resolved record: **do not copy provider, rule, variants, sources, published summary, adaptation note or allowed topic list into each case**. Those fields belong in `_policy.json` or `policy_<domain>.json`. Keep exactly one shared policy file per domain; the loader rejects duplicate bundles, overrides, a missing shared policy or a mismatched `policy_id`. Inline records work in domains without a shared policy.
 
 `schema_version` is informative. Older non-airline pilots use `fictional_provider`; the loader accepts it for compatibility. For new records, prefer `provider` with `provider_type`. A real provider must match the organizations in its sources and explicitly identify the customer case as synthetic.
 
@@ -231,7 +235,7 @@ Copy a complete current file rather than using this outline as JSON. `_policy.js
 
 For example, adding `data/hotels/hotel_002.json` with `scenario_id: hotel_002` makes it discoverable by runner and chatbot. No registration step or Python edit is needed. This applies to scenarios in the existing five domains; a sixth research domain would require a design and code change.
 
-Keep generated JSON, exports and source snapshots outside `data/`. `_policy.json` is the one reserved shared-policy file within a domain; it is not counted as a scenario. The validator rejects misplaced JSON, mismatched filenames, missing fields, duplicate IDs, invalid domains and incomplete condition grids. It checks rendering and hashes, but cannot establish semantic agreement between facts/prose or the quality of emotional manipulations.
+Keep generated JSON, exports and source snapshots outside `data/`. `_policy.json` and `policy_<domain>.json` are supported active shared-policy filenames; keep only one per domain. They are not counted as customer scenarios. Each scenario must reference that bundle's `policy_id`, and dataset manifests record shared-policy IDs and hashes. The validator rejects misplaced JSON, mismatched filenames, missing fields, duplicate IDs, invalid domains and incomplete condition grids. It checks rendering and hashes, but cannot establish semantic agreement between facts/prose or the quality of emotional manipulations.
 
 Only use `human_validated` once a reviewer is recorded and `facts_equivalent`, `emotion_validated`, `policy_validated`, `references_validated` are all `true`. For shared policies, the policy file also needs `validation_status: human_validated` and a reviewer with `policy_validated` and `source_validated` set to `true`. A case cannot be human validated while its shared policy is still draft. After changing the shared policy, reset its review and affected scenario reviews/references. Automated checks do not confer human validation.
 
@@ -277,7 +281,7 @@ python run_pilot.py --domain airlines --policy-basis experimental --all --model 
 python run_pilot.py --domain airlines --policy-basis published --all --model standard
 ```
 
-These select one experimental prompt, twelve prompts for one core, all experimental airline prompts, and all published airline prompts respectively. Replace `airlines` with another domain to run its experimental cases. Omit `--domain` with `--all` for the complete experimental dataset. Published runs include only cores with a `published_policy` summary; currently these are airline cases.
+These select one experimental prompt, twelve prompts for one core, all experimental airline prompts, and all published airline prompts respectively. Replace `airlines` with another domain to run its cases. Omit `--domain` with `--all` for the complete experimental dataset. Published runs include cores with a `published_policy` summary: currently airlines, telecom and retail.
 
 Each controlled condition uses one system message and one user message, a fresh generation cache, and no prior conversation. Multi-condition runs require `--all`. Without selection filters, the runner selects the first discovered condition; explicit selection is preferable for research runs.
 
@@ -311,6 +315,8 @@ python -m streamlit run chat_app.py --server.address 127.0.0.1 --server.port 850
 ```
 
 Open **http://127.0.0.1:8501** and keep the terminal running. Select mode, domain, **airline**, **policy topic**, policy basis, **scenario**, policy/classification, emotion and model. Airline and scenario are separate selectors; scenarios are filtered to the selected airline and topic. Choose **All topics** to see the entire bundle’s cases; adding a case in an existing topic requires only JSON. Topic choices are discovered from JSON, not a Python registry. Other domains do not show the airline selector.
+
+For shared policies, the topic dropdown includes every declared `policy_topics` entry: currently 10 telecom and 14 retail topics. Topics without matching scenarios are marked **no scenarios yet**. Selecting one shows an empty state; choose a covered topic or **All topics** to run a scenario. Declaring a policy topic does not generate a customer scenario. Inline-policy domains continue to list their existing scenario topics.
 
 | UI mode | Behavior | Where results go |
 | --- | --- | --- |
@@ -411,6 +417,6 @@ For the paper, describe these as **synthetic airline scenarios across six topics
 
 For the five-person team, domain owners can work on separate JSON files while another teammate reviews them. Coordinate changes to global framing, instructions, validation and decoding because they affect everyone's conditions. Validate/test after combining changes, and record the dataset snapshot and settings used for each experiment.
 
-The team still needs to agree scenario allocation, source snapshots/scope, classifications of mixed policies, eligible versus ineligible exception cases, emotion strength, reference decisions, ambiguity scoring, decoding/repetitions, branding effects and treatment of failed/truncated generations. All thirteen active airline experimental references are drafts. Other-domain pilots still need references, and published-policy references need separate authorship. Multiple customer cases under one policy bundle do not constitute multiple independent policy samples; scope the paper’s claims and analysis accordingly.
+The team still needs to agree scenario allocation, source snapshots/scope, classifications of mixed policies, eligible versus ineligible exception cases, emotion strength, reference decisions, ambiguity scoring, decoding/repetitions, branding effects and treatment of failed/truncated generations. Every active scenario has draft experimental references requiring human review; published-policy references need separate authorship. Multiple customer cases under one policy bundle do not constitute multiple independent policy samples; scope the paper’s claims and analysis accordingly.
 
 Earlier inputs and documents are preserved in [archive/](archive/README.md), including the ten pre-migration fictional cores, the ten cabin-only drafts, the eleven five-topic drafts and the eleven superseded multi-airline cases. Active code reads `data/`, not the archive. Use this README for current commands; historical documentation describes superseded layouts.

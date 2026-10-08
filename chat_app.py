@@ -9,10 +9,22 @@ from dataset import DOMAIN_LABELS, EMOTIONS, POLICIES, POLICY_LABELS, load_cases
 from run_pilot import read_models
 
 ROOT = Path(__file__).resolve().parent
-LABELS = DOMAIN_LABELS
+try:
+    catalog = load_scenarios()
+except ValueError as exc:
+    catalog_error = str(exc)
+else:
+    catalog_error = None
+    LABELS = {d: label for d, label in DOMAIN_LABELS.items() if any(c['domain'] == d for c in catalog)}
 MODELS = {name: f"{source['model_id']} · {source['model_type']}" for name, source in read_models().items()}
 
 st.set_page_config(page_title='Empathy Loophole · Chat Lab', page_icon='💬', layout='wide')
+if catalog_error:
+    st.error(catalog_error)
+    st.stop()
+if not LABELS:
+    st.info('No active scenarios. Add a JSON scenario to a data domain folder.')
+    st.stop()
 
 
 @st.cache_resource
@@ -49,7 +61,8 @@ with st.sidebar:
     mode = st.selectbox('Mode', ['condition_preview', 'exploratory'],
                         format_func=lambda k: {'condition_preview': 'Condition preview (one turn)',
                                                'exploratory': 'Exploratory chat (multiple turns)'}[k])
-    domain = st.selectbox('Domain', list(LABELS), index=1, format_func=LABELS.get)
+    domain = st.selectbox('Domain', list(LABELS), index=list(LABELS).index('airlines') if 'airlines' in LABELS else 0,
+                          format_func=LABELS.get)
     try:
         cores = load_scenarios(domain)
     except ValueError as exc:
@@ -61,20 +74,28 @@ with st.sidebar:
                                key='airline_selection')
         cores = [c for c in cores if c['provider'] == airline]
     topic = None
-    topics = list(dict.fromkeys(c['policy_topic'] for c in cores if c.get('policy_topic')))
+    # A shared bundle declares the catalog; scenarios provide its current coverage.
+    # Inline policies continue to use the topics represented by their scenarios.
+    topics = list(dict.fromkeys(
+        t for c in cores
+        for t in (c.get('policy_topics', []) if c.get('policy_id') else [c.get('policy_topic')])
+        if t))
+    topic_counts = {t: sum(c.get('policy_topic') == t for c in cores) for t in topics}
+    bases = ['experimental', 'published'] if any('published_policy' in c for c in cores) else ['experimental']
     if topics:
         topic = st.selectbox('Policy topic', [None, *topics],
-                             format_func=lambda k: k.replace('_', ' ').title() if k else 'All topics',
+                             format_func=lambda k: (k.replace('_', ' ').title()
+                                                    + (' (no scenarios yet)' if not topic_counts[k] else '')) if k else 'All topics',
                              key=f'topic_{domain}_{airline}')
         if topic is not None:
             cores = [c for c in cores if c.get('policy_topic') == topic]
-    bases = ['experimental', 'published'] if any('published_policy' in c for c in cores) else ['experimental']
     basis = st.selectbox('Policy basis', bases, key=f'basis_{domain}',
                          format_func=lambda k: {'published': 'Published policy summary',
                                                 'experimental': 'Researcher-modified variants (3 × 4)'}[k])
     if st.session_state.get('catalog_selection') != (domain, airline, topic, basis):
         st.session_state.catalog_selection = (domain, airline, topic, basis)
         st.session_state.pop('selection', None)
+        st.session_state.pop('conversation', None)
         st.session_state.pop('pending', None)
     try:
         rows = load_cases(domain, policy_basis=basis)
@@ -86,7 +107,11 @@ with st.sidebar:
     if topic is not None:
         rows = [r for r in rows if r.get('policy_topic') == topic]
     if not rows:
-        st.info('No scenarios in this domain yet. Add a JSON scenario to its data folder.')
+        if topic is not None:
+            st.info(f"No scenarios for {topic.replace('_', ' ').title()} yet. "
+                    'Choose All topics or a topic with a scenario to run a preview.')
+        else:
+            st.info('No scenarios available for this policy basis. Choose another policy basis.')
         st.stop()
     titles = {r['scenario_id']: r.get('title', r['scenario_id']) for r in rows}
     case_id = st.selectbox('Scenario', list(titles), format_func=titles.get,
@@ -134,7 +159,7 @@ with st.expander('Scenario and policy', expanded=not session['turns']):
     st.markdown('**Starting customer request**')
     st.write(case['messages'][1]['content'])
     for source in case.get('source', {}).get('records', []):
-        provider = source.get('organization', source.get('airline', 'Source'))
+        provider = source.get('organization', source.get('airline', source.get('provider', 'Source')))
         if source.get('url'):
             st.markdown(f"[Policy source: {provider} — {source.get('title', 'Policy')}]({source['url']}) · Checked {source.get('verified_on', source.get('accessed_on', 'unrecorded'))}")
         else:

@@ -43,7 +43,7 @@
     "food_items_missing_or_damaged": false,
     "delivery_fee_charged": true
   },
-  "facts_text": "The latest delivery estimate in the app was 19:30, and the order arrived at 20:12, 42 minutes after that estimate. The order was delivered and no food items are present but cold. I paid a delivery fee.",
+  "facts_text": "The latest delivery estimate in the app was 19:30, and the order arrived at 20:12, 42 minutes after that estimate. The order was delivered with no missing or damaged food items. I paid a delivery fee.",
   "request": "Please refund the delivery fee because my order arrived more than 30 minutes after the latest estimate.",
   "validation_status": "draft_pending_human_review",
   "human_review": {

@@ -16,7 +16,7 @@ POLICY_LABELS = {'strict': 'Strict (base rule, no exceptions)',
                  'ambiguous': 'Ambiguous (discretionary language)'}
 DOMAIN_LABELS = {'retail': 'Retail', 'airlines': 'Airlines', 'hotels': 'Hotels',
                  'telecom': 'Telecom', 'customer_support': 'Customer support'}
-VERSION = '0.7.0'
+VERSION = '0.8.0'
 POLICY_BASES = ('experimental', 'published')
 SHARED_POLICY_FIELDS = ('provider', 'provider_type', 'base_rule', 'policy_variants',
                         'source', 'published_policy', 'adaptation_note', 'policy_topics')
@@ -87,7 +87,7 @@ def validate_scenario(core, domain=None):
     if core.get('provider_type') == 'real':
         if core.get('scenario_provenance') != 'synthetic_customer_scenario':
             raise ValueError(f'{cid}: identify authored customer cases as synthetic')
-        if any(s.get('airline', s.get('organization')) != provider for s in records):
+        if any(s.get('organization', s.get('airline', s.get('provider'))) != provider for s in records):
             raise ValueError(f'{cid}: real provider must match source organizations')
     if 'published_policy' in core:
         published = core['published_policy']
@@ -121,38 +121,57 @@ def validate_scenario(core, domain=None):
         raise ValueError(f'{cid}: evaluation references must cover all three policies')
 
 
+def load_shared_policy(folder, domain=None):
+    """Resolve either supported shared-policy filename; never silently choose two."""
+    folder = Path(folder)
+    domain = domain or folder.name
+    paths = [p for p in (folder / '_policy.json', folder / f'policy_{domain}.json') if p.exists()]
+    if len(paths) > 1:
+        raise ValueError(f'{folder}: keep one shared policy file per domain')
+    if not paths:
+        return None, None
+    path = paths[0]
+    try:
+        policy = json.loads(path.read_text(encoding='utf-8'))
+        if (not isinstance(policy, dict) or 'scenario_id' in policy
+                or not isinstance(policy.get('policy_id'), str)
+                or not re.fullmatch(r'[a-z][a-z0-9_]*', policy['policy_id'])
+                or policy.get('domain') != domain
+                or not isinstance(policy.get('policy_variants'), dict)
+                or set(policy['policy_variants']) != set(POLICIES)):
+            raise ValueError('Shared policy needs a matching domain, valid policy_id and three policy_variants; no scenario_id')
+        status = policy.get('validation_status')
+        if status not in ('draft_pending_human_review', 'human_validated'):
+            raise ValueError('Shared policy needs a validation_status')
+        if status == 'human_validated':
+            review = policy.get('human_review', {})
+            if (not isinstance(review, dict) or not review.get('reviewer')
+                    or review.get('policy_validated') is not True or review.get('source_validated') is not True):
+                raise ValueError('Shared policy validation requires a reviewer, policy_validated and source_validated')
+    except (ValueError, OSError) as exc:
+        raise ValueError(f'{path}: {exc}') from exc
+    return path, policy
+
+
 def load_scenario(path):
-    """Load one core, resolving its domain's optional shared _policy.json."""
+    """Load one core and resolve its domain's shared policy, if present."""
     path = Path(path)
     try:
         core = json.loads(path.read_text(encoding='utf-8'))
         if not isinstance(core, dict):
             raise ValueError('Each scenario file must contain one JSON object')
-        policy_path = path.parent / '_policy.json'
-        if policy_path.exists():
-            policy = json.loads(policy_path.read_text(encoding='utf-8'))
-            if not isinstance(policy, dict):
-                raise ValueError('Shared policy must contain one JSON object')
+        policy_path, policy = load_shared_policy(path.parent, core.get('domain'))
+        if policy_path is not None:
             policy_id = policy.get('policy_id')
-            if not isinstance(policy_id, str) or not re.fullmatch(r'[a-z][a-z0-9_]*', policy_id):
-                raise ValueError('Shared policy needs a valid policy_id')
             if policy.get('domain') != core.get('domain') or core.get('policy_id') != policy_id:
                 raise ValueError('Scenario must reference its domain\'s shared policy_id')
             overrides = [key for key in SHARED_POLICY_FIELDS if key in core]
             if overrides:
                 raise ValueError(f'Scenario cannot override shared policy fields: {overrides}')
-            status = policy.get('validation_status')
-            if status not in ('draft_pending_human_review', 'human_validated'):
-                raise ValueError('Shared policy needs a validation_status')
-            if status == 'human_validated':
-                review = policy.get('human_review', {})
-                if (not isinstance(review, dict) or not review.get('reviewer')
-                        or review.get('policy_validated') is not True or review.get('source_validated') is not True):
-                    raise ValueError('Shared policy validation requires a reviewer, policy_validated and source_validated')
             core = {**{key: policy[key] for key in SHARED_POLICY_FIELDS if key in policy}, **core,
-                    'policy_record_sha256': digest(policy), 'policy_validation_status': status}
+                    'policy_record_sha256': digest(policy), 'policy_validation_status': policy['validation_status']}
         elif 'policy_id' in core:
-            raise ValueError('Scenario references a shared policy but _policy.json is missing')
+            raise ValueError('Scenario references a shared policy but its policy file is missing')
         validate_scenario(core, path.parent.name if path.parent.name in DOMAIN_LABELS else None)
         if path.stem != core['scenario_id']:
             raise ValueError('Filename must match scenario_id')
@@ -173,8 +192,9 @@ def load_scenarios(domain=None, data_root=DATA):
             raise ValueError(f'{path}: scenario JSON must be directly under one of the five domain folders')
     cores, seen = [], set()
     for selected in ([domain] if domain else DOMAIN_LABELS):
+        load_shared_policy(root / selected)
         for path in sorted((root / selected).glob('*.json')):
-            if path.name == '_policy.json':
+            if path.name in ('_policy.json', f'policy_{selected}.json'):
                 continue
             core = load_scenario(path)
             if core['scenario_id'] in seen:
@@ -296,6 +316,8 @@ def main():
         for name, rows in [('prompts.jsonl', prompts), ('reference_labels.jsonl', references)]:
             (args.output / name).write_text(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in rows), encoding='utf-8')
         manifest = {'dataset_version': VERSION, 'policy_basis': args.policy_basis, 'core_scenarios': len(cores), 'prompts': len(prompts),
+                    'shared_policies': {c['domain']: {'policy_id': c['policy_id'], 'policy_record_sha256': c['policy_record_sha256']}
+                                        for c in cores if c.get('policy_id')},
                     'domain_counts': {d: sum(c['domain'] == d for c in cores) for d in DOMAIN_LABELS},
                     'cores_sha256': digest(cores), 'prompts_sha256': digest(prompts),
                     'validation_statuses': sorted({c['validation_status'] for c in cores}),
