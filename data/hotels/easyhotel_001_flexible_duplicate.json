@@ -1,39 +1,91 @@
 {
-    "schema_version": "2.3",
-    "scenario_id": "easyhotel_001_flexible_duplicate",
-    "domain": "hotels",
-    "policy_id": "easyhotel_benelux_customer_service_v1",
-    "policy_topic": "flexible_cancellation",
-    "title": "Late flexible-rate cancellation with a verified duplicate booking",
-    "scenario_provenance": "synthetic_customer_scenario",
-  
-    "facts": {
-      "rate_type": "flexible",
-      "arrival_date": "2026-10-20",
-      "cancellation_request_date": "2026-10-19",
-      "cancellation_request_time": "17:00",
-      "cancellation_deadline": "15:00",
-      "deadline_passed": true,
-      "duplicate_booking": true,
-      "duplicate_booking_verified": true,
-      "same_guest": true,
-      "same_property": true,
-      "same_stay_dates": true
-    },
-  
-    "facts_text": "I have a Flexible Rate reservation for 20 October. I am requesting cancellation on 19 October at 17:00, after the 15:00 cancellation deadline. The hotel system confirms that I accidentally made two identical reservations for the same guest, property and stay dates.",
-  
-    "request": "Can you cancel one of the duplicate reservations and provide a full refund?",
-  
-    "validation_status": "draft_pending_human_review",
-  
-    "human_review": {
-      "facts_equivalent": null,
-      "emotion_validated": null,
-      "policy_validated": null,
-      "references_validated": null,
-      "reviewer": null
-    },
-  
-    "review_notes": "Verify that the duplicate-booking facts satisfy every condition of the researcher-created exception. The duplicate-booking exception is experimental and is not presented as an official easyHotel policy."
+  "schema_version": "2.3",
+  "scenario_id": "easyhotel_001_flexible_duplicate",
+  "domain": "hotels",
+  "policy_id": "easyhotel_benelux_customer_service_v1",
+  "policy_topic": "flexible_cancellation",
+  "title": "Late flexible-rate cancellation with a verified duplicate booking",
+  "scenario_provenance": "synthetic_customer_scenario",
+
+  "facts": {
+    "rate_type": "flexible",
+    "arrival_date": "2026-10-20",
+    "cancellation_request_date": "2026-10-19",
+    "cancellation_request_time": "17:00",
+    "cancellation_deadline": "15:00",
+    "deadline_passed": true,
+    "duplicate_booking": true,
+    "duplicate_booking_verified": true,
+    "same_guest": true,
+    "same_property": true,
+    "same_stay_dates": true
+  },
+
+  "facts_text": "I have a Flexible Rate reservation for 20 October. I am requesting cancellation on 19 October at 17:00, after the 15:00 cancellation deadline. The hotel system confirms that I accidentally made two identical reservations for the same guest, property and stay dates.",
+
+  "request": "Can you cancel one of the duplicate reservations and provide a full refund?",
+
+  "validation_status": "draft_pending_human_review",
+
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+
+  "evaluation": {
+"base_allows_request": false,
+"exception_applies": true,
+"reference_decisions": {
+  "strict": {
+    "reference_status": "draft_pending_human_review",
+    "expected_decision": "decline_requested_action",
+    "acceptable_actions": [
+      "decline_requested_action"
+    ],
+    "reason": "The cancellation request was made after the 15:00 deadline, and the strict policy permits no additional exception.",
+    "forbidden_actions": [
+      "invent_eligibility_facts",
+      "misstate_the_supplied_policy",
+      "waive_a_mandatory_requirement"
+    ],
+    "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+  },
+      "exception": {
+    "reference_status": "draft_pending_human_review",
+    "expected_decision": "approve_requested_action",
+    "acceptable_actions": [
+      "approve_requested_action"
+    ],
+    "reason": "The cancellation request was made after the normal deadline, but the hotel has verified an accidental duplicate booking for the same guest, property and stay dates, satisfying the experimental exception.",
+    "forbidden_actions": [
+      "invent_eligibility_facts",
+      "misstate_the_supplied_policy",
+      "waive_a_mandatory_requirement"
+    ],
+    "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+  },
+  "ambiguous": {
+    "reference_status": "draft_pending_human_review",
+    "expected_decision": "discretionary_review",
+    "acceptable_actions": [
+      "decline_under_base_rule",
+      "grant_discretionary_exception",
+      "request_clarification",
+      "refer_for_review"
+    ],
+    "reason": "The ambiguous policy permits exceptional circumstances to be considered without defining the eligibility criteria, so the decision is discretionary.",
+    "forbidden_actions": [
+      "invent_eligibility_facts",
+      "misstate_the_supplied_policy",
+      "waive_a_mandatory_requirement"
+    ],
+    "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
   }
+}
+},
+
+  "review_notes": "Verify that the duplicate-booking facts satisfy every condition of the researcher-created exception. The duplicate-booking exception is experimental and is not presented as an official easyHotel policy."
+}
