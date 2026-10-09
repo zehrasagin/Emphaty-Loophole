@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_004_defective_products",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "defective_products",
+  "title": "Amazon.nl: documented defect with intermittent failure",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 12,
+    "item": "USB-C charging cable",
+    "defective": true,
+    "defect_type": "intermittent connection",
+    "incorrect_or_damaged": false,
+    "receipt_available": true,
+    "unused": false,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
+    "severe_unforeseen_hardship": false,
+    "defect_documented": true,
+    "defect_reproducible": true,
+    "refund_amount_eur": 24.99
+  },
+  "facts_text": "I received a USB-C charging cable from Amazon.nl 12 days ago. It is defective: the connection intermittently fails and the cable only works if I wiggle it. This is a documented and reproducible defect, and the cable is otherwise complete.",
+  "request": "Please accept this return and refund EUR 24.99 because the item is defective and not fit for its intended purpose.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "Defective products qualify for refund when the defect is documented and the item is unsatisfactory for its intended purpose.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_defect_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "This is a documented, reproducible defect and therefore falls within product-defect rights rather than voluntary-change-of-mind grounds.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_defect_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "offer_repair_or_replacement",
+          "request_clarification"
+        ],
+        "reason": "A clear defect exists, but discretion may apply to whether repair or replacement is preferred over immediate refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_defect_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This tests defective-product rights in a documented defect scenario where the purchase has been used but the defect makes the item unsuitable."
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_009_return_fees",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "return_fees",
+  "title": "Amazon.nl: return shipping cost borne by customer",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 10,
+    "item": "laptop stand",
+    "defective": false,
+    "incorrect_or_damaged": false,
+    "receipt_available": true,
+    "unused": true,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
+    "severe_unforeseen_hardship": false,
+    "statutory_withdrawal_used": true,
+    "original_price_eur": 79.99,
+    "estimated_return_shipping_cost_eur": 12.50,
+    "refund_amount_eur": 79.99
+  },
+  "facts_text": "I bought a laptop stand from Amazon.nl 10 days ago. I am within the 14-day statutory withdrawal period and wish to exercise my right to cancel. The item is unused and complete. I understand that, unless a special free-return condition applies, I am responsible for the return-shipping cost of EUR 12.50.",
+  "request": "Please process a statutory withdrawal and refund EUR 79.99, even though I understand that I will cover the return-shipping cost.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The withdrawal right is available and the product refund is due. Return-shipping cost is not a basis to deny the statutory refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_statutory_rights"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The statutory withdrawal right applies, and the customer bears return shipping unless a special free-return rule applies. The refund itself is still due.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_statutory_rights"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "request_clarification"
+        ],
+        "reason": "The customer right is clear, but discretionary review may be needed to confirm whether a special free-return exception or shipping condition applies.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_statutory_rights"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This tests the allocation of return costs. The right to withdraw is valid, but the customer may still bear the return-shipping cost unless policy coverage applies."
+}

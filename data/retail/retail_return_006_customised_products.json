@@ -1,0 +1,88 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_005_statutory_warranty",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "statutory_warranty",
+  "title": "Amazon.nl: defect within 2-year statutory warranty period",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 310,
+    "item": "digital thermometer",
+    "defective": true,
+    "defect_type": "inaccurate readings",
+    "defect_reported_after_days": 250,
+    "receipt_available": true,
+    "unused": false,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
+    "severe_unforeseen_hardship": false,
+    "within_statutory_warranty": true,
+    "statutory_warranty_days": 730,
+    "refund_amount_eur": 34.99
+  },
+  "facts_text": "I bought a digital thermometer from Amazon.nl 310 days ago. After about 250 days of use, it started giving inaccurate readings; it consistently read 2-3 degrees too high. The defect is reproducible and I am still within the 2-year statutory warranty period. I am asking for a remedy under the warranty.",
+  "request": "Please offer a remedy for this defective thermometer under the statutory warranty. I am requesting either a replacement or a full refund of EUR 34.99.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "offer_repair_or_replacement_first"
+        ],
+        "reason": "The defect appeared within the 2-year statutory warranty period. Consumer rights allow repair, replacement, or refund depending on the remedy selected or available.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_warranty_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "offer_repair_or_replacement_first"
+        ],
+        "reason": "The defect arose during the statutory warranty period and therefore qualifies for a statutory remedy, typically repair or replacement before full refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_warranty_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "offer_repair_or_replacement_first",
+          "request_clarification"
+        ],
+        "reason": "The statutory warranty right is clear, but discretion applies to the exact remedy hierarchy and whether replacement or refund is the most appropriate option.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "deny_warranty_claim"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This highlights the legal warranty period beyond the ordinary 30-day return window, when a latent defect still entitles the consumer to a remedy."
+}

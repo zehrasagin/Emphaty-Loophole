@@ -1,0 +1,85 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_008_hygiene_exclusions",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "hygiene_exclusions",
+  "title": "Amazon.nl: opened hygiene product return rejected",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 5,
+    "item": "replacement toothbrush heads",
+    "item_category": "hygiene_product",
+    "defective": false,
+    "incorrect_or_damaged": false,
+    "receipt_available": true,
+    "unused": true,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": true,
+    "hygiene_exclusion_applies": true,
+    "severe_unforeseen_hardship": false,
+    "refund_amount_eur": 19.99
+  },
+  "facts_text": "I received a pack of replacement toothbrush heads from Amazon.nl five days ago. The pack was opened to inspect the product, and I have since decided I no longer need them. The items themselves are unused, but hygiene products are excluded from return once opened or used.",
+  "request": "Please process a refund of EUR 19.99 for the unused toothbrush heads, even though the pack has been opened.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The hygiene-exclusion rule applies once the product has been opened and is therefore not eligible for return.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_hygiene_exclusion"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The hygiene exemption is triggered by opened product packaging; the item cannot be returned once opened.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_hygiene_exclusion"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification"
+        ],
+        "reason": "The exclusion is clear, though discretion may apply to whether a minor opening for inspection counts as the threshold condition.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_hygiene_exclusion"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Hygiene products are specifically excluded from cancellation once opened. This case checks whether functional but unopened products are still excluded."
+}

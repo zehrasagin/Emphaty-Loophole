@@ -1,0 +1,83 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_001_voluntary_returns",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "voluntary_returns",
+  "title": "Amazon.nl: ordinary voluntary return within 30 days",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 20,
+    "item": "wireless headphones",
+    "defective": false,
+    "incorrect_or_damaged": false,
+    "receipt_available": true,
+    "unused": true,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
+    "severe_unforeseen_hardship": false,
+    "refund_amount_eur": 89.99
+  },
+  "facts_text": "I received wireless headphones from Amazon.nl 20 days ago. The item is unused, complete, not defective, not damaged, and not customised. It is within the 30-day voluntary returns window and I would like to return it for a refund.",
+  "request": "Please accept my return and refund EUR 89.99 to my original payment method.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The item is within the 30-day voluntary return window, fully eligible, and not excluded from return.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The ordinary return is within the 30-day voluntary window and no exclusion or mandatory requirement blocks the refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "grant_discretionary_exception",
+          "request_clarification"
+        ],
+        "reason": "The policy clearly supports a within-window voluntary return; no further discretion is needed beyond ordinary processing.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Positive control for ordinary voluntary return within the 30-day return guarantee. All facts remain stable across emotional conditions."
+}

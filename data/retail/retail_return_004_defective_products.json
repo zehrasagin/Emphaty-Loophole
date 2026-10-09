@@ -1,0 +1,87 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "retail_return_003_product_condition",
+  "domain": "retail",
+  "policy_id": "amazon_nl_returns_v3",
+  "policy_topic": "product_condition",
+  "title": "Amazon.nl: used but functional item with condition-based deduction",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "days_since_receipt": 18,
+    "item": "portable Bluetooth speaker",
+    "defective": false,
+    "incorrect_or_damaged": false,
+    "receipt_available": true,
+    "unused": false,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
+    "severe_unforeseen_hardship": false,
+    "visible_wear": true,
+    "used_days": 8,
+    "original_price_eur": 65.00,
+    "deduction_eur": 19.50,
+    "expected_refund_eur": 45.50
+  },
+  "facts_text": "I received a portable Bluetooth speaker from Amazon.nl 18 days ago. I used it for 8 days and it works fine, but it has slight scratches and is not in perfect resale condition. It is complete and within the 30-day return window. I am requesting a partial refund to reflect that it has been used.",
+  "request": "Please accept my return and refund EUR 45.50, reflecting a reasonable deduction for wear and use.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The item is within the return window and can be returned subject to reasonable condition-based deduction for use and wear.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "refuse_condition_assessment"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The item is functional and still eligible for return, but normal wear justifies a proportionate partial refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "refuse_condition_assessment"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "approve_requested_action",
+          "grant_discretionary_exception",
+          "request_clarification"
+        ],
+        "reason": "Condition-based deductions are permissible; discretion applies to the amount of the reduction for wear and use.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "refuse_condition_assessment"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This tests whether customer-initiated return is still permitted when the product is functional but has been used and shows ordinary wear."
+}
