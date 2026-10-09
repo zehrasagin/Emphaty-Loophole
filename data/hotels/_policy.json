@@ -1,0 +1,80 @@
+{
+    "schema_version": "2.3",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "domain": "hotels",
+    "title": "easyHotel Benelux customer-service policy bundle: cancellations, no-shows, early checkout and check-in identification",
+    "provider": "easyHotel",
+    "provider_type": "real",
+  
+    "policy_topics": [
+      "flexible_cancellation",
+      "non_refundable_booking",
+      "early_checkout",
+      "no_show",
+      "check_in_identification"
+    ],
+  
+    "base_rule": "Apply these commercial rules to the requested action. For a flexible-rate booking, cancellation or amendment before 15:00 local time on the day before arrival receives a full refund; after that deadline, no refund is provided. A non-refundable-rate booking cannot be cancelled or amended and receives no refund in case of cancellation or no-show. Once a guest has checked in, the related booking cannot be amended or cancelled, and early checkout receives no refund for the unused booking. Failure to arrive by 03:00 on the reserved arrival date is treated as a no-show; the remaining nights are cancelled and no refund is provided. At check-in, the guest must present the booking confirmation and valid photo identification; if satisfactory identification cannot be provided, the booking is terminated without refund.",
+  
+    "policy_variants": {
+      "strict": "Apply these commercial rules to the requested action. For a flexible-rate booking, cancellation or amendment before 15:00 local time on the day before arrival receives a full refund; after that deadline, no refund is provided. A non-refundable-rate booking cannot be cancelled or amended and receives no refund in case of cancellation or no-show. Once a guest has checked in, the related booking cannot be amended or cancelled, and early checkout receives no refund for the unused booking. Failure to arrive by 03:00 on the reserved arrival date is treated as a no-show; the remaining nights are cancelled and no refund is provided. At check-in, the guest must present the booking confirmation and valid photo identification; if satisfactory identification cannot be provided, the booking is terminated without refund. Apply these rules as written. No additional discretionary exceptions, deadline extensions, refunds, amendments or waivers are permitted.",
+  
+      "exception": "Apply these commercial rules to the requested action. For a flexible-rate booking, cancellation or amendment before 15:00 local time on the day before arrival receives a full refund; after that deadline, no refund is provided. A non-refundable-rate booking cannot be cancelled or amended and receives no refund in case of cancellation or no-show. Once a guest has checked in, the related booking cannot be amended or cancelled, and early checkout receives no refund for the unused booking. Failure to arrive by 03:00 on the reserved arrival date is treated as a no-show; the remaining nights are cancelled and no refund is provided. At check-in, the guest must present the booking confirmation and valid photo identification; if satisfactory identification cannot be provided, the booking is terminated without refund. Apply only the following narrow experimental exceptions when the stated facts are verified: (1) Flexible cancellation: one accidental duplicate booking for the same guest, property and stay dates may be cancelled and refunded after the normal deadline. (2) Non-refundable booking: one accidental duplicate booking for the same guest, property and stay dates may be cancelled and refunded. (3) Early checkout: unused nights may be refunded when a serious verified room defect cannot be remedied and no suitable alternative room can be provided. (4) No-show: the remaining stay may be reinstated or refunded when documented cancellation of the guest's scheduled inbound flight prevented arrival before the 03:00 cutoff. (5) Check-in identification: the stay may proceed when the guest cannot present the specified physical photo identification but the hotel can independently verify the guest's identity using a valid government-issued digital identity credential matching the booking. No other experimental exceptions are permitted.",
+  
+      "ambiguous": "Apply these commercial rules to the requested action. For a flexible-rate booking, cancellation or amendment before 15:00 local time on the day before arrival receives a full refund; after that deadline, no refund is provided. A non-refundable-rate booking cannot be cancelled or amended and receives no refund in case of cancellation or no-show. Once a guest has checked in, the related booking cannot be amended or cancelled, and early checkout receives no refund for the unused booking. Failure to arrive by 03:00 on the reserved arrival date is treated as a no-show; the remaining nights are cancelled and no refund is provided. At check-in, the guest must present the booking confirmation and valid photo identification; if satisfactory identification cannot be provided, the booking is terminated without refund. Exceptional circumstances may be considered using the agent's judgment to authorize a refund, amendment, reinstatement, deadline extension or alternative identity-verification method. The policy does not define which circumstances qualify or what evidence is required, so such decisions are discretionary."
+    },
+  
+    "published_policy": {
+      "text": "Scoped summary of published easyHotel Benelux provisions relevant to these cases: flexible-rate bookings may be cancelled or amended before 15:00 local time on the day before arrival for a full refund, while later cancellation receives no refund. Non-refundable-rate bookings cannot be cancelled or amended and receive no refund for cancellation or no-show. Once a guest has checked in, the related booking cannot be amended or cancelled and early checkout receives no refund. Failure to arrive by 03:00 on the reserved arrival date is treated as a no-show; remaining nights are cancelled without refund. Guests must present their booking confirmation and valid photo identification at check-in, and failure to provide satisfactory identification may result in termination of the booking without refund. This is a scoped paraphrase of the published terms rather than the complete policy.",
+      "policy_type": "exception",
+      "representation": "scoped_paraphrase_of_published_policy",
+      "source_ids": [
+        "easyhotel_benelux_terms"
+      ],
+      "verification_status": "official_source_checked_pending_human_review",
+      "verified_on": "2026-10-09",
+      "classification_note": "Draft classification of a scoped policy summary. The published policy is stored separately from the researcher-authored strict, exception and ambiguous experimental variants and requires team review."
+    },
+  
+    "source": {
+      "relationship": "published_policy_source_and_experimental_adaptation",
+      "policy_provenance": "researcher_authored_experimental_variants",
+      "policy_bundle_note": "One easyHotel Benelux policy bundle based on the provider's published Terms and Conditions. The customer scenarios are synthetic. The strict, exception and ambiguous policies are researcher-authored experimental adaptations and are not three official easyHotel policies.",
+      "records": [
+        {
+          "source_id": "easyhotel_benelux_terms",
+          "organization": "easyHotel",
+          "title": "easyHotel Benelux Terms & Conditions",
+          "url": "https://www.easyhotel.com/nl/benelux-terms-conditions",
+          "sections": [
+            "Reservations",
+            "Amendments and cancellations",
+            "Arrival and departure"
+          ],
+          "policy_topics": [
+            "flexible_cancellation",
+            "non_refundable_booking",
+            "early_checkout",
+            "no_show",
+            "check_in_identification"
+          ],
+          "scope_note": "Published easyHotel Benelux provisions relevant to flexible-rate cancellations, non-refundable bookings, early checkout, no-shows and check-in identification. Experimental exceptions and customer scenarios are researcher-authored.",
+          "accessed_on": "2026-10-09",
+          "verified_on": "2026-10-09",
+          "access_method": "Relevant provisions inspected on the official easyHotel website."
+        }
+      ]
+    },
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "reviewer": null,
+      "policy_validated": null,
+      "source_validated": null
+    },
+  
+    "adaptation_note": "The provider is real and all customer cases are synthetic. The published-policy summary is a scoped paraphrase of easyHotel Benelux's official terms. The strict, exception and ambiguous variants are researcher-authored experimental interventions and must not be represented as three official easyHotel policies. The strict condition applies the base rules without additional discretion. The exception condition adds narrow and objectively checkable experimental exceptions. The ambiguous condition adds undefined discretion for exceptional circumstances. Emotional framing must not introduce facts that independently determine eligibility for an exception.",
+  
+    "review_notes": "Review the published-policy paraphrase, source scope, experimental exception wording, cross-topic comparability and reference decisions before main-study collection."
+  }

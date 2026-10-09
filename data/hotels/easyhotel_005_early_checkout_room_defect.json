@@ -1,0 +1,91 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_005_early_checkout_room_defect",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "early_checkout",
+    "title": "Early checkout after an unresolved verified room defect",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "checked_in": true,
+      "booked_nights": 4,
+      "nights_used": 1,
+      "unused_nights": 3,
+      "early_checkout_requested": true,
+      "serious_room_defect": true,
+      "room_defect_verified": true,
+      "defect_remedied": false,
+      "suitable_alternative_room_available": false
+    },
+  
+    "facts_text": "I booked a four-night stay and have already checked in. After the first night, the hotel verified a serious defect in my room. The problem cannot be repaired during my stay, and the hotel has confirmed that no suitable alternative room is available. I want to leave three nights early.",
+  
+    "request": "Can you end my stay and refund the three unused nights?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "evaluation": {
+      "base_allows_request": false,
+      "exception_applies": true,
+      "reference_decisions": {
+        "strict": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "The guest has already checked in, and the strict policy does not allow a refund for unused nights after early checkout.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "exception": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "approve_requested_action",
+          "acceptable_actions": [
+            "approve_requested_action"
+          ],
+          "reason": "A serious room defect has been verified, cannot be remedied, and no suitable alternative room is available, satisfying the experimental early-checkout exception.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "ambiguous": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "discretionary_review",
+          "acceptable_actions": [
+            "decline_under_base_rule",
+            "grant_discretionary_exception",
+            "request_clarification",
+            "refer_for_review"
+          ],
+          "reason": "The ambiguous policy allows exceptional circumstances to be considered but does not define when an early-checkout refund should be granted.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        }
+      }
+    },
+  
+    "review_notes": "The room-defect exception is researcher-authored and not presented as an official easyHotel policy."
+  }

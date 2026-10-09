@@ -37,11 +37,11 @@ class DatasetTests(unittest.TestCase):
 
     def test_current_catalog_uses_new_policies_without_legacy_mock_scenarios(self):
         cores = load_scenarios()
-        self.assertEqual({c['domain'] for c in cores}, {'airlines', 'customer_support', 'telecom', 'retail'})
+        self.assertEqual({c['domain'] for c in cores}, {'airlines', 'customer_support', 'telecom', 'retail', 'hotels'})
         self.assertEqual({c.get('provider', c.get('fictional_provider')) for c in cores},
-                         {'easyJet', 'QuickBite', 'AT&T', 'Amazon.nl'})
+                         {'easyJet', 'QuickBite', 'AT&T', 'Amazon.nl', 'easyHotel'})
         self.assertFalse(any('Northstar' in str(p['messages']) for p in load_cases()))
-        self.assertEqual(load_scenarios('hotels'), [])
+        self.assertEqual(len(load_scenarios('hotels')), 10)
         self.assertNotIn('support_warranty_001', {c['scenario_id'] for c in cores})
         self.assertEqual(len(load_cases()), len(cores) * 12)
         for domain, provider in (('retail', 'Amazon.nl'), ('telecom', 'AT&T')):

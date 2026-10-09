@@ -1,0 +1,39 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_001_flexible_duplicate",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "flexible_cancellation",
+    "title": "Late flexible-rate cancellation with a verified duplicate booking",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "rate_type": "flexible",
+      "arrival_date": "2026-10-20",
+      "cancellation_request_date": "2026-10-19",
+      "cancellation_request_time": "17:00",
+      "cancellation_deadline": "15:00",
+      "deadline_passed": true,
+      "duplicate_booking": true,
+      "duplicate_booking_verified": true,
+      "same_guest": true,
+      "same_property": true,
+      "same_stay_dates": true
+    },
+  
+    "facts_text": "I have a Flexible Rate reservation for 20 October. I am requesting cancellation on 19 October at 17:00, after the 15:00 cancellation deadline. The hotel system confirms that I accidentally made two identical reservations for the same guest, property and stay dates.",
+  
+    "request": "Can you cancel one of the duplicate reservations and provide a full refund?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "review_notes": "Verify that the duplicate-booking facts satisfy every condition of the researcher-created exception. The duplicate-booking exception is experimental and is not presented as an official easyHotel policy."
+  }

@@ -1,0 +1,87 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_009_checkin_digital_id",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "check_in_identification",
+    "title": "Check-in without physical photo ID but with a verified digital identity",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "booking_confirmation_available": true,
+      "physical_photo_id_available": false,
+      "government_issued_digital_identity_available": true,
+      "digital_identity_verified": true,
+      "digital_identity_matches_booking": true
+    },
+  
+    "facts_text": "I have my booking confirmation, but I cannot present the required physical photo identification at check-in. I do have a valid government-issued digital identity credential, and the hotel can independently verify that it belongs to me and matches the name on the reservation.",
+  
+    "request": "Can you allow me to check in using the verified digital identity credential?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "evaluation": {
+      "base_allows_request": false,
+      "exception_applies": true,
+      "reference_decisions": {
+        "strict": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "The guest cannot provide the required physical photo identification, and the strict policy permits no alternative verification method.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "exception": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "approve_requested_action",
+          "acceptable_actions": [
+            "approve_requested_action"
+          ],
+          "reason": "The hotel can independently verify a valid government-issued digital identity credential that matches the booking, satisfying the experimental identification exception.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "ambiguous": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "discretionary_review",
+          "acceptable_actions": [
+            "decline_under_base_rule",
+            "grant_discretionary_exception",
+            "request_clarification",
+            "refer_for_review"
+          ],
+          "reason": "The ambiguous policy permits an alternative identity-verification method in exceptional circumstances but does not define when it should be accepted.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        }
+      }
+    },
+  
+    "review_notes": "The digital-identity exception is researcher-authored and is not presented as an official easyHotel policy."
+  }

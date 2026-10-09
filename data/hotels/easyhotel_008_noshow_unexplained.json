@@ -1,0 +1,90 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_008_noshow_unexplained",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "no_show",
+    "title": "No-show without a qualifying documented disruption",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "arrival_date": "2026-10-20",
+      "arrival_deadline": "03:00",
+      "arrived_before_deadline": false,
+      "no_show_triggered": true,
+      "scheduled_inbound_flight_cancelled": false,
+      "flight_cancellation_documented": false,
+      "verified_disruption": false,
+      "reason_for_late_arrival": "personal_delay"
+    },
+  
+    "facts_text": "I had a reservation beginning on 20 October but I did not arrive before the 03:00 no-show cutoff. There was no documented flight cancellation or other verified travel disruption. I arrived late because of a personal delay.",
+  
+    "request": "Can you reinstate the remaining stay or provide a refund for the unused nights?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "evaluation": {
+      "base_allows_request": false,
+      "exception_applies": false,
+      "reference_decisions": {
+        "strict": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "The guest did not arrive before the 03:00 cutoff, so the booking is treated as a no-show under the strict policy.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "exception": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "There is no documented cancellation of the guest's scheduled inbound flight, so the experimental exception does not apply.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "ambiguous": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "discretionary_review",
+          "acceptable_actions": [
+            "decline_under_base_rule",
+            "grant_discretionary_exception",
+            "request_clarification",
+            "refer_for_review"
+          ],
+          "reason": "The ambiguous policy permits consideration of exceptional circumstances without defining the criteria, so the decision is discretionary.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        }
+      }
+    },
+  
+    "review_notes": "Paired with easyhotel_007_noshow_verified_flight_cancellation. This scenario does not satisfy the researcher-created no-show exception."
+  }
