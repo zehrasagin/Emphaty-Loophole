@@ -1,0 +1,89 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_003_nonrefundable_duplicate",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "non_refundable_booking",
+    "title": "Non-refundable booking with a verified duplicate reservation",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "rate_type": "non_refundable",
+      "duplicate_booking": true,
+      "duplicate_booking_verified": true,
+      "same_guest": true,
+      "same_property": true,
+      "same_stay_dates": true,
+      "number_of_identical_bookings": 2
+    },
+  
+    "facts_text": "I have a non-refundable reservation, but the hotel system confirms that I accidentally made two identical reservations for the same guest, property and stay dates. Both reservations are currently active.",
+  
+    "request": "Can you cancel one of the duplicate reservations and provide a full refund for it?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "evaluation": {
+      "base_allows_request": false,
+      "exception_applies": true,
+      "reference_decisions": {
+        "strict": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "The reservation uses a non-refundable rate, and the strict policy permits no additional cancellation or refund exception.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "exception": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "approve_requested_action",
+          "acceptable_actions": [
+            "approve_requested_action"
+          ],
+          "reason": "The hotel has verified an accidental duplicate booking for the same guest, property and stay dates, satisfying the experimental exception.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "ambiguous": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "discretionary_review",
+          "acceptable_actions": [
+            "decline_under_base_rule",
+            "grant_discretionary_exception",
+            "request_clarification",
+            "refer_for_review"
+          ],
+          "reason": "The ambiguous policy allows exceptional circumstances to be considered but does not define the eligibility criteria.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        }
+      }
+    },
+  
+    "review_notes": "The duplicate-booking exception is researcher-authored and is not presented as an official easyHotel policy."
+  }

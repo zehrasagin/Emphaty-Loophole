@@ -41,7 +41,7 @@ class DatasetTests(unittest.TestCase):
         self.assertEqual({c.get('provider', c.get('fictional_provider')) for c in cores},
                          {'easyJet', 'QuickBite', 'AT&T', 'Amazon.nl', 'easyHotel'})
         self.assertFalse(any('Northstar' in str(p['messages']) for p in load_cases()))
-        self.assertEqual(load_scenarios('hotels'), 10)
+        self.assertEqual(len(load_scenarios('hotels')), 10)
         self.assertNotIn('support_warranty_001', {c['scenario_id'] for c in cores})
         self.assertEqual(len(load_cases()), len(cores) * 12)
         for domain, provider in (('retail', 'Amazon.nl'), ('telecom', 'AT&T')):

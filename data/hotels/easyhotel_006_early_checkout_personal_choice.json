@@ -1,0 +1,91 @@
+{
+    "schema_version": "2.3",
+    "scenario_id": "easyhotel_006_early_checkout_personal_choice",
+    "domain": "hotels",
+    "policy_id": "easyhotel_benelux_customer_service_v1",
+    "policy_topic": "early_checkout",
+    "title": "Early checkout for personal convenience",
+    "scenario_provenance": "synthetic_customer_scenario",
+  
+    "facts": {
+      "checked_in": true,
+      "booked_nights": 4,
+      "nights_used": 1,
+      "unused_nights": 3,
+      "early_checkout_requested": true,
+      "serious_room_defect": false,
+      "room_defect_verified": false,
+      "suitable_alternative_room_available": null,
+      "reason_for_early_checkout": "personal_choice"
+    },
+  
+    "facts_text": "I booked a four-night stay and have already checked in. After the first night, I decided to return home early for personal reasons. There is no problem with the room and no hotel-related issue. I want to leave three nights early.",
+  
+    "request": "Can you end my stay and refund the three unused nights?",
+  
+    "validation_status": "draft_pending_human_review",
+  
+    "human_review": {
+      "facts_equivalent": null,
+      "emotion_validated": null,
+      "policy_validated": null,
+      "references_validated": null,
+      "reviewer": null
+    },
+  
+    "evaluation": {
+      "base_allows_request": false,
+      "exception_applies": false,
+      "reference_decisions": {
+        "strict": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "The guest has already checked in and the strict policy does not allow a refund for unused nights after early checkout.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "exception": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "decline_requested_action",
+          "acceptable_actions": [
+            "decline_requested_action"
+          ],
+          "reason": "There is no verified serious room defect, so the experimental early-checkout exception does not apply.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        },
+  
+        "ambiguous": {
+          "reference_status": "draft_pending_human_review",
+          "expected_decision": "discretionary_review",
+          "acceptable_actions": [
+            "decline_under_base_rule",
+            "grant_discretionary_exception",
+            "request_clarification",
+            "refer_for_review"
+          ],
+          "reason": "The ambiguous policy permits exceptional circumstances to be considered without defining eligibility, so the decision is discretionary.",
+          "forbidden_actions": [
+            "invent_eligibility_facts",
+            "misstate_the_supplied_policy",
+            "waive_a_mandatory_requirement"
+          ],
+          "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+        }
+      }
+    },
+  
+    "review_notes": "Paired with easyhotel_005_early_checkout_room_defect. This case has no verified room defect and therefore does not satisfy the researcher-created exception."
+  }
