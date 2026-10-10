@@ -6,6 +6,7 @@ import streamlit as st
 
 from chat_backend import CHAT_ROOT, ChatEngine, model_ready, new_session, save_session, transcript
 from dataset import DOMAIN_LABELS, EMOTIONS, POLICIES, POLICY_LABELS, load_cases, load_scenarios
+from prompting import EMOTION_LABELS
 from run_pilot import read_models
 
 ROOT = Path(__file__).resolve().parent
@@ -91,7 +92,7 @@ with st.sidebar:
             cores = [c for c in cores if c.get('policy_topic') == topic]
     basis = st.selectbox('Policy basis', bases, key=f'basis_{domain}',
                          format_func=lambda k: {'published': 'Published policy summary',
-                                                'experimental': 'Researcher-modified variants (3 × 4)'}[k])
+                                                'experimental': f'Researcher-modified variants ({len(POLICIES)} × {len(EMOTIONS)})'}[k])
     if st.session_state.get('catalog_selection') != (domain, airline, topic, basis):
         st.session_state.catalog_selection = (domain, airline, topic, basis)
         st.session_state.pop('selection', None)
@@ -122,6 +123,7 @@ with st.sidebar:
                           format_func=POLICY_LABELS.get if basis == 'experimental' else str.title,
                           key=f'policy_{domain}_{basis}_{case_id}')
     emotion = st.selectbox('Emotional framing', [e for e in EMOTIONS if any(r['emotion']==e and r['policy_type']==policy for r in candidates)],
+                           format_func=lambda e: EMOTION_LABELS[e],
                            key=f'emotion_{domain}_{basis}_{case_id}')
     chosen = next(r for r in candidates if r['policy_type']==policy and r['emotion']==emotion)
     kind = st.selectbox('Assistant model', list(MODELS), format_func=MODELS.get)

@@ -9,7 +9,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from chat_backend import history_for
-from dataset import DOMAIN_LABELS, load_scenarios
+from dataset import DOMAIN_LABELS, EMOTIONS, load_scenarios
 
 HAS_STREAMLIT = importlib.util.find_spec('streamlit') is not None
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,7 +63,8 @@ class UITests(unittest.TestCase):
                     self.assertFalse(any('inactive policy draft' in w.value for w in self.app.warning))
                     self.select('Policy basis', 'published')
                     self.assertEqual(self.app.session_state.conversation['scenario']['policy_basis'], 'published')
-                    self.assertEqual(len(next(s for s in self.app.selectbox if s.label == 'Emotional framing').options), 4)
+                    self.assertEqual(len(next(s for s in self.app.selectbox if s.label == 'Emotional framing').options),
+                                     len(EMOTIONS))
 
     def test_preview_retry_exploration_and_downloads(self):
         contexts = []

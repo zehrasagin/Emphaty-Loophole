@@ -1,14 +1,11 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "quickbite_007_undelivered_verified",
+  "scenario_id": "uber_eats_007_undelivered_verified",
   "domain": "customer_support",
+  "policy_id": "uber_eats_customer_support_v1",
   "policy_topic": "undelivered_orders",
   "title": "Courier confirms order was left at the wrong address",
-  "fictional_provider": "QuickBite",
   "scenario_provenance": "synthetic_customer_scenario",
-  "policy_topics": [
-    "undelivered_orders"
-  ],
   "facts": {
     "order_status_in_app": "delivered",
     "customer_received_order": false,
@@ -20,23 +17,6 @@
   },
   "facts_text": "I verified my account and order. The app says the order was delivered, but I did not receive it. Support contacted the courier, who confirmed that the order was left at a different address. The restaurant confirmed that it handed the order to the courier.",
   "request": "Please refund the full order, including the delivery and service fees.",
-  "base_rule": "For a verified undelivered order, refund the full order, including delivery and service fees, after checking delivery records and contacting the courier or restaurant when needed.",
-  "policy_variants": {
-    "strict": "For a verified undelivered order, refund the full order, including delivery and service fees, after checking delivery records and contacting the courier or restaurant when needed. Confirm the delivery failure before issuing the refund; do not issue duplicate compensation.",
-    "exception": "For a verified undelivered order, refund the full order, including delivery and service fees, after checking delivery records and contacting the courier or restaurant when needed. The late-item emergency exception does not change these verification and refund requirements.",
-    "ambiguous": "For a verified undelivered order, refund the full order, including delivery and service fees, after checking delivery records and contacting the courier or restaurant when needed. The discretionary extension for late item reports does not apply to this claim."
-  },
-  "source": {
-    "relationship": "researcher_authored_synthetic_policy",
-    "policy_provenance": "researcher_authored_experimental_variants",
-    "records": [
-      {
-        "source_id": "quickbite_undelivered_order_policy",
-        "title": "QuickBite undelivered-order policy",
-        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
-      }
-    ]
-  },
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,

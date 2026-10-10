@@ -8,7 +8,7 @@ from pathlib import Path
 
 from dataset import (DOMAIN_LABELS, EMOTIONS, POLICIES, digest, expand_scenario,
                      load_cases, load_scenarios, load_shared_policy, reference_rows, validate_grid, validate_scenario)
-from prompting import FRAMES, render_messages
+from prompting import EMOTION_LABELS, FRAMES, render_messages
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,13 +19,14 @@ class DatasetTests(unittest.TestCase):
         self.core = self.cores[0]
         self.prompts = load_cases('airlines')
 
-    def test_one_core_expands_to_twelve_unique_conditions(self):
+    def test_one_core_expands_to_all_unique_policy_emotion_conditions(self):
         prompts = expand_scenario(self.core)
-        self.assertEqual(len(prompts), 12)
-        self.assertEqual(len({p['prompt_id'] for p in prompts}), 12)
+        expected_count = len(POLICIES) * len(EMOTIONS)
+        self.assertEqual(len(prompts), expected_count)
+        self.assertEqual(len({p['prompt_id'] for p in prompts}), expected_count)
         self.assertEqual({(p['policy_type'], p['emotion']) for p in prompts},
                          {(p, e) for p in POLICIES for e in EMOTIONS})
-        self.assertEqual(len(self.prompts), len(self.cores) * 12)
+        self.assertEqual(len(self.prompts), len(self.cores) * expected_count)
         self.assertEqual(set(DOMAIN_LABELS), {'retail', 'airlines', 'hotels', 'telecom', 'customer_support'})
         for core in self.cores:
             group = [p for p in self.prompts if p['scenario_id'] == core['scenario_id']]
@@ -35,25 +36,46 @@ class DatasetTests(unittest.TestCase):
             for policy in POLICIES:
                 self.assertEqual(len({p['messages'][0]['content'] for p in group if p['policy_type'] == policy}), 1)
 
+    def test_emotional_frames_are_named_and_standardized_across_domains(self):
+        self.assertEqual(set(EMOTION_LABELS), set(EMOTIONS))
+        self.assertEqual(set(FRAMES), set(EMOTIONS))
+        for emotion in EMOTIONS:
+            rendered_frames = set()
+            for domain in ('airlines', 'customer_support', 'hotels', 'retail', 'telecom'):
+                if domain == 'retail':
+                    retail_dir = ROOT / 'data' / domain
+                    scenario_path = next(p for p in retail_dir.glob('*.json')
+                                         if p.name not in ('_policy.json', 'policy_retail.json'))
+                    _, shared_policy = load_shared_policy(retail_dir)
+                    core = {**shared_policy, **json.loads(scenario_path.read_text())}
+                else:
+                    core = load_scenarios(domain)[0]
+                policy = POLICIES[0]
+                user_message = render_messages(core, policy, emotion)[1]['content']
+                rendered_frames.add(user_message.rsplit('\n\n', 1)[-1])
+            self.assertEqual(rendered_frames, {FRAMES[emotion]})
+
     def test_current_catalog_uses_new_policies_without_legacy_mock_scenarios(self):
         cores = load_scenarios()
         self.assertEqual({c['domain'] for c in cores}, {'airlines', 'customer_support', 'telecom', 'retail', 'hotels'})
         self.assertEqual({c.get('provider', c.get('fictional_provider')) for c in cores},
-                         {'easyJet', 'QuickBite', 'AT&T', 'Amazon.nl', 'easyHotel'})
+                         {'easyJet', 'Uber Eats', 'AT&T', 'Amazon.nl', 'easyHotel'})
         self.assertFalse(any('Northstar' in str(p['messages']) for p in load_cases()))
         self.assertEqual(len(load_scenarios('hotels')), 10)
         self.assertNotIn('support_warranty_001', {c['scenario_id'] for c in cores})
-        self.assertEqual(len(load_cases()), len(cores) * 12)
-        for domain, provider in (('retail', 'Amazon.nl'), ('telecom', 'AT&T')):
+        self.assertEqual(len(load_cases()), len(cores) * len(POLICIES) * len(EMOTIONS))
+        for domain, provider in (('retail', 'Amazon.nl'), ('telecom', 'AT&T'),
+                                 ('customer_support', 'Uber Eats')):
             core = load_scenarios(domain)[0]
             path, policy = load_shared_policy(ROOT / 'data' / domain)
-            self.assertEqual(path.name, f'policy_{domain}.json')
+            self.assertEqual(path.name, '_policy.json' if domain == 'customer_support' else f'policy_{domain}.json')
             self.assertEqual(core['provider'], provider)
             self.assertEqual(core['policy_id'], policy['policy_id'])
             self.assertEqual(core['policy_record_sha256'], digest(policy))
             self.assertEqual(core['policy_variants'], policy['policy_variants'])
-            self.assertEqual(len(load_cases(domain, policy_basis='published')), 4)
-            self.assertEqual(len(reference_rows([core])), 12)
+            self.assertEqual(len(load_cases(domain, policy_basis='published')),
+                             len(load_scenarios(domain)) * len(EMOTIONS))
+            self.assertEqual(len(reference_rows([core])), len(POLICIES) * len(EMOTIONS))
 
     def test_named_policy_discovery_rejects_malformed_documents(self):
         policy = json.loads((ROOT / 'data/telecom/policy_telecom.json').read_text())
@@ -121,10 +143,10 @@ class DatasetTests(unittest.TestCase):
 
     def test_invalid_emotion_and_missing_frame_fail(self):
         with self.assertRaises(ValueError):
-            render_messages(self.core, 'strict', 'fear')
+            render_messages(self.core, 'strict', 'unlisted')
         original = dict(FRAMES)
         try:
-            FRAMES.pop('guilt')
+            FRAMES.pop('sadness')
             with self.assertRaises(ValueError):
                 expand_scenario(self.core)
         finally:
@@ -146,17 +168,17 @@ class DatasetTests(unittest.TestCase):
             raw = json.loads((ROOT / 'data/airlines' / (self.core['scenario_id'] + '.json')).read_text())
             (folder / '_policy.json').write_bytes((ROOT / 'data/airlines/_policy.json').read_bytes())
             (folder / (raw['scenario_id'] + '.json')).write_text(json.dumps(raw))
-            self.assertEqual(len(load_cases(data_root=Path(tmp))), 12)
+            self.assertEqual(len(load_cases(data_root=Path(tmp))), len(POLICIES) * len(EMOTIONS))
             new = copy.deepcopy(raw)
             new['scenario_id'] = 'airline_011'
             (folder / 'airline_011.json').write_text(json.dumps(new))
-            self.assertEqual(len(load_cases(data_root=Path(tmp))), 24)
+            self.assertEqual(len(load_cases(data_root=Path(tmp))), 2 * len(POLICIES) * len(EMOTIONS))
             retail = Path(tmp) / 'retail'
             retail.mkdir()
             new = json.loads((ROOT / 'archive/mock_pilots_before_v08/retail/retail_return_001.json').read_text())
             new['scenario_id'] = 'retail_002'
             (retail / 'retail_002.json').write_text(json.dumps(new))
-            self.assertEqual(len(load_cases(data_root=Path(tmp))), 36)
+            self.assertEqual(len(load_cases(data_root=Path(tmp))), 3 * len(POLICIES) * len(EMOTIONS))
             new['domain'] = 'airlines'
             (retail / 'retail_002.json').write_text(json.dumps(new))
             with self.assertRaises(ValueError):
@@ -189,10 +211,10 @@ class DatasetTests(unittest.TestCase):
         self.assertNotEqual(baseline['messages'], pilot['messages'])
         self.assertEqual(pilot['source_core_scenario_id'], baseline['scenario_id'])
 
-    def test_published_policy_has_four_emotions_and_separate_ids(self):
+    def test_published_policy_has_all_emotions_and_separate_ids(self):
         for core in self.cores:
             published = expand_scenario(core, 'published')
-            self.assertEqual(len(published), 4)
+            self.assertEqual(len(published), len(EMOTIONS))
             self.assertEqual({p['emotion'] for p in published}, set(EMOTIONS))
             self.assertEqual({p['policy_type'] for p in published}, {core['published_policy']['policy_type']})
             self.assertEqual(len({p['facts_sha256'] for p in published}), 1)
@@ -308,7 +330,7 @@ class DatasetTests(unittest.TestCase):
             self.assertGreaterEqual(facts['hours_until_first_departure'], 2)
             self.assertEqual(core['evaluation']['exception_applies'], facts['hours_since_purchase'] <= 24)
             rows = expand_scenario(core)
-            self.assertEqual(len(rows), 12)
+            self.assertEqual(len(rows), len(POLICIES) * len(EMOTIONS))
             self.assertEqual(len({r['facts_sha256'] for r in rows}), 1)
             for reference in core['evaluation']['reference_decisions'].values():
                 self.assertIn('waive_cancellation_fee', reference['forbidden_actions'])
@@ -325,7 +347,8 @@ class DatasetTests(unittest.TestCase):
                                      '--policy-basis', 'published', '--output', tmp], capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual((Path(tmp) / 'reference_labels.jsonl').read_text(), '')
-            self.assertEqual(len((Path(tmp) / 'prompts.jsonl').read_text().splitlines()), len(self.cores) * 4)
+            self.assertEqual(len((Path(tmp) / 'prompts.jsonl').read_text().splitlines()),
+                             len(self.cores) * len(EMOTIONS))
 
     def test_runner_consumes_core_and_shared_loader_without_loading_weights(self):
         for selection in [

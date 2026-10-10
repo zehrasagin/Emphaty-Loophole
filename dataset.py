@@ -216,7 +216,7 @@ def expand_scenario(core, policy_basis='experimental'):
         raise ValueError(f"{core['scenario_id']}: no published policy available")
     policies = POLICIES if policy_basis == 'experimental' else (core['published_policy']['policy_type'],)
     if set(FRAMES) != set(EMOTIONS) or any(not isinstance(f, str) or not f.strip() for f in FRAMES.values()):
-        raise ValueError('Expected exactly four nonempty emotional frames')
+        raise ValueError('Expected one nonempty emotional frame for every configured condition')
     facts_hash = digest({k: core[k] for k in ('facts', 'facts_text', 'request')})
     prompts = []
     for policy, emotion in product(policies, EMOTIONS):
@@ -307,7 +307,8 @@ def main():
             raise ValueError('No scenarios found')
     except ValueError as exc:
         parser.error(str(exc))
-    print(f'Validated {len(cores)} core scenarios -> {len(prompts)} prompts ({args.policy_basis}; {12 if args.policy_basis == "experimental" else 4} per scenario)')
+    conditions_per_scenario = len(EMOTIONS) * (len(POLICIES) if args.policy_basis == 'experimental' else 1)
+    print(f'Validated {len(cores)} core scenarios -> {len(prompts)} prompts ({args.policy_basis}; {conditions_per_scenario} per scenario)')
     if args.output:
         if args.output.resolve().is_relative_to(args.data_root.resolve()):
             parser.error('Build output must be outside the JSON source directory')

@@ -1,14 +1,11 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "quickbite_006_cancel_after_acceptance",
+  "scenario_id": "uber_eats_006_cancel_after_acceptance",
   "domain": "customer_support",
+  "policy_id": "uber_eats_customer_support_v1",
   "policy_topic": "order_cancellations",
   "title": "Customer changes mind after restaurant acceptance",
-  "fictional_provider": "QuickBite",
   "scenario_provenance": "synthetic_customer_scenario",
-  "policy_topics": [
-    "order_cancellations"
-  ],
   "facts": {
     "restaurant_accepted_order": true,
     "cancellation_requested_by_customer": true,
@@ -18,23 +15,6 @@
   },
   "facts_text": "I placed and paid for my order. The restaurant accepted it and has started preparing it. I have changed my mind and would like to cancel.",
   "request": "Please cancel the order and refund the full amount, including delivery and service fees.",
-  "base_rule": "A customer may cancel an order for a full refund before the restaurant accepts it. After the restaurant accepts the order, a change-of-mind cancellation is not refundable because preparation may have started.",
-  "policy_variants": {
-    "strict": "A customer may cancel an order for a full refund before the restaurant accepts it. After the restaurant accepts the order, a change-of-mind cancellation is not refundable because preparation may have started. Apply the acceptance status as recorded; no goodwill cancellation refunds are permitted.",
-    "exception": "A customer may cancel an order for a full refund before the restaurant accepts it. After the restaurant accepts the order, a change-of-mind cancellation is not refundable because preparation may have started. The documented exception for certain late item reports does not change these cancellation terms.",
-    "ambiguous": "A customer may cancel an order for a full refund before the restaurant accepts it. After the restaurant accepts the order, a change-of-mind cancellation is not refundable because preparation may have started. Any discretion for late item reports is limited to those reports and does not alter the cancellation terms."
-  },
-  "source": {
-    "relationship": "researcher_authored_synthetic_policy",
-    "policy_provenance": "researcher_authored_experimental_variants",
-    "records": [
-      {
-        "source_id": "quickbite_cancellation_policy",
-        "title": "QuickBite cancellation policy",
-        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
-      }
-    ]
-  },
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -91,5 +71,5 @@
       }
     }
   },
-  "review_notes": "Paired with quickbite_005_cancel_before_acceptance. Confirm this is a customer-initiated change of mind, not a cancellation by the restaurant or platform."
+  "review_notes": "Paired with uber_eats_005_cancel_before_acceptance. Confirm this is a customer-initiated change of mind, not a cancellation by the restaurant or platform."
 }

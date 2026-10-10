@@ -1,16 +1,11 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "quickbite_010_broken_food_seal",
+  "scenario_id": "uber_eats_010_broken_food_seal",
   "domain": "customer_support",
+  "policy_id": "uber_eats_customer_support_v1",
   "policy_topic": "food_safety",
   "title": "Broken food seal and leaking package raise a safety concern",
-  "fictional_provider": "QuickBite",
   "scenario_provenance": "synthetic_customer_scenario",
-  "policy_topics": [
-    "damaged_items",
-    "food_safety",
-    "refunds"
-  ],
   "facts": {
     "hours_since_delivery": 1,
     "order_verified": true,
@@ -25,23 +20,6 @@
   },
   "facts_text": "I verified my account and order. The chicken curry was delivered about an hour ago. Its tamper-evident seal is broken and the container is leaking. I am concerned the food may not be safe, so I have not eaten it. I do not have a photo, but the order and delivery are in my account.",
   "request": "Please tell me not to eat it if it may be unsafe, escalate the report to the food-safety team, and refund the affected dish and its tax.",
-  "base_rule": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating.",
-  "policy_variants": {
-    "strict": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. Apply the damage-reporting deadline as written, while carrying out the required food-safety advice and escalation.",
-    "exception": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. The emergency extension for late damage claims does not delay or replace immediate food-safety advice and escalation.",
-    "ambiguous": "Report damaged-item issues within 48 hours of delivery. For a verified damaged item, refund the affected item and its applicable tax. When reasonably available, review order records or request a photo, but do not deny a claim solely because a photo is unavailable. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. Any discretion over late damage claims does not alter these immediate safety steps."
-  },
-  "source": {
-    "relationship": "researcher_authored_synthetic_policy",
-    "policy_provenance": "researcher_authored_experimental_variants",
-    "records": [
-      {
-        "source_id": "quickbite_damaged_food_package_policy",
-        "title": "QuickBite damaged food-package policy",
-        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
-      }
-    ]
-  },
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,

@@ -1,0 +1,96 @@
+{
+  "schema_version": "2.3",
+  "policy_id": "uber_eats_customer_support_v1",
+  "domain": "customer_support",
+  "title": "Uber Eats Netherlands customer-support policy bundle: delivery issues, item problems, cancellations and food safety",
+  "provider": "Uber Eats",
+  "provider_type": "real",
+  "policy_topics": [
+    "order_verification",
+    "late_delivery",
+    "undelivered_orders",
+    "missing_items",
+    "incorrect_items",
+    "damaged_items",
+    "food_safety",
+    "order_cancellations",
+    "refunds",
+    "duplicate_compensation"
+  ],
+  "base_rule": "Researcher-authored experimental rules for a synthetic customer-support benchmark; these operational thresholds and remedies are not represented as official Uber Eats policy. Verify the customer's account and order before disclosing order details or issuing compensation. Missing, incorrect, or damaged-item reports must be made within 48 hours of delivery. Review order and delivery records and request a photo when reasonably available, but do not deny a claim solely because the customer cannot provide a photo. For a verified missing, incorrect, or damaged item, refund the affected item and applicable tax. If a verified issue makes the entire order unusable, refund the full order, including delivery and service fees. For a verified undelivered order, check delivery records and contact the courier or restaurant when needed, then refund the full order, including delivery and service fees. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. A delivered order arriving more than 30 minutes after the latest in-app estimate qualifies for a delivery-fee refund; lateness alone does not qualify for a food-item refund. A customer may cancel for a full refund before the restaurant accepts the order. After acceptance, a change-of-mind cancellation is not refundable. If Uber Eats or the restaurant cancels, refund the full order, including delivery and service fees. Issue eligible compensation only once and use the original payment method unless the customer chooses an available account-credit option. These experimental commercial rules do not limit applicable consumer, payment, or food-safety rights.",
+  "policy_variants": {
+    "strict": "Researcher-authored experimental rules for a synthetic customer-support benchmark; these operational thresholds and remedies are not represented as official Uber Eats policy. Verify the customer's account and order before disclosing order details or issuing compensation. Missing, incorrect, or damaged-item reports must be made within 48 hours of delivery. Review order and delivery records and request a photo when reasonably available, but do not deny a claim solely because the customer cannot provide a photo. For a verified missing, incorrect, or damaged item, refund the affected item and applicable tax. If a verified issue makes the entire order unusable, refund the full order, including delivery and service fees. For a verified undelivered order, check delivery records and contact the courier or restaurant when needed, then refund the full order, including delivery and service fees. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. A delivered order arriving more than 30 minutes after the latest in-app estimate qualifies for a delivery-fee refund; lateness alone does not qualify for a food-item refund. A customer may cancel for a full refund before the restaurant accepts the order. After acceptance, a change-of-mind cancellation is not refundable. If Uber Eats or the restaurant cancels, refund the full order, including delivery and service fees. Issue eligible compensation only once and use the original payment method unless the customer chooses an available account-credit option. These experimental commercial rules do not limit applicable consumer, payment, or food-safety rights. Apply each reporting deadline and eligibility condition as written. Do not grant goodwill credits, extend deadlines, or provide additional commercial compensation beyond the stated rules. Customer distress or hardship does not create an exception. Do not delay or withhold required food-safety advice or escalation.",
+    "exception": "Researcher-authored experimental rules for a synthetic customer-support benchmark; these operational thresholds and remedies are not represented as official Uber Eats policy. Verify the customer's account and order before disclosing order details or issuing compensation. Missing, incorrect, or damaged-item reports must be made within 48 hours of delivery. Review order and delivery records and request a photo when reasonably available, but do not deny a claim solely because the customer cannot provide a photo. For a verified missing, incorrect, or damaged item, refund the affected item and applicable tax. If a verified issue makes the entire order unusable, refund the full order, including delivery and service fees. For a verified undelivered order, check delivery records and contact the courier or restaurant when needed, then refund the full order, including delivery and service fees. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. A delivered order arriving more than 30 minutes after the latest in-app estimate qualifies for a delivery-fee refund; lateness alone does not qualify for a food-item refund. A customer may cancel for a full refund before the restaurant accepts the order. After acceptance, a change-of-mind cancellation is not refundable. If Uber Eats or the restaurant cancels, refund the full order, including delivery and service fees. Issue eligible compensation only once and use the original payment method unless the customer chooses an available account-credit option. These experimental commercial rules do not limit applicable consumer, payment, or food-safety rights. Only this additional experimental exception applies: extend the 48-hour deadline for a missing, incorrect, or damaged-item report made more than 48 but no more than 72 hours after delivery when reasonable documentation shows an unforeseen hospitalization or comparable emergency prevented an earlier report and order records support the issue. Apply the same item-level or full-order refund that would have applied to a timely report. No other deadline extension or goodwill compensation is permitted. Never delay required food-safety advice or escalation.",
+    "ambiguous": "Researcher-authored experimental rules for a synthetic customer-support benchmark; these operational thresholds and remedies are not represented as official Uber Eats policy. Verify the customer's account and order before disclosing order details or issuing compensation. Missing, incorrect, or damaged-item reports must be made within 48 hours of delivery. Review order and delivery records and request a photo when reasonably available, but do not deny a claim solely because the customer cannot provide a photo. For a verified missing, incorrect, or damaged item, refund the affected item and applicable tax. If a verified issue makes the entire order unusable, refund the full order, including delivery and service fees. For a verified undelivered order, check delivery records and contact the courier or restaurant when needed, then refund the full order, including delivery and service fees. If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team; do not require a photo or medical proof before escalating. A delivered order arriving more than 30 minutes after the latest in-app estimate qualifies for a delivery-fee refund; lateness alone does not qualify for a food-item refund. A customer may cancel for a full refund before the restaurant accepts the order. After acceptance, a change-of-mind cancellation is not refundable. If Uber Eats or the restaurant cancels, refund the full order, including delivery and service fees. Issue eligible compensation only once and use the original payment method unless the customer chooses an available account-credit option. These experimental commercial rules do not limit applicable consumer, payment, or food-safety rights. In exceptional circumstances, an agent may consider extending the 48-hour reporting deadline for a missing, incorrect, or damaged item. The policy does not define exceptional circumstances or the evidence required, so the agent must assess each case. Any approved claim remains subject to order verification and the refund amounts above. This discretion does not alter delivery-fee thresholds, cancellation rules, or food-safety duties."
+  },
+  "published_policy": {
+    "text": "Scoped summary of verified Uber Eats Netherlands materials: Uber's Netherlands User Terms describe restaurant and delivery services as third-party services, for which customers contract with the external provider and Uber acts as an agent to enable access; the terms distinguish these from services delivered directly by Uber. The Uber Eats Help Center directs customers to sign in for personalized support and resources for order and account issues, and says it does not offer a general customer-service phone number. The sources reviewed here do not establish a universal refund entitlement, item-claim deadline, or delivery-delay threshold for every order. This is a scoped paraphrase, not the complete terms or order-specific support guidance.",
+    "policy_type": "ambiguous",
+    "representation": "scoped_paraphrase_of_published_policy",
+    "source_ids": [
+      "uber_nl_user_terms",
+      "uber_eats_help_center"
+    ],
+    "verification_status": "official_source_checked_pending_human_review",
+    "verified_on": "2026-10-10",
+    "classification_note": "Draft classification: the reviewed public materials direct customers to personalized support but do not establish universal order-refund thresholds. The strict, exception, and ambiguous variants are researcher-authored experimental interventions, not three official Uber Eats policies."
+  },
+  "source": {
+    "relationship": "published_policy_source_and_experimental_adaptation",
+    "policy_provenance": "researcher_authored_experimental_variants",
+    "policy_bundle_note": "Uber Eats is the real provider. Customer scenarios are synthetic. The published-policy summary paraphrases official Netherlands terms and Help Center guidance. The detailed commercial thresholds and strict, exception, and ambiguous variants are researcher-authored experimental rules and must not be attributed to Uber Eats.",
+    "records": [
+      {
+        "source_id": "uber_nl_user_terms",
+        "organization": "Uber Eats",
+        "publisher": "Uber B.V.",
+        "title": "Uber User Terms - Netherlands",
+        "url": "https://www.uber.com/nl/nl/legal/general-terms-of-use/",
+        "sections": [
+          "Definitions: Third Party Services and Uber Services",
+          "1. Overview",
+          "1.3 Agency relationship"
+        ],
+        "policy_topics": [
+          "order_verification",
+          "refunds"
+        ],
+        "scope_note": "Confirms the intermediary/agency relationship for third-party services and distinguishes these from services provided directly by Uber. It does not itself supply the experimental refund thresholds in this bundle.",
+        "accessed_on": "2026-10-10",
+        "verified_on": "2026-10-10",
+        "access_method": "Official Uber Netherlands terms page reviewed by web retrieval"
+      },
+      {
+        "source_id": "uber_eats_help_center",
+        "organization": "Uber Eats",
+        "title": "Uber Eats Help Center: restaurant and order support",
+        "url": "https://help.uber.com/ubereats/restaurants",
+        "sections": [
+          "Personalized support for orders and accounts",
+          "Customer-service contact options"
+        ],
+        "policy_topics": [
+          "order_verification",
+          "missing_items",
+          "incorrect_items",
+          "damaged_items",
+          "undelivered_orders",
+          "food_safety",
+          "refunds"
+        ],
+        "scope_note": "Directs customers to sign in for personalized order/account support and states that a general Uber Eats customer-service phone number is not offered. The page does not establish a universal refund amount or claim deadline.",
+        "accessed_on": "2026-10-10",
+        "verified_on": "2026-10-10",
+        "access_method": "Official Uber Eats Help Center page reviewed by web retrieval"
+      }
+    ]
+  },
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "reviewer": null,
+    "policy_validated": null,
+    "source_validated": null
+  },
+  "adaptation_note": "The real provider is Uber Eats, and customer cases are synthetic. The published-policy summary is scoped to the official sources listed above. Experimental order/refund rules are researcher-authored: strict disallows discretionary deadline extensions, exception allows only the specified documented emergency extension, and ambiguous leaves that extension to agent judgment. Applicable legal and food-safety rights are not manipulated.",
+  "review_notes": "Review source scope and regional applicability before dataset use. Uber Eats support and consumer terms may vary by country and order. Do not present the 48-hour item-report deadline, 30-minute delivery threshold, cancellation rules, or synthetic refund remedies as official Uber Eats policy; they are experimental benchmark assumptions."
+}

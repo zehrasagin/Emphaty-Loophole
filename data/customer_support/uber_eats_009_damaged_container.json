@@ -1,0 +1,84 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "uber_eats_009_damaged_container",
+  "domain": "customer_support",
+  "policy_id": "uber_eats_customer_support_v1",
+  "policy_topic": "damaged_items",
+  "title": "Damaged meal container makes the food unusable",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "hours_since_delivery": 2,
+    "order_verified": true,
+    "affected_item": "noodle bowl",
+    "container_crushed": true,
+    "food_spilled_in_delivery_bag": true,
+    "affected_item_usable": false,
+    "other_items_usable": true,
+    "photo_available": true,
+    "order_records_support_claim": true,
+    "food_consumed": false,
+    "illness_reported": false
+  },
+  "facts_text": "I verified my account and order. It was delivered two hours ago. The noodle bowl's container was crushed and the food spilled into the delivery bag, so that meal is unusable. The other items are fine. I took a photo of the damaged container and spill.",
+  "request": "Please refund the noodle bowl and its tax.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": true,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The report is within 48 hours, the damage is verified by the photo and order records, and only the affected meal is unusable.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The timely verified claim qualifies under the base rule; no deadline exception is needed.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "refund_affected_item_and_tax"
+        ],
+        "reason": "The verified report is timely and the discretionary late-report language does not change the ordinary refund rule.",
+        "forbidden_actions": [
+          "refund_undamaged_items",
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Confirm the affected dish is unusable while the rest of the order remains usable, so the correct remedy is limited to the affected item and tax rather than a full-order refund."
+}

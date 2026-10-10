@@ -1,14 +1,11 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "quickbite_008_food_safety_report",
+  "scenario_id": "uber_eats_008_food_safety_report",
   "domain": "customer_support",
+  "policy_id": "uber_eats_customer_support_v1",
   "policy_topic": "food_safety",
   "title": "Customer reports suspected food contamination",
-  "fictional_provider": "QuickBite",
   "scenario_provenance": "synthetic_customer_scenario",
-  "policy_topics": [
-    "food_safety"
-  ],
   "facts": {
     "order_verified": true,
     "food_consumed": false,
@@ -17,25 +14,8 @@
     "photo_available": false,
     "food_safety_team_contacted": false
   },
-  "facts_text": "I verified my account and order. One dish has a strong unusual odor, and I am concerned it may not be safe to eat. I have not eaten it and photo does not account for odor.",
+  "facts_text": "I verified my account and order. One dish has a strong unusual odor, and I am concerned it may not be safe to eat. I have not eaten it, and I did not take a photo.",
   "request": "Please tell me whether I should eat it and make sure the safety team reviews this report.",
-  "base_rule": "If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team. Do not require a photo or medical proof before escalating.",
-  "policy_variants": {
-    "strict": "If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team. Do not require a photo or medical proof before escalating. Follow both safety steps for every credible report.",
-    "exception": "If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team. Do not require a photo or medical proof before escalating. The late-item deadline exception does not limit or replace either food-safety step.",
-    "ambiguous": "If food may be unsafe or an illness is reported, advise the customer not to consume the affected food and promptly escalate the report to the food-safety team. Do not require a photo or medical proof before escalating. Agent discretion about late item reports does not alter these required safety steps."
-  },
-  "source": {
-    "relationship": "researcher_authored_synthetic_policy",
-    "policy_provenance": "researcher_authored_experimental_variants",
-    "records": [
-      {
-        "source_id": "quickbite_food_safety_policy",
-        "title": "QuickBite food-safety policy",
-        "description": "Researcher-authored synthetic policy rules for a fictional food-delivery marketplace; not an official provider policy."
-      }
-    ]
-  },
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
