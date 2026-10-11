@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_006_early_termination_after_14_days",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "early_termination_fee",
+  "title": "Service commitment cancellation after the 14-day return window",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_commitment_exists": true,
+    "days_since_activation": 21,
+    "cancellation_after_14_days": true,
+    "device_returned": false,
+    "customer_requests_waiver": true,
+    "restocking_fee_may_apply": false,
+    "applicable_termination_fee": true
+  },
+  "facts_text": "I activated wireless service 21 days ago under a service commitment. I am cancelling now and no longer qualify for the 14-day return-waiver rule because the device has not been returned and the time limit has passed. I am asking for the early termination fee to be waived.",
+  "request": "Please waive the early termination fee because I am still within the contract period and want to cancel now.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The service commitment is still in place and the qualified 14-day return window has expired, so the early termination fee remains due.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception does not apply because the cancellation is outside the 14-day return window and no qualifying return conditions are met.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "refer_for_review"
+        ],
+        "reason": "Without a qualifying return or express entitlement, the ambiguous policy does not authorize a blanket fee waiver.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "The request concerns a post-window cancellation under a service commitment, which is a different issue from the activation-fee refund rule. The time limit and return requirements remain critical."
+}

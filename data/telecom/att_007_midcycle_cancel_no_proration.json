@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_007_midcycle_cancel_no_proration",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "usage_billing",
+  "title": "Mid-cycle cancellation without monthly charge refund or proration",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_billed_monthly_in_advance": true,
+    "cancellation_date": "2026-10-15",
+    "billing_period_end_date": "2026-10-31",
+    "monthly_wireless_service_charges_paid": true,
+    "customer_requests_partial_refund": true,
+    "proration_allowed": false,
+    "new_service_not_started": false
+  },
+  "facts_text": "I am cancelling my wireless service on 15 October, halfway through my monthly billing cycle. My service charges are billed monthly in advance. I am asking whether the remaining monthly service charges will be refunded or prorated.",
+  "request": "Please refund the unused portion of my monthly service charge because I cancelled before the end of the billing period.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "Monthly wireless service charges are not refunded or prorated if service is cancelled before the end of the billing period.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception clause does not authorize prorating or refunding monthly service charges in a mid-cycle cancellation.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "explain_non_proration_policy"
+        ],
+        "reason": "The billed-in-advance structure and non-proration rule are clear; ambiguity does not create a refund entitlement.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This is a billing-cycle rule, not a rate-plan or service-commitment issue. The policy says monthly fees are non-refundable and not prorated when a customer cancels mid-cycle."
+}

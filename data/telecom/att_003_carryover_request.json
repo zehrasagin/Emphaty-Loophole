@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_003_carryover_request",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "data_allowance",
+  "title": "Request to carry unused data into the next billing cycle",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "monthly_data_allowance_gb": 20,
+    "used_data_gb": 8,
+    "unused_data_gb": 12,
+    "plan_allows_carryover": false,
+    "plan_terms_verified": true,
+    "billing_cycle_renewal_in_1_day": true,
+    "customer_requests_rollover": true
+  },
+  "facts_text": "My AT&T plan includes 20 GB of monthly data. I have used only 8 GB, leaving 12 GB unused. My verified rate plan states that unused service allowances do not carry over to another billing cycle unless the plan expressly says otherwise. The cycle resets tomorrow.",
+  "request": "Can you carry forward my unused 12 GB into next month so I do not lose it?",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "Unused allowance does not roll over unless the rate plan expressly says otherwise, and the verified plan says it does not.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception clause does not provide an allowance-carryover waiver absent an express plan term.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "request_plan_verification"
+        ],
+        "reason": "The plan specifics are supplied and the carryover term is clear; ambiguity does not create a free carryover entitlement.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "The key fact is the express plan language: no carryover unless stated. This is a billing-cycle and data-allowance issue, not a cancellation or refund issue."
+}

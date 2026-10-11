@@ -1,0 +1,77 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_010_service_change_no_exception",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "service_changes",
+  "title": "Request to change service without paying applicable service fees or obligations",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_change_requested": true,
+    "change_implies_service_commitment_or_fee": true,
+    "customer_requests_fee_waiver": true,
+    "existing_service_terms_verified": true,
+    "applicable_fee_or_obligation_exists": true,
+    "express_waiver_allowed": false
+  },
+  "facts_text": "I want to change my wireless service, but I am asking that the applicable service commitment, fees, or other obligations be waived. My current service terms are verified and they do not state an express waiver for this change.",
+  "request": "Please change my service without paying the applicable fees or completing the service commitment that applies to this change.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "Service changes remain subject to outstanding balances, applicable fees, and any service commitment. No express waiver is stated.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception clause permits only a documented exception expressly allowed by the agreement, not a broad fee or commitment waiver.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "refer_for_review"
+        ],
+        "reason": "Service changes are subject to mandatory obligations and any applicable commitment; the ambiguous variant does not permit a general exception without an express authorized basis.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This is a service-change request in the general telecom policy. The rules are clear: outstanding balances, fees and service commitments remain generally enforceable absent an express authorized exception."
+}

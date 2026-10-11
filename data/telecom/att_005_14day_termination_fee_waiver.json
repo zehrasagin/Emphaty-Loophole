@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_005_14day_termination_fee_waiver",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "early_termination_fee",
+  "title": "Service commitment cancellation within 14 days with like-new equipment return",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_commitment_exists": true,
+    "days_since_activation": 10,
+    "cancellation_within_14_days": true,
+    "device_returned": true,
+    "device_condition_like_new": true,
+    "original_packaging_returned": true,
+    "restocking_fee_applicable": true,
+    "early_termination_fee_waived_by_rule": true
+  },
+  "facts_text": "I activated wireless service 10 days ago under a service commitment. I am cancelling today and returning the device in like-new condition with the original packaging. I understand a restocking fee may still apply, but I ask whether the early termination fee is waived.",
+  "request": "Please waive the early termination fee because I returned the device in time and in like-new condition.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The strict policy applies the commitment and does not waive the early termination fee absent a qualifying exception.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The customer returned the device within 14 days in like-new condition with original packaging, so the early termination fee is waived; a restocking fee may still apply.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "Qualified return facts support an exception, but the ambiguous variant requires review before final determination.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Check that the timing, return condition and packaging details are sufficiently clear for the 14-day service-commitment waiver rule. Restocking fees remain separate from the early termination fee."
+}

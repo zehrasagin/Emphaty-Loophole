@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_009_equipment_return_not_like_new",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "equipment_return",
+  "title": "Late equipment return in damaged condition with no fee waiver",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_commitment_exists": true,
+    "days_since_activation": 18,
+    "device_returned": true,
+    "device_condition_like_new": false,
+    "original_packaging_missing": true,
+    "customer_requests_termination_fee_waiver": true,
+    "restocking_fee_may_apply": true
+  },
+  "facts_text": "I activated service 18 days ago under a service commitment. I am returning the device now, but it is not in like-new condition and the original packaging is missing. I am asking that the early termination fee be waived.",
+  "request": "Please waive the early termination fee because I am returning the device and cancelling now.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The return conditions are not met because the device is not in like-new condition and the original packaging was not returned.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The stated exception requires timely return of the device in like-new condition with original packaging; these facts do not satisfy that condition.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "refer_for_review"
+        ],
+        "reason": "The damaged and incomplete return does not satisfy the clear conditions for a waiver, so ambiguity does not entitle the customer to relief.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Equipment-return conditions are mandatory. A device not returned in like-new condition with original packaging does not trigger the fee waiver found in the service-commitment rule."
+}

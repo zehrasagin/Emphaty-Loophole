@@ -1,0 +1,79 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_002_data_overage_charge",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "data_overage",
+  "title": "Usage above plan allowance is assessed under the applicable rate plan",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "monthly_data_allowance_gb": 15,
+    "used_data_gb": 18,
+    "usage_record_correct": true,
+    "overage_applies": true,
+    "plan_overage_terms_verified": true,
+    "requested_extra_data": 3,
+    "customer_requests_waiver": true,
+    "waiver_authorized": false
+  },
+  "facts_text": "My plan includes 15 GB of monthly data. I have used 18 GB and the usage record is correct. My plan allows overage charges, and those terms are verified. I am asking whether the extra 3 GB can be waived because I am still within the same billing cycle.",
+  "request": "Can you remove the data overage charges for the extra 3 GB this month?",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The rate plan provides a monthly data allowance and overage charges above that allowance. No express waiver entitlement is stated.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception clause permits only documented exceptions expressly allowed by the agreement; no data-overage waiver is stated here.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "offer_chargeable_data_options"
+        ],
+        "reason": "The plan-specific overage terms are clear; the ambiguous variant does not authorize a general fee waiver without a verified entitlement.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "Check that the overage terms, plan verification and no-waiver language align with the supplied policy. The request is about a plan-based charge, not a cancellation or equipment-return issue."
+}

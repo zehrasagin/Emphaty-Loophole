@@ -1,0 +1,77 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_008_unauthorized_access_charges",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "account_security",
+  "title": "Charges made by a user who gained access to the service or equipment",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "account_access_controlled_by_customer": true,
+    "unauthorized_user_gained_access": true,
+    "charges_incurred_by_third_party": true,
+    "customer_requests_charge_dispute": true,
+    "service_terms_verified": true,
+    "security_issue_not_resolved": true
+  },
+  "facts_text": "A person who was not authorized to use my service gained access to the account or equipment and incurred charges. I am asking whether those charges should be disputed and waived.",
+  "request": "Please remove the charges made by the unauthorized user from my account.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": false,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The account terms state that customers must pay charges incurred on their account, including charges made by users who gain access to the service or equipment.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The exception clause allows only documented, express authorized exceptions; account-access charges are not automatically waived.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action",
+          "refer_for_security_review"
+        ],
+        "reason": "The terms impose responsibility for charges incurred on the account; ambiguity does not erase that obligation without a verified, authorized exception.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This scenario addresses account-security and billing responsibility. Authenticated account security issues may warrant separate investigation, but the policy itself places responsibility on the customer for charges incurred by users who gain access."
+}

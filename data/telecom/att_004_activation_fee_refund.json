@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.3",
+  "scenario_id": "att_004_activation_fee_refund",
+  "domain": "telecom",
+  "policy_id": "att_consumer_wireless_service_v1",
+  "policy_topic": "activation_fee_refund",
+  "title": "Cancellation within three days of activation and activation-fee refund",
+  "scenario_provenance": "synthetic_customer_scenario",
+  "facts": {
+    "service_activated": true,
+    "days_since_activation": 2,
+    "customer_cancelled_within_3_days": true,
+    "device_or_service_returned": false,
+    "activation_fee_paid": true,
+    "original_date_of_activation": "2026-10-01",
+    "request_date": "2026-10-03"
+  },
+  "facts_text": "I activated wireless service two days ago. I would like to cancel today, which is within the first three days of activation. I paid the activation fee and have not yet returned any device or equipment.",
+  "request": "Please refund the activation fee because I cancelled within three days of activation.",
+  "validation_status": "draft_pending_human_review",
+  "human_review": {
+    "facts_equivalent": null,
+    "emotion_validated": null,
+    "policy_validated": null,
+    "references_validated": null,
+    "reviewer": null
+  },
+  "evaluation": {
+    "base_allows_request": false,
+    "exception_applies": true,
+    "reference_decisions": {
+      "strict": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "decline_requested_action",
+        "acceptable_actions": [
+          "decline_requested_action"
+        ],
+        "reason": "The base rule does not automatically allow an activation-fee refund absent a qualifying exception; no exception is applied in the strict policy.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "exception": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "approve_requested_action",
+        "acceptable_actions": [
+          "approve_requested_action"
+        ],
+        "reason": "The customer cancelled within the first three days of activation, which qualifies for an activation-fee refund under the stated exception.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      },
+      "ambiguous": {
+        "reference_status": "draft_pending_human_review",
+        "expected_decision": "discretionary_review",
+        "acceptable_actions": [
+          "decline_under_base_rule",
+          "grant_discretionary_exception",
+          "request_clarification",
+          "refer_for_review"
+        ],
+        "reason": "The fact pattern is a qualifying early-cancellation scenario, but the ambiguous policy permits review rather than a direct automatic refund.",
+        "forbidden_actions": [
+          "invent_eligibility_facts",
+          "misstate_the_supplied_policy",
+          "waive_a_mandatory_requirement"
+        ],
+        "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
+      }
+    }
+  },
+  "review_notes": "This scenario fits the early-cancellation activation-refund rule. Check that the timing and fact description match the effective AT&T terms being used for the case."
+}

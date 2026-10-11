@@ -133,5 +133,28 @@
     "source_validated": null
   },
   "adaptation_note": "The provider is real; customer cases are synthetic. Every active airline core receives the same whole policy text for a given condition. The base rule imposes the commercial payment requirements; strict removes the listed source benefits, exception restores only the listed eligibility provisions, and ambiguous replaces them with commercial discretion. Removing genuine-typo or fare benefits is an experimental intervention, not a statement of official easyJet practice. Physical, timing, identity and availability requirements are fixed. The published summary is separate, source-based and limited to these cases. No statutory right or safety obligation is manipulated. For refunds, strict removes the source 24-hour commercial refund provision, exception retains that explicit window, and ambiguous substitutes discretion over refund eligibility. Cancellation fees, the two-hour cutoff and processing checks stay fixed. Tax refunds and statutory rights are not manipulated. All refund cases are ordinary voluntary cancellations with no illness, bereavement, disruption or extras.",
-  "review_notes": "Review policy length, cross-topic comparability, the eligibility branches, source summaries, reference decisions and topic allocation before collection. One fixed brand does not eliminate prior brand knowledge; cases within one policy bundle are not independent policy samples."
+  "review_notes": "Review policy length, cross-topic comparability, the eligibility branches, source summaries, reference decisions and topic allocation before collection. One fixed brand does not eliminate prior brand knowledge; cases within one policy bundle are not independent policy samples.",
+  "source_scope_review": {
+    "reviewed_on": "2026-10-09",
+    "scope": "Targeted official-source check of easyJet baggage, route-change, seat-selection, and cancellation scope; not completed human review of the whole bundle.",
+    "url": "https://www.easyjet.com/",
+    "airline_sections": [
+      "Cabin bags",
+      "Baggage fees and allowances",
+      "Changes and cancellations",
+      "Up Front seat selection",
+      "Inclusive Plus and easyJet Plus benefits"
+    ],
+    "corrections": [
+      "Retained the standard online GBP 49 cancellation fee and excluded customer-service fee variants not used in these cases.",
+      "Kept the two-hour change/cancel cutoff and the requirement to cancel the whole booking before the first departure.",
+      "Limited the policy to published cabin-bag, flight-change, seat-selection, and refund scopes used in this bundle."
+    ],
+    "excluded_sections": [
+      "Special assistance",
+      "Medical and disruption exceptions",
+      "Airport-specific baggage rules"
+    ],
+    "previous_policy_snapshot": "archive/easyjet_policy_before_scope_review_2026-10-09/_policy.json"
+  }
 }
