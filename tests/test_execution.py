@@ -2,12 +2,14 @@
 import json
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from dataset import load_cases
 from run_pilot import read_source, run_case
+from result_io import result_filename
 
 
 class ExecutionTests(unittest.TestCase):
@@ -33,7 +35,8 @@ class ExecutionTests(unittest.TestCase):
             modules = {'mlx': SimpleNamespace(core=mx), 'mlx.core': mx,
                        'mlx_lm': SimpleNamespace(stream_generate=generate), 'mlx_lm.sample_utils': samples}
             with self.subTest(kind=kind, finish=finish), tempfile.TemporaryDirectory() as tmp:
-                with patch.dict('sys.modules', modules), patch('run_pilot.version', return_value='test'):
+                with patch.dict('sys.modules', modules), patch('run_pilot.version', return_value='test'), \
+                        patch('result_io.ALL_TRIALS_PATH', Path(tmp) / 'all_trials.json'):
                     result = run_case(case, {**source, 'model_type': kind}, Path(tmp), model, tokenizer,
                                       source['generation_settings'])
                 saved = json.loads((Path(tmp) / 'result.json').read_text())
@@ -44,6 +47,19 @@ class ExecutionTests(unittest.TestCase):
                 self.assertTrue(result['run_id'])
                 self.assertTrue(result['trial_id'])
                 self.assertEqual(result['model_revision'], source['revision'])
+                self.assertEqual(saved['result_schema_version'], '1.0')
+                self.assertEqual(saved['timestamp_utc'], saved['started_at'])
+                started = datetime.fromisoformat(saved['started_at'])
+                finished = datetime.fromisoformat(saved['finished_at'])
+                self.assertEqual(started.utcoffset(), timezone.utc.utcoffset(started))
+                self.assertEqual(finished.utcoffset(), timezone.utc.utcoffset(finished))
+                self.assertGreaterEqual(finished, started)
+                self.assertEqual(json.loads((Path(tmp) / result_filename(saved)).read_text()), saved)
+                self.assertEqual(len(list(Path(tmp).glob('result_*.json'))), 1)
+                collection = json.loads((Path(tmp) / 'all_trials.json').read_text())
+                self.assertEqual(collection['trial_count'], 1)
+                self.assertEqual(collection['trials'], [saved])
+                self.assertIn(started.strftime('%Y%m%dT%H%M%S%fZ'), result_filename(saved))
                 self.assertNotIn('expected_decision', str(result['effective_messages']))
                 if finish in ('error', 'length'):
                     self.assertIsNone(result['final_answer'])

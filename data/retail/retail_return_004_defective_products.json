@@ -1,15 +1,16 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_003_product_condition",
+  "scenario_id": "retail_return_004_defective_products",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "product_condition",
-  "title": "Amazon.nl: used but functional item with condition-based deduction",
+  "policy_topic": "defective_products",
+  "title": "Amazon.nl: documented defect with intermittent failure",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 18,
-    "item": "portable Bluetooth speaker",
-    "defective": false,
+    "days_since_receipt": 12,
+    "item": "USB-C charging cable",
+    "defective": true,
+    "defect_type": "intermittent connection",
     "incorrect_or_damaged": false,
     "receipt_available": true,
     "unused": false,
@@ -17,14 +18,12 @@
     "customised": false,
     "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "visible_wear": true,
-    "used_days": 8,
-    "original_price_eur": 65.00,
-    "deduction_eur": 19.50,
-    "expected_refund_eur": 45.50
+    "defect_documented": true,
+    "defect_reproducible": true,
+    "refund_amount_eur": 24.99
   },
-  "facts_text": "I received a portable Bluetooth speaker from Amazon.nl 18 days ago. I used it for 8 days and it works fine, but it has slight scratches and is not in perfect resale condition. It is complete and within the 30-day return window. I am requesting a partial refund to reflect that it has been used.",
-  "request": "Please accept my return and refund EUR 45.50, reflecting a reasonable deduction for wear and use.",
+  "facts_text": "I received a USB-C charging cable from Amazon.nl 12 days ago. It is defective: the connection intermittently fails and the cable only works if I wiggle it. This is a documented and reproducible defect, and the cable is otherwise complete.",
+  "request": "Please accept this return and refund EUR 24.99 because the item is defective and not fit for its intended purpose.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -43,11 +42,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The item is within the return window and can be returned subject to reasonable condition-based deduction for use and wear.",
+        "reason": "Defective products qualify for refund when the defect is documented and the item is unsatisfactory for its intended purpose.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "refuse_condition_assessment"
+          "deny_defect_claim"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -57,11 +56,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The item is functional and still eligible for return, but normal wear justifies a proportionate partial refund.",
+        "reason": "This is a documented, reproducible defect and therefore falls within product-defect rights rather than voluntary-change-of-mind grounds.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "refuse_condition_assessment"
+          "deny_defect_claim"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -70,18 +69,18 @@
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
           "approve_requested_action",
-          "grant_discretionary_exception",
+          "offer_repair_or_replacement",
           "request_clarification"
         ],
-        "reason": "Condition-based deductions are permissible; discretion applies to the amount of the reduction for wear and use.",
+        "reason": "A clear defect exists, but discretion may apply to whether repair or replacement is preferred over immediate refund.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "refuse_condition_assessment"
+          "deny_defect_claim"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "This tests whether customer-initiated return is still permitted when the product is functional but has been used and shows ordinary wear."
+  "review_notes": "This tests defective-product rights in a documented defect scenario where the purchase has been used but the defect makes the item unsuitable."
 }

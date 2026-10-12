@@ -8,6 +8,7 @@ from chat_backend import CHAT_ROOT, ChatEngine, model_ready, new_session, save_s
 from dataset import DOMAIN_LABELS, EMOTIONS, POLICIES, POLICY_LABELS, load_cases, load_scenarios
 from prompting import EMOTION_LABELS
 from run_pilot import read_models
+from result_io import read_trial_collection, result_filename, result_json
 
 ROOT = Path(__file__).resolve().parent
 try:
@@ -33,7 +34,7 @@ def engine():
     return ChatEngine()
 
 
-def show_turn(turn):
+def show_turn(turn, index):
     with st.chat_message('user'):
         st.write(turn['user'])
     r = turn['result']
@@ -53,6 +54,13 @@ def show_turn(turn):
         with st.expander('Response details'):
             st.caption(f"Status: {r['status']} · Parse: {r.get('parse_status', 'unavailable')} · Finish: {r.get('finish_reason', 'unavailable')}")
             st.text(r.get('raw_output', 'No output was generated.'))
+        with st.expander('Trial record · JSON'):
+            st.json(r, expanded=False)
+        st.download_button('Download trial · JSON', result_json(r),
+                           file_name=result_filename(r), mime='application/json',
+                           key=f"trial_json_{st.session_state.conversation['session_id']}_{index}")
+        if r.get('timestamp_utc'):
+            st.caption(f"Trial started (UTC): {r['timestamp_utc']}")
 
 
 with st.sidebar:
@@ -174,6 +182,16 @@ with st.expander('Scenario and policy', expanded=not session['turns']):
 
 with st.sidebar:
     st.divider()
+    try:
+        collection = read_trial_collection()
+    except (OSError, ValueError) as exc:
+        st.error(f'Trial collection could not be read: {exc}')
+    else:
+        if collection['trial_count']:
+            st.download_button('Download all trials · JSON', result_json(collection),
+                               file_name='all_trials.json', mime='application/json')
+        st.caption(f"All trials: {collection['trial_count']} · Across sessions, scenarios and models. "
+                   'Includes incomplete and failed trials. Saved to results/all_trials.json.')
     st.caption('Changing domain, airline, policy basis, scenario, policy, emotion, model or mode starts a fresh conversation. All UI sessions are saved separately from runner results.')
     if session['turns']:
         st.download_button('Download conversation · JSON', json.dumps(session, indent=2, ensure_ascii=False),
@@ -182,8 +200,8 @@ with st.sidebar:
                            file_name=f"{session['session_id']}.md", mime='text/markdown')
         st.caption(f"Saved to results/chat_sessions/{session['session_id']}/")
 
-for turn in session['turns']:
-    show_turn(turn)
+for index, turn in enumerate(session['turns'], 1):
+    show_turn(turn, index)
 
 starter = False
 retry = False

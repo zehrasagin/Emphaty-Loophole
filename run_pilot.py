@@ -2,7 +2,6 @@
 import argparse
 import json
 import math
-import platform
 import re
 import time
 import uuid
@@ -12,6 +11,7 @@ from pathlib import Path
 
 from trace_parser import parse_output
 from prompting import effective_messages
+from result_io import new_result_record, save_result_record, utc_timestamp
 from dataset import (DATA, DOMAIN_LABELS, EMOTIONS, POLICIES, POLICY_BASES,
                      condition_id, digest, expand_scenario, load_cases, load_scenario)
 
@@ -56,22 +56,9 @@ def run_case(case, source, run_dir, model, tokenizer, settings, context_limit=No
     run_dir.mkdir(parents=True, exist_ok=True)
     if (run_dir / 'raw_output.txt').exists() or (run_dir / 'result.json').exists():
         raise FileExistsError(f'{run_dir}: existing trial output; use a fresh directory')
-    record = {
-        **case, "model": source, "model_family": source.get("model_family", "qwen"),
-        "model_type": source.get("model_type", "standard"),
-        "model_id": source['model_id'], "model_revision": source.get('revision'),
-        "run_id": case.get('run_id', run_dir.name),
-        "trial_id": case.get('trial_id', uuid.uuid4().hex),
-        "purpose": case.get("purpose", "infrastructure_smoke_test"), "generation_settings": settings,
-        "backend": "mlx-lm",
-        "platform": platform.platform(), "status": "started",
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "raw_output": "", "reasoning_trace": None, "final_answer": None,
-        "trace_available": False, "trace_complete": False, "parse_status": "not_started",
-        "finish_reason": "not_started", "truncated": False,
-    }
+    record = new_result_record(case, source, settings, run_dir.name)
     def save():
-        (run_dir / "result.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n")
+        save_result_record(record, run_dir)
     save()
     print(f"Results: {run_dir}", flush=True)
     started = time.perf_counter()
@@ -137,6 +124,7 @@ def run_case(case, source, run_dir, model, tokenizer, settings, context_limit=No
         print(f"\nError: {record['error']}", flush=True)
     finally:
         record["elapsed_seconds"] = round(time.perf_counter() - started, 2)
+        record['finished_at'] = utc_timestamp()
         save()
     return record
 
@@ -262,7 +250,8 @@ def main():
     selection_hash = digest(cases)
     for case in cases:
         case.update(run_id=batch_dir.name, trial_id=uuid.uuid4().hex)
-    manifest = {'run_id': batch_dir.name, 'dataset': f'empathy_loophole_{args.policy_basis}',
+    manifest = {'run_id': batch_dir.name, 'created_at': utc_timestamp(),
+                'dataset': f'empathy_loophole_{args.policy_basis}',
                 'policy_basis': args.policy_basis, 'model': source, 'generation_settings': settings,
                 'prompt_count': len(cases), 'selection_sha256': selection_hash,
                 'trials': [{'trial_id': c['trial_id'], 'prompt_id':c['prompt_id'], 'prompt_sha256':c['prompt_sha256'],
@@ -277,6 +266,7 @@ def main():
     except Exception as exc:
         (batch_dir / "load_error.json").write_text(json.dumps({
             "status": "error", "stage": "model_load", "model": source,
+            "run_id": batch_dir.name, "timestamp_utc": utc_timestamp(),
             "error": f"{type(exc).__name__}: {exc}",
         }, indent=2) + "\n")
         raise

@@ -1,28 +1,29 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_008_hygiene_exclusions",
+  "scenario_id": "retail_return_009_return_fees",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "hygiene_exclusions",
-  "title": "Amazon.nl: opened hygiene product return rejected",
+  "policy_topic": "return_fees",
+  "title": "Amazon.nl: return shipping cost borne by customer",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 5,
-    "item": "replacement toothbrush heads",
-    "item_category": "hygiene_product",
+    "days_since_receipt": 10,
+    "item": "laptop stand",
     "defective": false,
     "incorrect_or_damaged": false,
     "receipt_available": true,
     "unused": true,
     "complete": true,
     "customised": false,
-    "excluded_product_category": true,
-    "hygiene_exclusion_applies": true,
+    "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "refund_amount_eur": 19.99
+    "statutory_withdrawal_used": true,
+    "original_price_eur": 79.99,
+    "estimated_return_shipping_cost_eur": 12.50,
+    "refund_amount_eur": 79.99
   },
-  "facts_text": "I received a pack of replacement toothbrush heads from Amazon.nl five days ago. The pack was opened to inspect the product, and I have since decided I no longer need them. The items themselves are unused, but hygiene products are excluded from return once opened or used.",
-  "request": "Please process a refund of EUR 19.99 for the unused toothbrush heads, even though the pack has been opened.",
+  "facts_text": "I bought a laptop stand from Amazon.nl 10 days ago. I am within the 14-day statutory withdrawal period and wish to exercise my right to cancel. The item is unused and complete. I understand that, unless a special free-return condition applies, I am responsible for the return-shipping cost of EUR 12.50.",
+  "request": "Please process a statutory withdrawal and refund EUR 79.99, even though I understand that I will cover the return-shipping cost.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -32,34 +33,34 @@
     "reviewer": null
   },
   "evaluation": {
-    "base_allows_request": false,
+    "base_allows_request": true,
     "exception_applies": false,
     "reference_decisions": {
       "strict": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "The hygiene-exclusion rule applies once the product has been opened and is therefore not eligible for return.",
+        "reason": "The withdrawal right is available and the product refund is due. Return-shipping cost is not a basis to deny the statutory refund.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_hygiene_exclusion"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
       "exception": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "The hygiene exemption is triggered by opened product packaging; the item cannot be returned once opened.",
+        "reason": "The statutory withdrawal right applies, and the customer bears return shipping unless a special free-return rule applies. The refund itself is still due.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_hygiene_exclusion"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -67,19 +68,18 @@
         "reference_status": "draft_pending_human_review",
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
-          "decline_under_base_rule",
-          "grant_discretionary_exception",
+          "approve_requested_action",
           "request_clarification"
         ],
-        "reason": "The exclusion is clear, though discretion may apply to whether a minor opening for inspection counts as the threshold condition.",
+        "reason": "The customer right is clear, but discretionary review may be needed to confirm whether a special free-return exception or shipping condition applies.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_hygiene_exclusion"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "Hygiene products are specifically excluded from cancellation once opened. This case checks whether functional but unopened products are still excluded."
+  "review_notes": "This tests the allocation of return costs. The right to withdraw is valid, but the customer may still bear the return-shipping cost unless policy coverage applies."
 }

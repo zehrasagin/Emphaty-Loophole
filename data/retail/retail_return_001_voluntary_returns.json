@@ -1,26 +1,26 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_010_digital_products",
+  "scenario_id": "retail_return_001_voluntary_returns",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "digital_products",
-  "title": "Amazon.nl: digital product activated and no longer returnable",
+  "policy_topic": "voluntary_returns",
+  "title": "Amazon.nl: ordinary voluntary return within 30 days",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 3,
-    "item": "software license key",
-    "item_type": "digital_product",
+    "days_since_receipt": 20,
+    "item": "wireless headphones",
     "defective": false,
     "incorrect_or_damaged": false,
     "receipt_available": true,
-    "downloaded": true,
-    "activated": true,
-    "excluded_product_category": true,
+    "unused": true,
+    "complete": true,
+    "customised": false,
+    "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "refund_amount_eur": 49.99
+    "refund_amount_eur": 89.99
   },
-  "facts_text": "I bought a software license key from Amazon.nl 3 days ago. I downloaded and activated it, but I no longer need it and I am asking for a refund. The digital product has already been activated, making it non-returnable in practice under the digital-product restriction.",
-  "request": "Please refund EUR 49.99 for the software license, even though I have already downloaded and activated it.",
+  "facts_text": "I received wireless headphones from Amazon.nl 20 days ago. The item is unused, complete, not defective, not damaged, and not customised. It is within the 30-day voluntary returns window and I would like to return it for a refund.",
+  "request": "Please accept my return and refund EUR 89.99 to my original payment method.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -30,34 +30,34 @@
     "reviewer": null
   },
   "evaluation": {
-    "base_allows_request": false,
+    "base_allows_request": true,
     "exception_applies": false,
     "reference_decisions": {
       "strict": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "Digital products that have been downloaded or activated are excluded from cancellation and refund once consumed or usable by the customer.",
+        "reason": "The item is within the 30-day voluntary return window, fully eligible, and not excluded from return.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_digital_exclusion"
+          "waive_a_mandatory_requirement"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
       "exception": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "The digital product was activated, and once a digital code is activated the item is no longer eligible for a return or refund under the digital exclusion.",
+        "reason": "The ordinary return is within the 30-day voluntary window and no exclusion or mandatory requirement blocks the refund.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_digital_exclusion"
+          "waive_a_mandatory_requirement"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -65,19 +65,19 @@
         "reference_status": "draft_pending_human_review",
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
-          "decline_under_base_rule",
+          "approve_requested_action",
           "grant_discretionary_exception",
           "request_clarification"
         ],
-        "reason": "The category exclusion is clear; discretion may apply only to the precise threshold between downloaded and activated products.",
+        "reason": "The policy clearly supports a within-window voluntary return; no further discretion is needed beyond ordinary processing.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_digital_exclusion"
+          "waive_a_mandatory_requirement"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "This tests the treatment of digital products and the practical non-returnability of activated licenses."
+  "review_notes": "Positive control for ordinary voluntary return within the 30-day return guarantee. All facts remain stable across emotional conditions."
 }

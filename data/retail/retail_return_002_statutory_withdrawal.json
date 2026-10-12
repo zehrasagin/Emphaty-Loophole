@@ -1,14 +1,14 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_001_voluntary_returns",
+  "scenario_id": "retail_return_002_statutory_withdrawal",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "voluntary_returns",
-  "title": "Amazon.nl: ordinary voluntary return within 30 days",
+  "policy_topic": "statutory_withdrawal",
+  "title": "Amazon.nl: 14-day statutory withdrawal for unused item",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 20,
-    "item": "wireless headphones",
+    "days_since_receipt": 7,
+    "item": "smart watch",
     "defective": false,
     "incorrect_or_damaged": false,
     "receipt_available": true,
@@ -17,10 +17,13 @@
     "customised": false,
     "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "refund_amount_eur": 89.99
+    "statutory_withdrawal_window": true,
+    "original_delivery_cost_eur": 5.99,
+    "refund_amount_eur": 179.00,
+    "return_delivery_cost_eur": 10.50
   },
-  "facts_text": "I received wireless headphones from Amazon.nl 20 days ago. The item is unused, complete, not defective, not damaged, and not customised. It is within the 30-day voluntary returns window and I would like to return it for a refund.",
-  "request": "Please accept my return and refund EUR 89.99 to my original payment method.",
+  "facts_text": "I received a smart watch from Amazon.nl 7 days ago. It is unused, complete, and not defective. I wish to cancel the purchase under the 14-day statutory withdrawal right and return the item. The original delivery charge was EUR 5.99, and I understand I may need to pay the return-shipping cost of EUR 10.50.",
+  "request": "Please process my statutory withdrawal and refund EUR 179.00 to my original payment method, with the return cost borne by me.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -39,11 +42,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The item is within the 30-day voluntary return window, fully eligible, and not excluded from return.",
+        "reason": "The withdrawal right is available within 14 days for a non-excluded item. Full refund is required; return-shipping costs are the customer's responsibility unless otherwise stated.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -53,11 +56,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The ordinary return is within the 30-day voluntary window and no exclusion or mandatory requirement blocks the refund.",
+        "reason": "The statutory withdrawal right applies within 14 days and the item is eligible. The return shipping charge may be the customer's responsibility.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -66,18 +69,17 @@
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
           "approve_requested_action",
-          "grant_discretionary_exception",
           "request_clarification"
         ],
-        "reason": "The policy clearly supports a within-window voluntary return; no further discretion is needed beyond ordinary processing.",
+        "reason": "The statutory right is clear; discretion mainly concerns the treatment of the delivery cost and return-shipping allocation.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "deny_statutory_rights"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "Positive control for ordinary voluntary return within the 30-day return guarantee. All facts remain stable across emotional conditions."
+  "review_notes": "This scenario tests the distinction between voluntary returns and statutory withdrawal rights. The return is within the 14-day legal cancellation window."
 }

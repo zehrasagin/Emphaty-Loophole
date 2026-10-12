@@ -3,12 +3,14 @@ import copy
 import gc
 import json
 import threading
+import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 
 from run_pilot import ROOT, model_ready, read_source, run_case
 from dataset import digest
+from result_io import new_result_record, save_result_record, utc_timestamp
 
 CHAT_ROOT = ROOT / 'results' / 'chat_sessions'
 
@@ -65,7 +67,9 @@ def transcript(session):
     return '\n'.join(lines) + '\n'
 
 
-def save_session(session, root=CHAT_ROOT):
+def save_session(session, root=None):
+    if root is None:
+        root = CHAT_ROOT
     path = root / session['session_id']
     path.mkdir(parents=True, exist_ok=True)
     tmp = path / 'session.json.tmp'
@@ -101,7 +105,25 @@ class ChatEngine:
         source = session['model']
         turn_dir = CHAT_ROOT / session['session_id'] / f"turn_{len(session['turns']) + 1:03d}"
         turn_dir.mkdir(parents=True, exist_ok=True)
-        (turn_dir / 'request.json').write_text(json.dumps({'user': text, 'status': 'started'}, indent=2))
+        requested_at = utc_timestamp()
+        request_started = time.perf_counter()
+        trial_id = uuid.uuid4().hex
+        settings = dict(source['generation_settings'])
+        messages = history_for(session, text)
+        case = {**session['scenario'], 'messages': messages,
+                'source_prompt_sha256': session['scenario'].get('prompt_sha256'),
+                'prompt_sha256': digest(messages),
+                'run_id': session['session_id'], 'trial_id': trial_id,
+                'session_id': session['session_id'], 'turn_index': len(session['turns']) + 1,
+                'requested_at': requested_at, 'mode': session.get('mode', 'exploratory'),
+                'purpose': session['purpose'],
+                'source_emotion': session['scenario']['emotion'],
+                'emotion': 'unlabelled_interactive' if session.get('mode') == 'exploratory' else session['scenario']['emotion']}
+        (turn_dir / 'request.json').write_text(json.dumps({
+            'user': text, 'status': 'started', 'requested_at': requested_at,
+            'run_id': session['session_id'], 'trial_id': trial_id,
+            'turn_index': case['turn_index'],
+        }, indent=2), encoding='utf-8')
         save_session(session)
         try:
             import mlx.core as mx
@@ -114,21 +136,19 @@ class ChatEngine:
                 mx.clear_cache()
                 self.model, self.tokenizer = load(str(ROOT / source['local_path']))
                 self.loaded_key = key
-            settings = dict(source['generation_settings'])
-            messages = history_for(session, text)
-            case = {**session['scenario'], 'messages': messages,
-                    'source_prompt_sha256': session['scenario'].get('prompt_sha256'),
-                    'prompt_sha256': digest(messages),
-                    'run_id': session['session_id'], 'trial_id': uuid.uuid4().hex,
-                    'purpose': session['purpose'],
-                    'source_emotion': session['scenario']['emotion'],
-                    'emotion': 'unlabelled_interactive' if session.get('mode') == 'exploratory' else session['scenario']['emotion']}
             result = run_case(case, source, turn_dir, self.model, self.tokenizer, settings,
                               context_limit=8192)
         except Exception as exc:
-            result = {'status': 'error', 'parse_status': 'model_load_error',
-                      'final_answer': None, 'error': f'{type(exc).__name__}: {exc}'}
-            (turn_dir / 'result.json').write_text(json.dumps(result, indent=2))
+            # A runner record may already contain partial output; never replace it
+            # with a model-load error if saving or final export failed.
+            if (turn_dir / 'result.json').exists():
+                raise
+            result = new_result_record(case, source, settings, session['session_id'], started_at=requested_at)
+            result.update(status='error', parse_status='model_load_error', finish_reason='error',
+                          finished_at=utc_timestamp(),
+                          elapsed_seconds=round(time.perf_counter() - request_started, 2),
+                          error=f'{type(exc).__name__}: {exc}')
+            save_result_record(result, turn_dir)
         session['turns'].append({'user': text, 'result': result, 'turn_directory': str(turn_dir)})
         save_session(session)
         return session

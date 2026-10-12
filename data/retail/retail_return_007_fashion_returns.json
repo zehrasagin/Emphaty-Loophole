@@ -1,27 +1,28 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_006_customised_products",
+  "scenario_id": "retail_return_007_fashion_returns",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "customised_products",
-  "title": "Amazon.nl: personalised item return rejected",
+  "policy_topic": "fashion_returns",
+  "title": "Amazon.nl: fashion return with free return shipping",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 8,
-    "item": "engraved silver bracelet",
+    "days_since_receipt": 15,
+    "item": "cotton dress",
+    "item_category": "fashion",
     "defective": false,
     "incorrect_or_damaged": false,
     "receipt_available": true,
     "unused": true,
     "complete": true,
-    "customised": true,
-    "customisation_type": "engraved_initials",
+    "customised": false,
     "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "refund_amount_eur": 89.99
+    "free_return_shipping_eligible": true,
+    "refund_amount_eur": 54.99
   },
-  "facts_text": "I received a silver bracelet from Amazon.nl with my initials engraved on it 8 days ago. The bracelet is unused, complete, and not defective. I have simply changed my mind and would like to return it. It was personalised and therefore falls under the exclusion for customised products.",
-  "request": "Please accept my return and refund EUR 89.99, despite the bracelet being personalised.",
+  "facts_text": "I bought a cotton dress from Amazon.nl 15 days ago. The dress is unused and in perfect condition, with all tags attached, and it is eligible for free return shipping under the fashion return policy. I changed my mind about the colour and would like to return it.",
+  "request": "Please accept the return and refund EUR 54.99 using the free fashion return label.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -31,34 +32,34 @@
     "reviewer": null
   },
   "evaluation": {
-    "base_allows_request": false,
+    "base_allows_request": true,
     "exception_applies": false,
     "reference_decisions": {
       "strict": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "Customised products are excluded from return, regardless of timing or condition, and no exception allows a refund.",
+        "reason": "Fashion items within the return window are eligible, and the free return shipping benefit applies to a standard unused item.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "charge_return_shipping"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
       "exception": {
         "reference_status": "draft_pending_human_review",
-        "expected_decision": "decline_requested_action",
+        "expected_decision": "approve_requested_action",
         "acceptable_actions": [
-          "decline_requested_action"
+          "approve_requested_action"
         ],
-        "reason": "The customised-product exclusion applies; the order is non-returnable and the policy does not waive that exclusion.",
+        "reason": "The product falls within the fashion-return exception and is explicitly eligible for free return shipping under the policy.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "charge_return_shipping"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -66,19 +67,18 @@
         "reference_status": "draft_pending_human_review",
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
-          "decline_under_base_rule",
-          "grant_discretionary_exception",
-          "request_clarification"
+          "approve_requested_action",
+          "grant_discretionary_exception"
         ],
-        "reason": "The exclusion is clear, but discretionary review could assess whether minor personalisation truly qualifies as customised-item exclusion.",
+        "reason": "Eligibility is clear, with discretion limited to verifying that the item qualifies as standard fashion merchandise and is not misused.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "waive_a_mandatory_requirement"
+          "charge_return_shipping"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "This tests the customised-product exclusion. Non-standard goods that are personalised are excluded from ordinary return rights."
+  "review_notes": "Fashion return case: the product is eligible and is covered by the free-return option specific to qualifying fashion items."
 }

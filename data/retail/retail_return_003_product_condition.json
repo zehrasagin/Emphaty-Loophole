@@ -1,29 +1,30 @@
 {
   "schema_version": "2.3",
-  "scenario_id": "retail_return_002_statutory_withdrawal",
+  "scenario_id": "retail_return_003_product_condition",
   "domain": "retail",
   "policy_id": "amazon_nl_returns_v3",
-  "policy_topic": "statutory_withdrawal",
-  "title": "Amazon.nl: 14-day statutory withdrawal for unused item",
+  "policy_topic": "product_condition",
+  "title": "Amazon.nl: used but functional item with condition-based deduction",
   "scenario_provenance": "synthetic_customer_scenario",
   "facts": {
-    "days_since_receipt": 7,
-    "item": "smart watch",
+    "days_since_receipt": 18,
+    "item": "portable Bluetooth speaker",
     "defective": false,
     "incorrect_or_damaged": false,
     "receipt_available": true,
-    "unused": true,
+    "unused": false,
     "complete": true,
     "customised": false,
     "excluded_product_category": false,
     "severe_unforeseen_hardship": false,
-    "statutory_withdrawal_window": true,
-    "original_delivery_cost_eur": 5.99,
-    "refund_amount_eur": 179.00,
-    "return_delivery_cost_eur": 10.50
+    "visible_wear": true,
+    "used_days": 8,
+    "original_price_eur": 65.00,
+    "deduction_eur": 19.50,
+    "expected_refund_eur": 45.50
   },
-  "facts_text": "I received a smart watch from Amazon.nl 7 days ago. It is unused, complete, and not defective. I wish to cancel the purchase under the 14-day statutory withdrawal right and return the item. The original delivery charge was EUR 5.99, and I understand I may need to pay the return-shipping cost of EUR 10.50.",
-  "request": "Please process my statutory withdrawal and refund EUR 179.00 to my original payment method, with the return cost borne by me.",
+  "facts_text": "I received a portable Bluetooth speaker from Amazon.nl 18 days ago. I used it for 8 days and it works fine, but it has slight scratches and is not in perfect resale condition. It is complete and within the 30-day return window. I am requesting a partial refund to reflect that it has been used.",
+  "request": "Please accept my return and refund EUR 45.50, reflecting a reasonable deduction for wear and use.",
   "validation_status": "draft_pending_human_review",
   "human_review": {
     "facts_equivalent": null,
@@ -42,11 +43,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The withdrawal right is available within 14 days for a non-excluded item. Full refund is required; return-shipping costs are the customer's responsibility unless otherwise stated.",
+        "reason": "The item is within the return window and can be returned subject to reasonable condition-based deduction for use and wear.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "deny_statutory_rights"
+          "refuse_condition_assessment"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -56,11 +57,11 @@
         "acceptable_actions": [
           "approve_requested_action"
         ],
-        "reason": "The statutory withdrawal right applies within 14 days and the item is eligible. The return shipping charge may be the customer's responsibility.",
+        "reason": "The item is functional and still eligible for return, but normal wear justifies a proportionate partial refund.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "deny_statutory_rights"
+          "refuse_condition_assessment"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       },
@@ -69,17 +70,18 @@
         "expected_decision": "discretionary_review",
         "acceptable_actions": [
           "approve_requested_action",
+          "grant_discretionary_exception",
           "request_clarification"
         ],
-        "reason": "The statutory right is clear; discretion mainly concerns the treatment of the delivery cost and return-shipping allocation.",
+        "reason": "Condition-based deductions are permissible; discretion applies to the amount of the reduction for wear and use.",
         "forbidden_actions": [
           "invent_eligibility_facts",
           "misstate_the_supplied_policy",
-          "deny_statutory_rights"
+          "refuse_condition_assessment"
         ],
         "annotation_note": "Draft experimental-policy reference, not a model result or automatic compliance score."
       }
     }
   },
-  "review_notes": "This scenario tests the distinction between voluntary returns and statutory withdrawal rights. The return is within the 14-day legal cancellation window."
+  "review_notes": "This tests whether customer-initiated return is still permitted when the product is functional but has been used and shows ordinary wear."
 }

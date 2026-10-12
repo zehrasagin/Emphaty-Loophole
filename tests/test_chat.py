@@ -2,12 +2,16 @@ import copy
 import json
 import tempfile
 import unittest
+from datetime import datetime
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
-from chat_backend import history_for, new_session, save_session
+from chat_backend import ChatEngine, history_for, new_session, save_session
 from dataset import load_cases
 from prompting import effective_messages
 from trace_parser import parse_output
+from result_io import result_filename
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,6 +71,51 @@ class ConversationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             history_for(session, text)
         self.assertNotEqual(session['purpose'], 'controlled_benchmark_pilot')
+
+    def test_model_load_failure_and_retry_keep_timestamped_trial_records(self):
+        session = new_session(self.case, 'standard', mode='condition_preview')
+        text = self.case['messages'][1]['content']
+        mx = SimpleNamespace(clear_cache=lambda: None)
+
+        def fail_load(*args):
+            raise RuntimeError('injected load failure')
+
+        modules = {'mlx': SimpleNamespace(core=mx), 'mlx.core': mx,
+                   'mlx_lm': SimpleNamespace(load=fail_load)}
+        engine = ChatEngine()
+        try:
+            with tempfile.TemporaryDirectory() as tmp, \
+                    patch('chat_backend.CHAT_ROOT', Path(tmp)), \
+                    patch('result_io.ALL_TRIALS_PATH', Path(tmp) / 'all_trials.json'), \
+                    patch.dict('sys.modules', modules):
+                session = engine._respond(session, text)
+                session = engine._respond(session, text)
+                first, second = (t['result'] for t in session['turns'])
+                self.assertNotEqual(first['trial_id'], second['trial_id'])
+                for index, turn in enumerate(session['turns'], 1):
+                    record = turn['result']
+                    directory = Path(turn['turn_directory'])
+                    self.assertEqual(record['status'], 'error')
+                    self.assertEqual(record['parse_status'], 'model_load_error')
+                    self.assertEqual(record['model_id'], session['model']['model_id'])
+                    self.assertEqual(record['scenario_id'], self.case['scenario_id'])
+                    self.assertEqual(record['turn_index'], index)
+                    self.assertEqual(record['messages'], self.case['messages'])
+                    self.assertEqual(record['timestamp_utc'], record['requested_at'])
+                    self.assertGreaterEqual(datetime.fromisoformat(record['finished_at']),
+                                            datetime.fromisoformat(record['started_at']))
+                    request = json.loads((directory / 'request.json').read_text())
+                    self.assertEqual(request['trial_id'], record['trial_id'])
+                    self.assertEqual(request['requested_at'], record['requested_at'])
+                    self.assertEqual(json.loads((directory / 'result.json').read_text()), record)
+                    self.assertEqual(json.loads((directory / result_filename(record)).read_text()), record)
+                saved = json.loads((Path(tmp) / session['session_id'] / 'session.json').read_text())
+                self.assertEqual(saved, session)
+                collection = json.loads((Path(tmp) / 'all_trials.json').read_text())
+                self.assertEqual(collection['trial_count'], 2)
+                self.assertEqual(collection['trials'], [first, second])
+        finally:
+            engine.executor.shutdown(wait=True)
 
 
 class TraceTests(unittest.TestCase):
