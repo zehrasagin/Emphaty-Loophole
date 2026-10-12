@@ -9,6 +9,7 @@ from pathlib import Path
 from dataset import (DOMAIN_LABELS, EMOTIONS, POLICIES, digest, expand_scenario,
                      load_cases, load_scenarios, load_shared_policy, reference_rows, validate_grid, validate_scenario)
 from prompting import EMOTION_LABELS, FRAMES, render_messages
+from run_pilot import read_models
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -37,6 +38,7 @@ class DatasetTests(unittest.TestCase):
                 self.assertEqual(len({p['messages'][0]['content'] for p in group if p['policy_type'] == policy}), 1)
 
     def test_emotional_frames_are_named_and_standardized_across_domains(self):
+        self.assertEqual(EMOTIONS, ('neutral', 'anger', 'guilt', 'fear'))
         self.assertEqual(set(EMOTION_LABELS), set(EMOTIONS))
         self.assertEqual(set(FRAMES), set(EMOTIONS))
         for emotion in EMOTIONS:
@@ -146,7 +148,7 @@ class DatasetTests(unittest.TestCase):
             render_messages(self.core, 'strict', 'unlisted')
         original = dict(FRAMES)
         try:
-            FRAMES.pop('sadness')
+            FRAMES.pop('fear')
             with self.assertRaises(ValueError):
                 expand_scenario(self.core)
         finally:
@@ -193,7 +195,10 @@ class DatasetTests(unittest.TestCase):
         archived_cores = load_scenarios('airlines', ROOT / 'archive/multi_airline_baseline_v04')
         refs = {r['prompt_id']: r for r in reference_rows(archived_cores)}
         prior = {r['prompt_id']: r for r in map(json.loads, (archived / 'reference_labels.jsonl').read_text().splitlines())}
+        self.assertEqual({reference['emotion'] for reference in refs.values()}, set(EMOTIONS))
         for pid, reference in prior.items():
+            if reference['emotion'] not in EMOTIONS:
+                continue
             self.assertEqual(refs[pid], reference)
 
     def test_real_airline_names_are_used_and_evaluation_labels_are_excluded(self):
@@ -369,6 +374,24 @@ class DatasetTests(unittest.TestCase):
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn(row['prompt_id'], result.stdout)
+
+    def test_llama_model_is_configured_and_selectable_without_loading_weights(self):
+        llama = read_models()['llama3']
+        self.assertEqual(llama['model_id'], 'meta-llama/Llama-3.1-8B')
+        self.assertEqual(llama['revision'], 'd04e592bb4f6aa9cfee91e2e20afa771667e1d4b')
+        self.assertEqual(llama['local_path'], 'models/Llama-3.1-8B')
+        self.assertEqual(llama['model_family'], 'llama')
+        self.assertIn('<|start_header_id|>', llama['chat_template'])
+        self.assertIn('<|eot_id|>', llama['chat_template'])
+        result = subprocess.run([
+            sys.executable, str(ROOT / 'run_pilot.py'), '--domain', 'airlines',
+            '--scenario', self.core['scenario_id'], '--model', 'llama3',
+            '--emotion', 'fear', '--dry-run'],
+            capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('Selected 3 prompts', result.stdout)
+        self.assertIn(self.core['scenario_id'] + '__strict__fear', result.stdout)
+        self.assertNotIn('Loading', result.stdout)
 
     def test_build_exports_current_inputs_and_separate_references(self):
         with tempfile.TemporaryDirectory() as tmp:

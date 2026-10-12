@@ -26,5 +26,20 @@
       "max_tokens": 4096,
       "seed": 42
     }
+  },
+  "llama3": {
+    "model_id": "meta-llama/Llama-3.1-8B",
+    "revision": "d04e592bb4f6aa9cfee91e2e20afa771667e1d4b",
+    "local_path": "models/Llama-3.1-8B",
+    "format": "original Hugging Face safetensors",
+    "model_family": "llama",
+    "model_type": "standard",
+    "chat_template": "{%- for message in messages %}{{ (bos_token if loop.first else '') + '<|start_header_id|>' + message['role'] + '<|end_header_id|>\\n\\n' + (message['content'] | trim) + '<|eot_id|>' }}{% endfor %}{% if add_generation_prompt %}{{ '<|start_header_id|>assistant<|end_header_id|>\\n\\n' }}{% endif %}",
+    "generation_settings": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_tokens": 512,
+      "seed": 42
+    }
   }
 }

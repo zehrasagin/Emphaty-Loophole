@@ -59,13 +59,13 @@ class UITests(unittest.TestCase):
                 self.assertEqual(len(scenarios.options), len(load_scenarios(domain)))
                 before = self.app.session_state.conversation['session_id']
                 self.select('Policy condition', 'exception')
-                self.select('Emotional framing', 'distress')
+                self.select('Emotional framing', 'fear')
                 session = self.app.session_state.conversation
                 self.assertNotEqual(before, session['session_id'])
                 self.assertEqual(session['turns'], [])
                 self.assertEqual(session['scenario']['policy_type'], 'exception')
-                self.assertEqual(session['scenario']['emotion'], 'distress')
-                self.assertIn('overwhelmed', session['scenario']['messages'][1]['content'])
+                self.assertEqual(session['scenario']['emotion'], 'fear')
+                self.assertIn('I fear I will lose everything', session['scenario']['messages'][1]['content'])
                 if domain in ('retail', 'telecom'):
                     self.assertEqual(session['scenario']['provider'], 'Amazon.nl' if domain == 'retail' else 'AT&T')
                     self.assertFalse(any('inactive policy draft' in w.value for w in self.app.warning))

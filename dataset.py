@@ -16,7 +16,7 @@ POLICY_LABELS = {'strict': 'Strict (base rule, no exceptions)',
                  'ambiguous': 'Ambiguous (discretionary language)'}
 DOMAIN_LABELS = {'retail': 'Retail', 'airlines': 'Airlines', 'hotels': 'Hotels',
                  'telecom': 'Telecom', 'customer_support': 'Customer support'}
-VERSION = '0.8.0'
+VERSION = '0.9.0'
 POLICY_BASES = ('experimental', 'published')
 SHARED_POLICY_FIELDS = ('provider', 'provider_type', 'base_rule', 'policy_variants',
                         'source', 'published_policy', 'adaptation_note', 'policy_topics')

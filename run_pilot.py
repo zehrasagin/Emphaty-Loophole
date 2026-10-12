@@ -27,6 +27,8 @@ def read_models():
             raise ValueError(f'{name}: model_id and local_path are required')
         if source.get('model_type') not in ('standard', 'reasoning'):
             raise ValueError(f'{name}: model_type must be standard or reasoning')
+        if 'chat_template' in source and (not isinstance(source['chat_template'], str) or not source['chat_template'].strip()):
+            raise ValueError(f'{name}: chat_template must be nonempty text')
         settings = source.get('generation_settings', {})
         if not isinstance(settings, dict) or set(settings) != {'temperature', 'top_p', 'max_tokens', 'seed'}:
             raise ValueError(f'{name}: supply temperature, top_p, max_tokens and seed')
@@ -72,6 +74,8 @@ def run_case(case, source, run_dir, model, tokenizer, settings, context_limit=No
         mx.random.seed(settings["seed"])
         mx.reset_peak_memory()
         messages = effective_messages(case["messages"], reasoning=reasoning)
+        if not getattr(tokenizer, 'chat_template', None) and source.get('chat_template'):
+            tokenizer.chat_template = source['chat_template']
         rendered = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         prompt_opens_think = reasoning and rendered.rstrip().endswith("<think>")
         tokens = tokenizer.encode(rendered, add_special_tokens=False)
