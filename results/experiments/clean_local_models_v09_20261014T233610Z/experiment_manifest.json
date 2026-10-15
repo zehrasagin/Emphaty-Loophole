@@ -1,0 +1,58 @@
+{
+  "experiment_id": "clean_local_models_v09_20261014T233610Z",
+  "created_at": "2026-10-14T23:36:18.128388+00:00",
+  "dataset_version": "0.9.0",
+  "models": {
+    "standard": {
+      "model_id": "Qwen/Qwen2.5-7B-Instruct",
+      "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+      "local_path": "models/Qwen2.5-7B-Instruct",
+      "format": "original Hugging Face safetensors",
+      "model_type": "standard",
+      "model_family": "qwen",
+      "generation_settings": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 512,
+        "seed": 42
+      }
+    },
+    "reasoning": {
+      "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+      "revision": "916b56a44061fd5cd7d6a8fb632557ed4f724f60",
+      "local_path": "models/DeepSeek-R1-Distill-Qwen-7B",
+      "format": "original Hugging Face safetensors",
+      "model_family": "qwen",
+      "model_type": "reasoning",
+      "generation_settings": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "max_tokens": 4096,
+        "seed": 42
+      }
+    }
+  },
+  "policy_bases": [
+    "experimental"
+  ],
+  "core_count": 54,
+  "prompts_per_model": 648,
+  "planned_trials": 1296,
+  "prompts_sha256": "a108b4da485150a233db5b6ff1c476d9005a952236f0031e5fa6aca955f125ad",
+  "validation_status_counts": {
+    "draft_pending_human_review": 54
+  },
+  "missing_evaluation_scenarios": [
+    "easyhotel_001_flexible_duplicate"
+  ],
+  "code_sha256": {
+    "dataset.py": "35f6b83aeb038881b6a4376d2a292ba37dc8287b0603bc1a11c7c5b7b836e5b2",
+    "prompting.py": "1eb0b1368fb1103f2078c87c463962025a9547206451ec8711d32a884ac8d1ef",
+    "run_pilot.py": "809e3f0a1f55ebdf9225142b4003abad744ff91e682dcf3714dca38511f5c792",
+    "run_all_experiments.py": "a45670a0dd494b3b2aee7f10c74dcdaea134bf50843dfa7e142eaa9cdd46849e",
+    "trace_parser.py": "5dd29bd100c94f1d98c2c741a68e1ecca072344be3d16df3a3531f49a4296942",
+    "result_io.py": "077373f846e6f0d1e60cff69e9f827dfb1e6fce4d85413a10b5015c2b5f30461",
+    "model_config.json": "e7be3242a2b71a1e71eee28e90ba7afa9d809623be9dd4465ee08968b625639c"
+  },
+  "notes": "Synthetic scenarios; draft policies and references. One independent request per condition. Generation completion is not a compliance score. Published and experimental bases stay labelled separately."
+}

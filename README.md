@@ -35,7 +35,7 @@ python3 run_pilot.py --domain airlines --scenario easyjet_001_cabin_member --pol
 
 The first command checks the JSON dataset. The tests check expansion, validation, parsing, execution bookkeeping and chat isolation using small examples and simulated generation. The dry run lists the selected condition; it does not load weights or generate an answer.
 
-The active catalog contains **54 core scenarios: 13 easyJet, 10 Uber Eats, 10 easyHotel, 10 Amazon.nl and 11 AT&T cases**. With eight shared emotional frames, these expand to **1,296 experimental prompts** and **432 published-policy prompts** per model. All scenarios and reference decisions are research drafts awaiting human review. See [the project review](docs/PROJECT_REVIEW_2026-10-08.md) for research limitations and migration notes; its counts describe the earlier catalog.
+The active catalog contains **54 core scenarios: 13 easyJet, 10 Uber Eats, 10 easyHotel, 10 Amazon.nl and 11 AT&T cases**. With four shared emotional frames, these expand to **648 experimental prompts** and **216 published-policy prompts** per model. All scenarios and reference decisions are research drafts awaiting human review. See [the project review](docs/PROJECT_REVIEW_2026-10-08.md) for research limitations and migration notes; its counts describe the earlier catalog.
 
 The airline, hotel, retail, telecom and customer-support folders use **active shared policies**. Each scenario references its domain's `policy_id` and receives the selected policy. Uber Eats is the real provider for the customer-support examples; the published summary is limited to the official sources recorded in `data/customer_support/_policy.json`. The detailed customer-support refund thresholds and experimental variants are researcher-authored and are **not** represented as official Uber Eats terms. The old Northstar mock examples are preserved under [archive/mock_pilots_before_v08](archive/mock_pilots_before_v08/README.md), outside default discovery.
 
@@ -112,7 +112,7 @@ For example, `load_cases('airlines')` loads each airline JSON, calls `expand_sce
 
 ## 3. Research design and policy choices
 
-The original benchmark plan was **50 core scenarios × 3 policies × 4 emotions = 600 prompts per model** across five domains. The active design now uses eight emotion conditions; at 50 cores this would produce **1,200 experimental prompts per model**. The current active collection has 54 cores across five domains. Final allocation and statistical sample size still require a study-design decision. The code does not require ten scenarios per domain.
+The original benchmark plan was **50 core scenarios × 3 policies × 4 emotions = 600 prompts per model** across five domains. The active design uses four emotion conditions; the current 54-core catalog produces **648 experimental prompts per model**. The current active collection has 54 cores across five domains. Final allocation and statistical sample size still require a study-design decision. The code does not require ten scenarios per domain.
 
 | Experimental condition | Construction |
 | --- | --- |
@@ -299,11 +299,36 @@ python run_pilot.py --domain airlines --policy-basis experimental --all --model 
 python run_pilot.py --domain airlines --policy-basis published --all --model standard
 ```
 
-These select one experimental prompt, 24 prompts for one core, all experimental airline prompts, and all published airline prompts respectively. Replace `airlines` with another domain to run its cases. Omit `--domain` with `--all` for the complete experimental dataset. Published runs include cores with a `published_policy` summary: currently airlines, hotels, customer support, telecom and retail.
+These select one experimental prompt, 12 prompts for one core, all experimental airline prompts, and all published airline prompts respectively. Replace `airlines` with another domain to run its cases. Omit `--domain` with `--all` for the complete experimental dataset. Published runs include cores with a `published_policy` summary: currently airlines, hotels, customer support, telecom and retail.
 
 Each controlled condition uses one system message and one user message, a fresh generation cache, and no prior conversation. Multi-condition runs require `--all`. Without selection filters, the runner selects the first discovered condition; explicit selection is preferable for research runs.
 
 `--prompt path/to/file.json` accepts a core JSON or a single expanded prompt JSON object; its basis must match `--policy-basis`. It does not take an entire JSONL build. The old `--dataset` option is no longer used. See all flags with `python run_pilot.py --help`.
+
+### Full experiment with the two local models
+
+The original Llama-only batch workflow is preserved as `run_llama_experiments.py`; its config and model-free selection test remain available. The general runner below supports selecting models explicitly and does not select Llama for the two-local-model run.
+
+```bash
+python run_all_experiments.py --models standard reasoning --policy-bases experimental --dry-run
+python run_all_experiments.py --models standard reasoning --policy-bases experimental
+```
+
+This runs 54 scenarios × 3 policies × 4 emotions = 648 conditions per model, or **1,296 trials** for Qwen and DeepSeek together. Llama is not selected. Each condition uses the existing single-turn runner and generation settings, with no prior conversation. Models run sequentially in separate processes to release GPU memory between models.
+
+The runner creates `results/experiments/<experiment_id>/` containing frozen prompts, resolved core snapshots, separate draft evaluation references, a manifest of selected models/settings and code hashes, and a live `summary.json`. Trial records and the global `results/all_trials.json` keep their existing schema and original model outputs. At completion or a handled interruption, the experiment also exports its own `all_trials.json` in the same collection format, including every finalized attempt. Filter the global collection by `run_id` to select this experiment.
+
+Resume using the printed experiment directory:
+
+```bash
+python run_all_experiments.py --resume results/experiments/<experiment_id>
+```
+
+Resume uses the frozen prompts and rejects changed model configurations. Finished and token-limited attempts are retained and skipped; errors or interrupted attempts can be retried in a new attempt directory without overwriting previous outputs. A generation error stops the batch rather than repeatedly recording the same failure. Summary counts distinguish completed, incomplete and failed generations; they do not score compliance. Starting two controllers for the same experiment is blocked by a file lock.
+
+### Completed two-model experiment snapshot
+
+The completed [Qwen and DeepSeek run](/Users/zehrasagin/Desktop/emphaty loophole/results/experiments/clean_local_models_v09_20261014T233610Z/README.md) is checked in with **1,296 finalized responses** (648 per model), frozen inputs, the model/settings manifest, separate draft reference labels and a generation summary. Its `all_trials.json` keeps the existing collection and trial formats. Live aggregates, machine logs, lock files and model weights remain local; only the explicitly selected completed snapshot is published. Generation completion is not a correctness or compliance score.
 
 ### One refund pilot
 
@@ -386,7 +411,7 @@ Every finalized trial is also appended to **`results/all_trials.json`**, which c
 
 The parser handles ordinary `<think>...</think>` blocks, template-supplied opening tags, missing/malformed tags, missing traces, empty output and truncation. **Raw model output is preserved. Observable generated reasoning traces are model-emitted text, not reliable records of true internal reasoning.** Trace availability, generation completion and policy compliance are separate questions.
 
-Historical results remain in place. Version 0.7 adds a refunds section and two refund cases; the previous five-topic policy and eleven cases are preserved unchanged in `archive/multi_topic_baseline_v06/`. Version 0.6 broadened the shared easyJet policy from cabin baggage to five topics and introduced new scenario IDs. The ten cabin-only version-0.5 inputs and their shared policy are preserved unchanged in `archive/cabin_only_baseline_v05/`; the eleven multi-airline version-0.4 inputs remain in `archive/multi_airline_baseline_v04/`. Interpret earlier runs using their saved inputs. There is currently no automatic compliance evaluator, repetition scheduler or run-resume mechanism.
+Historical results remain in place. Version 0.7 adds a refunds section and two refund cases; the previous five-topic policy and eleven cases are preserved unchanged in `archive/multi_topic_baseline_v06/`. Version 0.6 broadened the shared easyJet policy from cabin baggage to five topics and introduced new scenario IDs. The ten cabin-only version-0.5 inputs and their shared policy are preserved unchanged in `archive/cabin_only_baseline_v05/`; the eleven multi-airline version-0.4 inputs remain in `archive/multi_airline_baseline_v04/`. Interpret earlier runs using their saved inputs. There is currently no automatic compliance evaluator or repetition scheduler. The full-experiment runner supports resuming frozen runs.
 
 ## 10. Sources, team review and next work
 

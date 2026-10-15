@@ -377,21 +377,42 @@ class DatasetTests(unittest.TestCase):
 
     def test_llama_model_is_configured_and_selectable_without_loading_weights(self):
         llama = read_models()['llama3']
-        self.assertEqual(llama['model_id'], 'meta-llama/Llama-3.1-8B')
-        self.assertEqual(llama['revision'], 'd04e592bb4f6aa9cfee91e2e20afa771667e1d4b')
-        self.assertEqual(llama['local_path'], 'models/Llama-3.1-8B')
+        self.assertEqual(llama['model_id'], 'meta-llama/Llama-3.1-8B-Instruct')
+        self.assertEqual(llama['local_path'], 'models/llama-3.1-8b-instruct')
         self.assertEqual(llama['model_family'], 'llama')
         self.assertIn('<|start_header_id|>', llama['chat_template'])
         self.assertIn('<|eot_id|>', llama['chat_template'])
         result = subprocess.run([
             sys.executable, str(ROOT / 'run_pilot.py'), '--domain', 'airlines',
             '--scenario', self.core['scenario_id'], '--model', 'llama3',
-            '--emotion', 'fear', '--dry-run'],
-            capture_output=True, text=True)
+            '--emotion', 'fear', '--dry-run'], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('Selected 3 prompts', result.stdout)
         self.assertIn(self.core['scenario_id'] + '__strict__fear', result.stdout)
         self.assertNotIn('Loading', result.stdout)
+
+    def test_local_experiment_models_are_selectable_without_loading_weights(self):
+        expected = {
+            'standard': ('Qwen/Qwen2.5-7B-Instruct', 'models/Qwen2.5-7B-Instruct', 'standard'),
+            'reasoning': ('deepseek-ai/DeepSeek-R1-Distill-Qwen-7B',
+                          'models/DeepSeek-R1-Distill-Qwen-7B', 'reasoning'),
+        }
+        models = read_models()
+        for name, (model_id, local_path, model_type) in expected.items():
+            with self.subTest(model=name):
+                self.assertEqual(models[name]['model_id'], model_id)
+                self.assertEqual(models[name]['local_path'], local_path)
+                self.assertEqual(models[name]['model_type'], model_type)
+                self.assertEqual(models[name]['model_family'], 'qwen')
+                self.assertTrue(models[name]['revision'])
+                result = subprocess.run([
+                    sys.executable, str(ROOT / 'run_pilot.py'), '--domain', 'airlines',
+                    '--scenario', self.core['scenario_id'], '--model', name,
+                    '--emotion', 'fear', '--dry-run'], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('Selected 3 prompts', result.stdout)
+                self.assertIn(self.core['scenario_id'] + '__strict__fear', result.stdout)
+                self.assertNotIn('Loading', result.stdout)
 
     def test_build_exports_current_inputs_and_separate_references(self):
         with tempfile.TemporaryDirectory() as tmp:

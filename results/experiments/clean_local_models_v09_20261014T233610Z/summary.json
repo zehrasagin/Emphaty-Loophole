@@ -1,0 +1,29 @@
+{
+  "experiment_id": "clean_local_models_v09_20261014T233610Z",
+  "updated_at": "2026-10-15T08:15:59.626993+00:00",
+  "planned_trials": 1296,
+  "attempted_conditions": 1296,
+  "finalized_conditions": 1296,
+  "remaining_conditions": 0,
+  "status_counts": {
+    "completed": 1296
+  },
+  "final_answers": 1296,
+  "truncated": 0,
+  "by_model": {
+    "standard": {
+      "completed": 648
+    },
+    "reasoning": {
+      "completed": 648
+    }
+  },
+  "by_policy_basis": {
+    "experimental": {
+      "completed": 1296
+    }
+  },
+  "all_conditions_attempted": true,
+  "all_generations_completed": true,
+  "note": "Latest attempt per planned condition; all attempts remain in individual files and results/all_trials.json. Incomplete responses count as attempted, not completed. No automatic compliance scores. Filter the global collection by run_id to select this experiment."
+}
