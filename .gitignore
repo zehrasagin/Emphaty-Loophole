@@ -1,6 +1,9 @@
 .venv/
 models/
-results/
+results/*
+!results/llama_3.1_8b_instruct/
+!results/deepseek-ai_deepseek-r1-distill-qwen-7b/
+!results/qwen_qwen2.5-7b-instruct/
 __pycache__/
 *.py[cod]
 .DS_Store
