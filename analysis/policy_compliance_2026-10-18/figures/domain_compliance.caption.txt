@@ -1,0 +1,1 @@
+Domain counts differ (10–13 scenarios). References with missing/contradictory labels and unknown judgments are excluded. See exact group denominators and coverage in tables/compliance_rates.csv. Provisional annotations.

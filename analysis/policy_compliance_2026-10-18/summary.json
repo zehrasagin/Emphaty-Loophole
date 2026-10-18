@@ -1,0 +1,1503 @@
+{
+  "annotation_status": "EXPLORATORY model-assisted audit; independent human validation absent",
+  "bootstrap": {
+    "replicates": 5000,
+    "seed": 20261018,
+    "unit": "scenario cluster"
+  },
+  "coverage": {
+    "recorded_runs": 1944,
+    "final_assessed": 1944,
+    "codex_final_reviews": 1944,
+    "trace_assessed": 648,
+    "codex_trace_reviews": 648,
+    "reference_exclusions": 180
+  },
+  "models": {
+    "llama": {
+      "overall": {
+        "recorded_runs": 648,
+        "reference_eligible": 588,
+        "reference_excluded": 60,
+        "evaluable": 585,
+        "compliant": 383,
+        "non_compliant": 202,
+        "unknown": 3,
+        "pcr": 0.6547008547008547,
+        "coverage": 0.9948979591836735,
+        "decision_agreement_same_evaluable_support": 0.8222222222222222,
+        "acceptable_decisions_same_evaluable_support": 481,
+        "decision_unknown_same_evaluable_support": 2,
+        "decision_agreement_upper_bound_same_support": 0.8256410256410256,
+        "unknown_lower_bound": 0.6513605442176871,
+        "unknown_upper_bound": 0.6564625850340136,
+        "scenario_cluster_ci95": [
+          0.5874342846811624,
+          0.7204874263468014
+        ]
+      },
+      "by_emotion": {
+        "neutral": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 103,
+          "non_compliant": 44,
+          "unknown": 0,
+          "pcr": 0.7006802721088435,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8231292517006803,
+          "acceptable_decisions_same_evaluable_support": 121,
+          "decision_unknown_same_evaluable_support": 1,
+          "decision_agreement_upper_bound_same_support": 0.8299319727891157,
+          "unknown_lower_bound": 0.7006802721088435,
+          "unknown_upper_bound": 0.7006802721088435,
+          "scenario_cluster_ci95": [
+            0.6133061224489795,
+            0.7862068965517242
+          ]
+        },
+        "anger": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 88,
+          "non_compliant": 59,
+          "unknown": 0,
+          "pcr": 0.5986394557823129,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8299319727891157,
+          "acceptable_decisions_same_evaluable_support": 122,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8299319727891157,
+          "unknown_lower_bound": 0.5986394557823129,
+          "unknown_upper_bound": 0.5986394557823129,
+          "scenario_cluster_ci95": [
+            0.5067567567567568,
+            0.6896551724137931
+          ]
+        },
+        "guilt": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 146,
+          "compliant": 102,
+          "non_compliant": 44,
+          "unknown": 1,
+          "pcr": 0.6986301369863014,
+          "coverage": 0.9931972789115646,
+          "decision_agreement_same_evaluable_support": 0.7945205479452054,
+          "acceptable_decisions_same_evaluable_support": 116,
+          "decision_unknown_same_evaluable_support": 1,
+          "decision_agreement_upper_bound_same_support": 0.8013698630136986,
+          "unknown_lower_bound": 0.6938775510204082,
+          "unknown_upper_bound": 0.7006802721088435,
+          "scenario_cluster_ci95": [
+            0.6028368794326241,
+            0.7847222222222222
+          ]
+        },
+        "fear": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 145,
+          "compliant": 90,
+          "non_compliant": 55,
+          "unknown": 2,
+          "pcr": 0.6206896551724138,
+          "coverage": 0.9863945578231292,
+          "decision_agreement_same_evaluable_support": 0.8413793103448276,
+          "acceptable_decisions_same_evaluable_support": 122,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8413793103448276,
+          "unknown_lower_bound": 0.6122448979591837,
+          "unknown_upper_bound": 0.6258503401360545,
+          "scenario_cluster_ci95": [
+            0.5306122448979592,
+            0.7047064361933271
+          ]
+        }
+      },
+      "by_policy": {
+        "strict": {
+          "recorded_runs": 216,
+          "reference_eligible": 196,
+          "reference_excluded": 20,
+          "evaluable": 195,
+          "compliant": 121,
+          "non_compliant": 74,
+          "unknown": 1,
+          "pcr": 0.6205128205128205,
+          "coverage": 0.9948979591836735,
+          "decision_agreement_same_evaluable_support": 0.7897435897435897,
+          "acceptable_decisions_same_evaluable_support": 154,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7897435897435897,
+          "unknown_lower_bound": 0.6173469387755102,
+          "unknown_upper_bound": 0.6224489795918368,
+          "scenario_cluster_ci95": [
+            0.5204081632653061,
+            0.7216494845360825
+          ]
+        },
+        "exception": {
+          "recorded_runs": 216,
+          "reference_eligible": 204,
+          "reference_excluded": 12,
+          "evaluable": 204,
+          "compliant": 136,
+          "non_compliant": 68,
+          "unknown": 0,
+          "pcr": 0.6666666666666666,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.7892156862745098,
+          "acceptable_decisions_same_evaluable_support": 161,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7892156862745098,
+          "unknown_lower_bound": 0.6666666666666666,
+          "unknown_upper_bound": 0.6666666666666666,
+          "scenario_cluster_ci95": [
+            0.5686274509803921,
+            0.7549019607843137
+          ]
+        },
+        "ambiguous": {
+          "recorded_runs": 216,
+          "reference_eligible": 188,
+          "reference_excluded": 28,
+          "evaluable": 186,
+          "compliant": 126,
+          "non_compliant": 60,
+          "unknown": 2,
+          "pcr": 0.6774193548387096,
+          "coverage": 0.9893617021276596,
+          "decision_agreement_same_evaluable_support": 0.8924731182795699,
+          "acceptable_decisions_same_evaluable_support": 166,
+          "decision_unknown_same_evaluable_support": 2,
+          "decision_agreement_upper_bound_same_support": 0.9032258064516129,
+          "unknown_lower_bound": 0.6702127659574468,
+          "unknown_upper_bound": 0.6808510638297872,
+          "scenario_cluster_ci95": [
+            0.5989304812834224,
+            0.7567567567567568
+          ]
+        }
+      },
+      "by_domain": {
+        "airlines": {
+          "recorded_runs": 156,
+          "reference_eligible": 156,
+          "reference_excluded": 0,
+          "evaluable": 156,
+          "compliant": 68,
+          "non_compliant": 88,
+          "unknown": 0,
+          "pcr": 0.4358974358974359,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.75,
+          "acceptable_decisions_same_evaluable_support": 117,
+          "decision_unknown_same_evaluable_support": 2,
+          "decision_agreement_upper_bound_same_support": 0.7628205128205128,
+          "unknown_lower_bound": 0.4358974358974359,
+          "unknown_upper_bound": 0.4358974358974359,
+          "scenario_cluster_ci95": [
+            0.3525641025641026,
+            0.5128205128205128
+          ]
+        },
+        "customer_support": {
+          "recorded_runs": 120,
+          "reference_eligible": 120,
+          "reference_excluded": 0,
+          "evaluable": 118,
+          "compliant": 77,
+          "non_compliant": 41,
+          "unknown": 2,
+          "pcr": 0.652542372881356,
+          "coverage": 0.9833333333333333,
+          "decision_agreement_same_evaluable_support": 0.711864406779661,
+          "acceptable_decisions_same_evaluable_support": 84,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.711864406779661,
+          "unknown_lower_bound": 0.6416666666666667,
+          "unknown_upper_bound": 0.6583333333333333,
+          "scenario_cluster_ci95": [
+            0.4568186757461606,
+            0.8235294117647058
+          ]
+        },
+        "hotels": {
+          "recorded_runs": 120,
+          "reference_eligible": 108,
+          "reference_excluded": 12,
+          "evaluable": 108,
+          "compliant": 81,
+          "non_compliant": 27,
+          "unknown": 0,
+          "pcr": 0.75,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.9074074074074074,
+          "acceptable_decisions_same_evaluable_support": 98,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9074074074074074,
+          "unknown_lower_bound": 0.75,
+          "unknown_upper_bound": 0.75,
+          "scenario_cluster_ci95": [
+            0.6574074074074074,
+            0.8425925925925926
+          ]
+        },
+        "retail": {
+          "recorded_runs": 120,
+          "reference_eligible": 84,
+          "reference_excluded": 36,
+          "evaluable": 84,
+          "compliant": 63,
+          "non_compliant": 21,
+          "unknown": 0,
+          "pcr": 0.75,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.9404761904761905,
+          "acceptable_decisions_same_evaluable_support": 79,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9404761904761905,
+          "unknown_lower_bound": 0.75,
+          "unknown_upper_bound": 0.75,
+          "scenario_cluster_ci95": [
+            0.6190476190476191,
+            0.8695652173913043
+          ]
+        },
+        "telecom": {
+          "recorded_runs": 132,
+          "reference_eligible": 120,
+          "reference_excluded": 12,
+          "evaluable": 119,
+          "compliant": 94,
+          "non_compliant": 25,
+          "unknown": 1,
+          "pcr": 0.7899159663865546,
+          "coverage": 0.9916666666666667,
+          "decision_agreement_same_evaluable_support": 0.865546218487395,
+          "acceptable_decisions_same_evaluable_support": 103,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.865546218487395,
+          "unknown_lower_bound": 0.7833333333333333,
+          "unknown_upper_bound": 0.7916666666666666,
+          "scenario_cluster_ci95": [
+            0.6864284213475276,
+            0.8790322580645161
+          ]
+        }
+      },
+      "eci": {
+        "anger": {
+          "matched_pairs": 147,
+          "neutral_pcr": 0.7006802721088435,
+          "emotion_pcr": 0.5986394557823129,
+          "eci_percentage_points": 10.204081632653061,
+          "scenario_cluster_ci95_pp": [
+            -0.6666666666666667,
+            20.945945945945947
+          ],
+          "neutral_success_emotion_failure": 34,
+          "neutral_failure_emotion_success": 19
+        },
+        "guilt": {
+          "matched_pairs": 146,
+          "neutral_pcr": 0.7054794520547946,
+          "emotion_pcr": 0.6986301369863014,
+          "eci_percentage_points": 0.684931506849315,
+          "scenario_cluster_ci95_pp": [
+            -8.275862068965518,
+            9.722222222222223
+          ],
+          "neutral_success_emotion_failure": 19,
+          "neutral_failure_emotion_success": 18
+        },
+        "fear": {
+          "matched_pairs": 145,
+          "neutral_pcr": 0.696551724137931,
+          "emotion_pcr": 0.6206896551724138,
+          "eci_percentage_points": 7.586206896551724,
+          "scenario_cluster_ci95_pp": [
+            -2.069324712643678,
+            17.56851922344879
+          ],
+          "neutral_success_emotion_failure": 31,
+          "neutral_failure_emotion_success": 20
+        }
+      },
+      "lsr_all_frames": {
+        "matched_pairs": 181,
+        "strict_pcr": 0.6132596685082873,
+        "ambiguous_pcr": 0.6795580110497238,
+        "lsr": -0.10810810810810811,
+        "scenario_cluster_ci95": [
+          -0.32978723404255317,
+          0.04478284254403647
+        ]
+      },
+      "lsr_emotional_frames": {
+        "matched_pairs": 135,
+        "strict_pcr": 0.5925925925925926,
+        "ambiguous_pcr": 0.6814814814814815,
+        "lsr": -0.15,
+        "scenario_cluster_ci95": [
+          -0.4305608974358975,
+          0.036620098795924164
+        ]
+      },
+      "taxonomy": {
+        "non_compliant": 202,
+        "counts": {
+          "DPB": 16,
+          "UEG": 11,
+          "PRI": 128,
+          "FIH": 16,
+          "other_noncompliance": 31
+        },
+        "bdd": {
+          "DPB": 0.07920792079207921,
+          "UEG": 0.054455445544554455,
+          "PRI": 0.6336633663366337,
+          "FIH": 0.07920792079207921,
+          "other_noncompliance": 0.15346534653465346
+        },
+        "secondary_failures": {
+          "PRI": 142,
+          "other": 44,
+          "over_refusal": 20,
+          "FIH": 16,
+          "UEG": 14,
+          "DPB": 17,
+          "missing_required_action": 1
+        }
+      },
+      "fivr": {
+        "neutral": {
+          "final_evaluable": 162,
+          "final_fact_invention": 5,
+          "final_fivr": 0.030864197530864196,
+          "final_scenario_cluster_ci95": [
+            0.0,
+            0.06790123456790123
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 5,
+          "final_or_trace_fivr": 0.030864197530864196,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "anger": {
+          "final_evaluable": 162,
+          "final_fact_invention": 9,
+          "final_fivr": 0.05555555555555555,
+          "final_scenario_cluster_ci95": [
+            0.012345679012345678,
+            0.10493827160493827
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 9,
+          "final_or_trace_fivr": 0.05555555555555555,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "guilt": {
+          "final_evaluable": 162,
+          "final_fact_invention": 7,
+          "final_fivr": 0.043209876543209874,
+          "final_scenario_cluster_ci95": [
+            0.006172839506172839,
+            0.09259259259259259
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 7,
+          "final_or_trace_fivr": 0.043209876543209874,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "fear": {
+          "final_evaluable": 162,
+          "final_fact_invention": 5,
+          "final_fivr": 0.030864197530864196,
+          "final_scenario_cluster_ci95": [
+            0.0,
+            0.07407407407407407
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 5,
+          "final_or_trace_fivr": 0.030864197530864196,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        }
+      },
+      "reasoning": null,
+      "domain_macro_pcr": 0.6756711550330692
+    },
+    "qwen": {
+      "overall": {
+        "recorded_runs": 648,
+        "reference_eligible": 588,
+        "reference_excluded": 60,
+        "evaluable": 583,
+        "compliant": 412,
+        "non_compliant": 171,
+        "unknown": 5,
+        "pcr": 0.7066895368782161,
+        "coverage": 0.9914965986394558,
+        "decision_agreement_same_evaluable_support": 0.8593481989708405,
+        "acceptable_decisions_same_evaluable_support": 501,
+        "decision_unknown_same_evaluable_support": 2,
+        "decision_agreement_upper_bound_same_support": 0.8627787307032591,
+        "unknown_lower_bound": 0.7006802721088435,
+        "unknown_upper_bound": 0.7091836734693877,
+        "scenario_cluster_ci95": [
+          0.6392609368939456,
+          0.772573390151515
+        ]
+      },
+      "by_emotion": {
+        "neutral": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 118,
+          "non_compliant": 29,
+          "unknown": 0,
+          "pcr": 0.8027210884353742,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.9115646258503401,
+          "acceptable_decisions_same_evaluable_support": 134,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9115646258503401,
+          "unknown_lower_bound": 0.8027210884353742,
+          "unknown_upper_bound": 0.8027210884353742,
+          "scenario_cluster_ci95": [
+            0.7364864864864865,
+            0.8657718120805369
+          ]
+        },
+        "anger": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 144,
+          "compliant": 99,
+          "non_compliant": 45,
+          "unknown": 3,
+          "pcr": 0.6875,
+          "coverage": 0.9795918367346939,
+          "decision_agreement_same_evaluable_support": 0.8194444444444444,
+          "acceptable_decisions_same_evaluable_support": 118,
+          "decision_unknown_same_evaluable_support": 2,
+          "decision_agreement_upper_bound_same_support": 0.8333333333333334,
+          "unknown_lower_bound": 0.673469387755102,
+          "unknown_upper_bound": 0.6938775510204082,
+          "scenario_cluster_ci95": [
+            0.589041095890411,
+            0.782312925170068
+          ]
+        },
+        "guilt": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 107,
+          "non_compliant": 40,
+          "unknown": 0,
+          "pcr": 0.7278911564625851,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8775510204081632,
+          "acceptable_decisions_same_evaluable_support": 129,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8775510204081632,
+          "unknown_lower_bound": 0.7278911564625851,
+          "unknown_upper_bound": 0.7278911564625851,
+          "scenario_cluster_ci95": [
+            0.64,
+            0.8108108108108109
+          ]
+        },
+        "fear": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 145,
+          "compliant": 88,
+          "non_compliant": 57,
+          "unknown": 2,
+          "pcr": 0.6068965517241379,
+          "coverage": 0.9863945578231292,
+          "decision_agreement_same_evaluable_support": 0.8275862068965517,
+          "acceptable_decisions_same_evaluable_support": 120,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8275862068965517,
+          "unknown_lower_bound": 0.5986394557823129,
+          "unknown_upper_bound": 0.6122448979591837,
+          "scenario_cluster_ci95": [
+            0.5068470011106998,
+            0.7046979865771812
+          ]
+        }
+      },
+      "by_policy": {
+        "strict": {
+          "recorded_runs": 216,
+          "reference_eligible": 196,
+          "reference_excluded": 20,
+          "evaluable": 196,
+          "compliant": 131,
+          "non_compliant": 65,
+          "unknown": 0,
+          "pcr": 0.6683673469387755,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8061224489795918,
+          "acceptable_decisions_same_evaluable_support": 158,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8061224489795918,
+          "unknown_lower_bound": 0.6683673469387755,
+          "unknown_upper_bound": 0.6683673469387755,
+          "scenario_cluster_ci95": [
+            0.5714285714285714,
+            0.7602040816326531
+          ]
+        },
+        "exception": {
+          "recorded_runs": 216,
+          "reference_eligible": 204,
+          "reference_excluded": 12,
+          "evaluable": 201,
+          "compliant": 139,
+          "non_compliant": 62,
+          "unknown": 3,
+          "pcr": 0.6915422885572139,
+          "coverage": 0.9852941176470589,
+          "decision_agreement_same_evaluable_support": 0.835820895522388,
+          "acceptable_decisions_same_evaluable_support": 168,
+          "decision_unknown_same_evaluable_support": 2,
+          "decision_agreement_upper_bound_same_support": 0.845771144278607,
+          "unknown_lower_bound": 0.6813725490196079,
+          "unknown_upper_bound": 0.696078431372549,
+          "scenario_cluster_ci95": [
+            0.6119195688225539,
+            0.7673267326732673
+          ]
+        },
+        "ambiguous": {
+          "recorded_runs": 216,
+          "reference_eligible": 188,
+          "reference_excluded": 28,
+          "evaluable": 186,
+          "compliant": 142,
+          "non_compliant": 44,
+          "unknown": 2,
+          "pcr": 0.7634408602150538,
+          "coverage": 0.9893617021276596,
+          "decision_agreement_same_evaluable_support": 0.9408602150537635,
+          "acceptable_decisions_same_evaluable_support": 175,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9408602150537635,
+          "unknown_lower_bound": 0.7553191489361702,
+          "unknown_upper_bound": 0.7659574468085106,
+          "scenario_cluster_ci95": [
+            0.675531914893617,
+            0.8440860215053764
+          ]
+        }
+      },
+      "by_domain": {
+        "airlines": {
+          "recorded_runs": 156,
+          "reference_eligible": 156,
+          "reference_excluded": 0,
+          "evaluable": 154,
+          "compliant": 68,
+          "non_compliant": 86,
+          "unknown": 2,
+          "pcr": 0.44155844155844154,
+          "coverage": 0.9871794871794872,
+          "decision_agreement_same_evaluable_support": 0.7987012987012987,
+          "acceptable_decisions_same_evaluable_support": 123,
+          "decision_unknown_same_evaluable_support": 2,
+          "decision_agreement_upper_bound_same_support": 0.8116883116883117,
+          "unknown_lower_bound": 0.4358974358974359,
+          "unknown_upper_bound": 0.44871794871794873,
+          "scenario_cluster_ci95": [
+            0.3333333333333333,
+            0.5576923076923077
+          ]
+        },
+        "customer_support": {
+          "recorded_runs": 120,
+          "reference_eligible": 120,
+          "reference_excluded": 0,
+          "evaluable": 118,
+          "compliant": 82,
+          "non_compliant": 36,
+          "unknown": 2,
+          "pcr": 0.6949152542372882,
+          "coverage": 0.9833333333333333,
+          "decision_agreement_same_evaluable_support": 0.7796610169491526,
+          "acceptable_decisions_same_evaluable_support": 92,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7796610169491526,
+          "unknown_lower_bound": 0.6833333333333333,
+          "unknown_upper_bound": 0.7,
+          "scenario_cluster_ci95": [
+            0.5603448275862069,
+            0.825
+          ]
+        },
+        "hotels": {
+          "recorded_runs": 120,
+          "reference_eligible": 108,
+          "reference_excluded": 12,
+          "evaluable": 108,
+          "compliant": 95,
+          "non_compliant": 13,
+          "unknown": 0,
+          "pcr": 0.8796296296296297,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8981481481481481,
+          "acceptable_decisions_same_evaluable_support": 97,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8981481481481481,
+          "unknown_lower_bound": 0.8796296296296297,
+          "unknown_upper_bound": 0.8796296296296297,
+          "scenario_cluster_ci95": [
+            0.8333333333333334,
+            0.9351851851851852
+          ]
+        },
+        "retail": {
+          "recorded_runs": 120,
+          "reference_eligible": 84,
+          "reference_excluded": 36,
+          "evaluable": 84,
+          "compliant": 61,
+          "non_compliant": 23,
+          "unknown": 0,
+          "pcr": 0.7261904761904762,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8809523809523809,
+          "acceptable_decisions_same_evaluable_support": 74,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8809523809523809,
+          "unknown_lower_bound": 0.7261904761904762,
+          "unknown_upper_bound": 0.7261904761904762,
+          "scenario_cluster_ci95": [
+            0.6,
+            0.8333333333333334
+          ]
+        },
+        "telecom": {
+          "recorded_runs": 132,
+          "reference_eligible": 120,
+          "reference_excluded": 12,
+          "evaluable": 119,
+          "compliant": 106,
+          "non_compliant": 13,
+          "unknown": 1,
+          "pcr": 0.8907563025210085,
+          "coverage": 0.9916666666666667,
+          "decision_agreement_same_evaluable_support": 0.9663865546218487,
+          "acceptable_decisions_same_evaluable_support": 115,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9663865546218487,
+          "unknown_lower_bound": 0.8833333333333333,
+          "unknown_upper_bound": 0.8916666666666667,
+          "scenario_cluster_ci95": [
+            0.8055386178861789,
+            0.9528301886792453
+          ]
+        }
+      },
+      "eci": {
+        "anger": {
+          "matched_pairs": 144,
+          "neutral_pcr": 0.8055555555555556,
+          "emotion_pcr": 0.6875,
+          "eci_percentage_points": 11.805555555555555,
+          "scenario_cluster_ci95_pp": [
+            2.7586206896551726,
+            21.52777777777778
+          ],
+          "neutral_success_emotion_failure": 31,
+          "neutral_failure_emotion_success": 14
+        },
+        "guilt": {
+          "matched_pairs": 147,
+          "neutral_pcr": 0.8027210884353742,
+          "emotion_pcr": 0.7278911564625851,
+          "eci_percentage_points": 7.482993197278912,
+          "scenario_cluster_ci95_pp": [
+            -0.01644736842104702,
+            15.790420295342658
+          ],
+          "neutral_success_emotion_failure": 24,
+          "neutral_failure_emotion_success": 13
+        },
+        "fear": {
+          "matched_pairs": 145,
+          "neutral_pcr": 0.8068965517241379,
+          "emotion_pcr": 0.6068965517241379,
+          "eci_percentage_points": 20.0,
+          "scenario_cluster_ci95_pp": [
+            10.95704035038673,
+            29.37062937062937
+          ],
+          "neutral_success_emotion_failure": 38,
+          "neutral_failure_emotion_success": 9
+        }
+      },
+      "lsr_all_frames": {
+        "matched_pairs": 182,
+        "strict_pcr": 0.6813186813186813,
+        "ambiguous_pcr": 0.7582417582417582,
+        "lsr": -0.11290322580645161,
+        "scenario_cluster_ci95": [
+          -0.28695652173913044,
+          0.02142857142857143
+        ]
+      },
+      "lsr_emotional_frames": {
+        "matched_pairs": 136,
+        "strict_pcr": 0.6691176470588235,
+        "ambiguous_pcr": 0.7352941176470589,
+        "lsr": -0.0989010989010989,
+        "scenario_cluster_ci95": [
+          -0.2727272727272727,
+          0.041666666666666664
+        ]
+      },
+      "taxonomy": {
+        "non_compliant": 171,
+        "counts": {
+          "DPB": 9,
+          "UEG": 11,
+          "PRI": 119,
+          "FIH": 14,
+          "other_noncompliance": 18
+        },
+        "bdd": {
+          "DPB": 0.05263157894736842,
+          "UEG": 0.06432748538011696,
+          "PRI": 0.695906432748538,
+          "FIH": 0.08187134502923976,
+          "other_noncompliance": 0.10526315789473684
+        },
+        "secondary_failures": {
+          "PRI": 131,
+          "FIH": 14,
+          "UEG": 15,
+          "DPB": 9,
+          "other": 30,
+          "over_refusal": 9,
+          "unnecessary_deferral": 4,
+          "missing_required_action": 1
+        }
+      },
+      "fivr": {
+        "neutral": {
+          "final_evaluable": 162,
+          "final_fact_invention": 4,
+          "final_fivr": 0.024691358024691357,
+          "final_scenario_cluster_ci95": [
+            0.0,
+            0.06172839506172839
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 4,
+          "final_or_trace_fivr": 0.024691358024691357,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "anger": {
+          "final_evaluable": 162,
+          "final_fact_invention": 4,
+          "final_fivr": 0.024691358024691357,
+          "final_scenario_cluster_ci95": [
+            0.006172839506172839,
+            0.04938271604938271
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 4,
+          "final_or_trace_fivr": 0.024691358024691357,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "guilt": {
+          "final_evaluable": 162,
+          "final_fact_invention": 6,
+          "final_fivr": 0.037037037037037035,
+          "final_scenario_cluster_ci95": [
+            0.006172839506172839,
+            0.08024691358024691
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 6,
+          "final_or_trace_fivr": 0.037037037037037035,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "fear": {
+          "final_evaluable": 162,
+          "final_fact_invention": 5,
+          "final_fivr": 0.030864197530864196,
+          "final_scenario_cluster_ci95": [
+            0.006172839506172839,
+            0.05555555555555555
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 5,
+          "final_or_trace_fivr": 0.030864197530864196,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        }
+      },
+      "reasoning": null,
+      "domain_macro_pcr": 0.7266100208273688
+    },
+    "deepseek": {
+      "overall": {
+        "recorded_runs": 648,
+        "reference_eligible": 588,
+        "reference_excluded": 60,
+        "evaluable": 585,
+        "compliant": 364,
+        "non_compliant": 221,
+        "unknown": 3,
+        "pcr": 0.6222222222222222,
+        "coverage": 0.9948979591836735,
+        "decision_agreement_same_evaluable_support": 0.8290598290598291,
+        "acceptable_decisions_same_evaluable_support": 485,
+        "decision_unknown_same_evaluable_support": 0,
+        "decision_agreement_upper_bound_same_support": 0.8290598290598291,
+        "unknown_lower_bound": 0.6190476190476191,
+        "unknown_upper_bound": 0.6241496598639455,
+        "scenario_cluster_ci95": [
+          0.5577865287978353,
+          0.686873543123543
+        ]
+      },
+      "by_emotion": {
+        "neutral": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 146,
+          "compliant": 88,
+          "non_compliant": 58,
+          "unknown": 1,
+          "pcr": 0.6027397260273972,
+          "coverage": 0.9931972789115646,
+          "decision_agreement_same_evaluable_support": 0.7945205479452054,
+          "acceptable_decisions_same_evaluable_support": 116,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7945205479452054,
+          "unknown_lower_bound": 0.5986394557823129,
+          "unknown_upper_bound": 0.6054421768707483,
+          "scenario_cluster_ci95": [
+            0.510485893416928,
+            0.6917808219178082
+          ]
+        },
+        "anger": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 100,
+          "non_compliant": 47,
+          "unknown": 0,
+          "pcr": 0.6802721088435374,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8571428571428571,
+          "acceptable_decisions_same_evaluable_support": 126,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8571428571428571,
+          "unknown_lower_bound": 0.6802721088435374,
+          "unknown_upper_bound": 0.6802721088435374,
+          "scenario_cluster_ci95": [
+            0.5986394557823129,
+            0.7619047619047619
+          ]
+        },
+        "guilt": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 147,
+          "compliant": 101,
+          "non_compliant": 46,
+          "unknown": 0,
+          "pcr": 0.6870748299319728,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8503401360544217,
+          "acceptable_decisions_same_evaluable_support": 125,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8503401360544217,
+          "unknown_lower_bound": 0.6870748299319728,
+          "unknown_upper_bound": 0.6870748299319728,
+          "scenario_cluster_ci95": [
+            0.6148527203674263,
+            0.7583892617449665
+          ]
+        },
+        "fear": {
+          "recorded_runs": 162,
+          "reference_eligible": 147,
+          "reference_excluded": 15,
+          "evaluable": 145,
+          "compliant": 75,
+          "non_compliant": 70,
+          "unknown": 2,
+          "pcr": 0.5172413793103449,
+          "coverage": 0.9863945578231292,
+          "decision_agreement_same_evaluable_support": 0.8137931034482758,
+          "acceptable_decisions_same_evaluable_support": 118,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8137931034482758,
+          "unknown_lower_bound": 0.5102040816326531,
+          "unknown_upper_bound": 0.5238095238095238,
+          "scenario_cluster_ci95": [
+            0.4206896551724138,
+            0.6122448979591837
+          ]
+        }
+      },
+      "by_policy": {
+        "strict": {
+          "recorded_runs": 216,
+          "reference_eligible": 196,
+          "reference_excluded": 20,
+          "evaluable": 196,
+          "compliant": 116,
+          "non_compliant": 80,
+          "unknown": 0,
+          "pcr": 0.5918367346938775,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.7806122448979592,
+          "acceptable_decisions_same_evaluable_support": 153,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7806122448979592,
+          "unknown_lower_bound": 0.5918367346938775,
+          "unknown_upper_bound": 0.5918367346938775,
+          "scenario_cluster_ci95": [
+            0.5,
+            0.6785714285714286
+          ]
+        },
+        "exception": {
+          "recorded_runs": 216,
+          "reference_eligible": 204,
+          "reference_excluded": 12,
+          "evaluable": 202,
+          "compliant": 134,
+          "non_compliant": 68,
+          "unknown": 2,
+          "pcr": 0.6633663366336634,
+          "coverage": 0.9901960784313726,
+          "decision_agreement_same_evaluable_support": 0.806930693069307,
+          "acceptable_decisions_same_evaluable_support": 163,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.806930693069307,
+          "unknown_lower_bound": 0.6568627450980392,
+          "unknown_upper_bound": 0.6666666666666666,
+          "scenario_cluster_ci95": [
+            0.582089552238806,
+            0.7425742574257426
+          ]
+        },
+        "ambiguous": {
+          "recorded_runs": 216,
+          "reference_eligible": 188,
+          "reference_excluded": 28,
+          "evaluable": 187,
+          "compliant": 114,
+          "non_compliant": 73,
+          "unknown": 1,
+          "pcr": 0.6096256684491979,
+          "coverage": 0.9946808510638298,
+          "decision_agreement_same_evaluable_support": 0.9037433155080213,
+          "acceptable_decisions_same_evaluable_support": 169,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9037433155080213,
+          "unknown_lower_bound": 0.6063829787234043,
+          "unknown_upper_bound": 0.6117021276595744,
+          "scenario_cluster_ci95": [
+            0.5212765957446809,
+            0.6935483870967742
+          ]
+        }
+      },
+      "by_domain": {
+        "airlines": {
+          "recorded_runs": 156,
+          "reference_eligible": 156,
+          "reference_excluded": 0,
+          "evaluable": 155,
+          "compliant": 66,
+          "non_compliant": 89,
+          "unknown": 1,
+          "pcr": 0.4258064516129032,
+          "coverage": 0.9935897435897436,
+          "decision_agreement_same_evaluable_support": 0.7419354838709677,
+          "acceptable_decisions_same_evaluable_support": 115,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.7419354838709677,
+          "unknown_lower_bound": 0.4230769230769231,
+          "unknown_upper_bound": 0.42948717948717946,
+          "scenario_cluster_ci95": [
+            0.35059279430247176,
+            0.5
+          ]
+        },
+        "customer_support": {
+          "recorded_runs": 120,
+          "reference_eligible": 120,
+          "reference_excluded": 0,
+          "evaluable": 120,
+          "compliant": 68,
+          "non_compliant": 52,
+          "unknown": 0,
+          "pcr": 0.5666666666666667,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.6833333333333333,
+          "acceptable_decisions_same_evaluable_support": 82,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.6833333333333333,
+          "unknown_lower_bound": 0.5666666666666667,
+          "unknown_upper_bound": 0.5666666666666667,
+          "scenario_cluster_ci95": [
+            0.4166666666666667,
+            0.7083333333333334
+          ]
+        },
+        "hotels": {
+          "recorded_runs": 120,
+          "reference_eligible": 108,
+          "reference_excluded": 12,
+          "evaluable": 108,
+          "compliant": 89,
+          "non_compliant": 19,
+          "unknown": 0,
+          "pcr": 0.8240740740740741,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.9444444444444444,
+          "acceptable_decisions_same_evaluable_support": 102,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9444444444444444,
+          "unknown_lower_bound": 0.8240740740740741,
+          "unknown_upper_bound": 0.8240740740740741,
+          "scenario_cluster_ci95": [
+            0.7314814814814815,
+            0.8888888888888888
+          ]
+        },
+        "retail": {
+          "recorded_runs": 120,
+          "reference_eligible": 84,
+          "reference_excluded": 36,
+          "evaluable": 84,
+          "compliant": 67,
+          "non_compliant": 17,
+          "unknown": 0,
+          "pcr": 0.7976190476190477,
+          "coverage": 1.0,
+          "decision_agreement_same_evaluable_support": 0.8690476190476191,
+          "acceptable_decisions_same_evaluable_support": 73,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.8690476190476191,
+          "unknown_lower_bound": 0.7976190476190477,
+          "unknown_upper_bound": 0.7976190476190477,
+          "scenario_cluster_ci95": [
+            0.618421052631579,
+            0.9021739130434783
+          ]
+        },
+        "telecom": {
+          "recorded_runs": 132,
+          "reference_eligible": 120,
+          "reference_excluded": 12,
+          "evaluable": 118,
+          "compliant": 74,
+          "non_compliant": 44,
+          "unknown": 2,
+          "pcr": 0.6271186440677966,
+          "coverage": 0.9833333333333333,
+          "decision_agreement_same_evaluable_support": 0.9576271186440678,
+          "acceptable_decisions_same_evaluable_support": 113,
+          "decision_unknown_same_evaluable_support": 0,
+          "decision_agreement_upper_bound_same_support": 0.9576271186440678,
+          "unknown_lower_bound": 0.6166666666666667,
+          "unknown_upper_bound": 0.6333333333333333,
+          "scenario_cluster_ci95": [
+            0.5377358490566038,
+            0.7130434782608696
+          ]
+        }
+      },
+      "eci": {
+        "anger": {
+          "matched_pairs": 146,
+          "neutral_pcr": 0.6027397260273972,
+          "emotion_pcr": 0.684931506849315,
+          "eci_percentage_points": -8.219178082191782,
+          "scenario_cluster_ci95_pp": [
+            -17.123287671232877,
+            0.684931506849315
+          ],
+          "neutral_success_emotion_failure": 19,
+          "neutral_failure_emotion_success": 31
+        },
+        "guilt": {
+          "matched_pairs": 146,
+          "neutral_pcr": 0.6027397260273972,
+          "emotion_pcr": 0.684931506849315,
+          "eci_percentage_points": -8.219178082191782,
+          "scenario_cluster_ci95_pp": [
+            -17.687074829931973,
+            1.3513513513513513
+          ],
+          "neutral_success_emotion_failure": 24,
+          "neutral_failure_emotion_success": 36
+        },
+        "fear": {
+          "matched_pairs": 144,
+          "neutral_pcr": 0.6041666666666666,
+          "emotion_pcr": 0.5138888888888888,
+          "eci_percentage_points": 9.027777777777779,
+          "scenario_cluster_ci95_pp": [
+            -1.342281879194631,
+            18.75
+          ],
+          "neutral_success_emotion_failure": 35,
+          "neutral_failure_emotion_success": 22
+        }
+      },
+      "lsr_all_frames": {
+        "matched_pairs": 183,
+        "strict_pcr": 0.5846994535519126,
+        "ambiguous_pcr": 0.6120218579234973,
+        "lsr": -0.04672897196261682,
+        "scenario_cluster_ci95": [
+          -0.2038884485833168,
+          0.07895781119465314
+        ]
+      },
+      "lsr_emotional_frames": {
+        "matched_pairs": 137,
+        "strict_pcr": 0.5766423357664233,
+        "ambiguous_pcr": 0.6058394160583942,
+        "lsr": -0.05063291139240506,
+        "scenario_cluster_ci95": [
+          -0.25676640926640926,
+          0.11392405063291139
+        ]
+      },
+      "taxonomy": {
+        "non_compliant": 221,
+        "counts": {
+          "DPB": 2,
+          "UEG": 10,
+          "PRI": 144,
+          "FIH": 46,
+          "other_noncompliance": 19
+        },
+        "bdd": {
+          "DPB": 0.00904977375565611,
+          "UEG": 0.04524886877828054,
+          "PRI": 0.6515837104072398,
+          "FIH": 0.2081447963800905,
+          "other_noncompliance": 0.08597285067873303
+        },
+        "secondary_failures": {
+          "FIH": 46,
+          "PRI": 178,
+          "other": 8,
+          "UEG": 16,
+          "missing_required_action": 16,
+          "over_refusal": 14,
+          "DPB": 2,
+          "unnecessary_deferral": 2
+        }
+      },
+      "fivr": {
+        "neutral": {
+          "final_evaluable": 162,
+          "final_fact_invention": 23,
+          "final_fivr": 0.1419753086419753,
+          "final_scenario_cluster_ci95": [
+            0.08024691358024691,
+            0.20987654320987653
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 44,
+          "final_or_trace_fivr": 0.2716049382716049,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "anger": {
+          "final_evaluable": 162,
+          "final_fact_invention": 16,
+          "final_fivr": 0.09876543209876543,
+          "final_scenario_cluster_ci95": [
+            0.04938271604938271,
+            0.15432098765432098
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 36,
+          "final_or_trace_fivr": 0.2222222222222222,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "guilt": {
+          "final_evaluable": 162,
+          "final_fact_invention": 16,
+          "final_fivr": 0.09876543209876543,
+          "final_scenario_cluster_ci95": [
+            0.05555555555555555,
+            0.1419753086419753
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 31,
+          "final_or_trace_fivr": 0.19135802469135801,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        },
+        "fear": {
+          "final_evaluable": 162,
+          "final_fact_invention": 16,
+          "final_fivr": 0.09876543209876543,
+          "final_scenario_cluster_ci95": [
+            0.04938271604938271,
+            0.16049382716049382
+          ],
+          "final_plus_available_trace_evaluable": 162,
+          "final_or_trace_fact_invention": 36,
+          "final_or_trace_fivr": 0.2222222222222222,
+          "note": "Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates."
+        }
+      },
+      "reasoning": {
+        "evaluable_trace_final_pairs": 648,
+        "violations_with_evaluable_trace": 221,
+        "post_hoc_rationalizations_among_violations": 20,
+        "rai": 0.09049773755656108,
+        "rai_scenario_cluster_ci95": [
+          0.0410958904109589,
+          0.15841886017870074
+        ],
+        "settled_trace_final_conflicts": 17,
+        "rti": 0.026234567901234566,
+        "rti_scenario_cluster_ci95": [
+          0.009259259259259259,
+          0.04938271604938271
+        ],
+        "trace_fact_inventions": 128,
+        "conflict_type_counts": {
+          "opposite_fee_decision": 2,
+          "opposite_refund_decision": 4,
+          "shipping_allocation": 2,
+          "monetary_scope": 2,
+          "actor_delegation": 7
+        },
+        "rti_excluding_actor_delegation": 0.015432098765432098,
+        "trace_state_counts": {
+          "other": 293,
+          "faithful_enforcement": 141,
+          "allowed_action_reasoning": 184,
+          "post_hoc_rationalization": 30
+        },
+        "note": "Emitted text decisions, not API actions; no-trace models are not applicable."
+      },
+      "domain_macro_pcr": 0.6482569768080977
+    }
+  },
+  "all_model_common_support": {
+    "conditions_per_model": 577,
+    "models": {
+      "llama": {
+        "recorded_runs": 577,
+        "reference_eligible": 577,
+        "reference_excluded": 0,
+        "evaluable": 577,
+        "compliant": 381,
+        "non_compliant": 196,
+        "unknown": 0,
+        "pcr": 0.6603119584055459,
+        "coverage": 1.0,
+        "decision_agreement_same_evaluable_support": 0.82842287694974,
+        "acceptable_decisions_same_evaluable_support": 478,
+        "decision_unknown_same_evaluable_support": 2,
+        "decision_agreement_upper_bound_same_support": 0.8318890814558059,
+        "unknown_lower_bound": 0.6603119584055459,
+        "unknown_upper_bound": 0.6603119584055459,
+        "scenario_cluster_ci95": [
+          0.5927909972364046,
+          0.7253911409123235
+        ]
+      },
+      "qwen": {
+        "recorded_runs": 577,
+        "reference_eligible": 577,
+        "reference_excluded": 0,
+        "evaluable": 577,
+        "compliant": 411,
+        "non_compliant": 166,
+        "unknown": 0,
+        "pcr": 0.7123050259965338,
+        "coverage": 1.0,
+        "decision_agreement_same_evaluable_support": 0.8648180242634316,
+        "acceptable_decisions_same_evaluable_support": 499,
+        "decision_unknown_same_evaluable_support": 2,
+        "decision_agreement_upper_bound_same_support": 0.8682842287694974,
+        "unknown_lower_bound": 0.7123050259965338,
+        "unknown_upper_bound": 0.7123050259965338,
+        "scenario_cluster_ci95": [
+          0.6447044345977238,
+          0.7768215797064462
+        ]
+      },
+      "deepseek": {
+        "recorded_runs": 577,
+        "reference_eligible": 577,
+        "reference_excluded": 0,
+        "evaluable": 577,
+        "compliant": 363,
+        "non_compliant": 214,
+        "unknown": 0,
+        "pcr": 0.6291161178509532,
+        "coverage": 1.0,
+        "decision_agreement_same_evaluable_support": 0.8336221837088388,
+        "acceptable_decisions_same_evaluable_support": 481,
+        "decision_unknown_same_evaluable_support": 0,
+        "decision_agreement_upper_bound_same_support": 0.8336221837088388,
+        "unknown_lower_bound": 0.6291161178509532,
+        "unknown_upper_bound": 0.6291161178509532,
+        "scenario_cluster_ci95": [
+          0.5655154359992779,
+          0.692050540719488
+        ]
+      }
+    }
+  },
+  "reasoning_by_emotion": {
+    "neutral": {
+      "evaluable_trace_final_pairs": 162,
+      "violations_with_evaluable_trace": 58,
+      "post_hoc_rationalizations_among_violations": 2,
+      "rai": 0.034482758620689655,
+      "rai_scenario_cluster_ci95": [
+        0.0,
+        0.09259259259259259
+      ],
+      "settled_trace_final_conflicts": 5,
+      "rti": 0.030864197530864196,
+      "rti_scenario_cluster_ci95": [
+        0.006172839506172839,
+        0.06790123456790123
+      ],
+      "trace_fact_inventions": 37,
+      "conflict_type_counts": {
+        "shipping_allocation": 1,
+        "opposite_refund_decision": 1,
+        "monetary_scope": 2,
+        "actor_delegation": 1
+      },
+      "rti_excluding_actor_delegation": 0.024691358024691357,
+      "trace_state_counts": {
+        "other": 116,
+        "allowed_action_reasoning": 43,
+        "post_hoc_rationalization": 3
+      },
+      "note": "Emitted text decisions, not API actions; no-trace models are not applicable."
+    },
+    "anger": {
+      "evaluable_trace_final_pairs": 162,
+      "violations_with_evaluable_trace": 47,
+      "post_hoc_rationalizations_among_violations": 4,
+      "rai": 0.0851063829787234,
+      "rai_scenario_cluster_ci95": [
+        0.0196078431372549,
+        0.17777777777777778
+      ],
+      "settled_trace_final_conflicts": 5,
+      "rti": 0.030864197530864196,
+      "rti_scenario_cluster_ci95": [
+        0.006172839506172839,
+        0.06172839506172839
+      ],
+      "trace_fact_inventions": 32,
+      "conflict_type_counts": {
+        "opposite_fee_decision": 1,
+        "shipping_allocation": 1,
+        "opposite_refund_decision": 2,
+        "actor_delegation": 1
+      },
+      "rti_excluding_actor_delegation": 0.024691358024691357,
+      "trace_state_counts": {
+        "other": 61,
+        "faithful_enforcement": 50,
+        "allowed_action_reasoning": 44,
+        "post_hoc_rationalization": 7
+      },
+      "note": "Emitted text decisions, not API actions; no-trace models are not applicable."
+    },
+    "guilt": {
+      "evaluable_trace_final_pairs": 162,
+      "violations_with_evaluable_trace": 46,
+      "post_hoc_rationalizations_among_violations": 2,
+      "rai": 0.043478260869565216,
+      "rai_scenario_cluster_ci95": [
+        0.0,
+        0.1334090909090898
+      ],
+      "settled_trace_final_conflicts": 2,
+      "rti": 0.012345679012345678,
+      "rti_scenario_cluster_ci95": [
+        0.0,
+        0.030864197530864196
+      ],
+      "trace_fact_inventions": 26,
+      "conflict_type_counts": {
+        "actor_delegation": 2
+      },
+      "rti_excluding_actor_delegation": 0.0,
+      "trace_state_counts": {
+        "other": 67,
+        "faithful_enforcement": 40,
+        "allowed_action_reasoning": 51,
+        "post_hoc_rationalization": 4
+      },
+      "note": "Emitted text decisions, not API actions; no-trace models are not applicable."
+    },
+    "fear": {
+      "evaluable_trace_final_pairs": 162,
+      "violations_with_evaluable_trace": 70,
+      "post_hoc_rationalizations_among_violations": 12,
+      "rai": 0.17142857142857143,
+      "rai_scenario_cluster_ci95": [
+        0.08571428571428572,
+        0.265625
+      ],
+      "settled_trace_final_conflicts": 5,
+      "rti": 0.030864197530864196,
+      "rti_scenario_cluster_ci95": [
+        0.006172839506172839,
+        0.06790123456790123
+      ],
+      "trace_fact_inventions": 33,
+      "conflict_type_counts": {
+        "opposite_fee_decision": 1,
+        "opposite_refund_decision": 1,
+        "actor_delegation": 3
+      },
+      "rti_excluding_actor_delegation": 0.012345679012345678,
+      "trace_state_counts": {
+        "faithful_enforcement": 51,
+        "other": 49,
+        "allowed_action_reasoning": 46,
+        "post_hoc_rationalization": 16
+      },
+      "note": "Emitted text decisions, not API actions; no-trace models are not applicable."
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Final-only scenario-fact inventions per162recorded runs/model/frame. All source scenarios included: this metric does not require reference-decision labels. Invented policy provisions/rates count as PRI, not scenario fact invention. Lines are scenario-cluster95%bootstrap intervals; trace-inclusive rates are reported separately.

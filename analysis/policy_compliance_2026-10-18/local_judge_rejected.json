@@ -1,0 +1,8 @@
+{
+  "status": "rejected_after_calibration",
+  "judge": "Qwen2.5-7B-Instruct and DeepSeek-R1-Distill-Qwen-7B calibration attempts, in-memory 4-bit",
+  "include_in_metrics": false,
+  "reason": "Qwen calibration produced unsupported evidence quotations and internally contradictory classifications, including policy-correct denials called over-refusal. DeepSeek calibration likewise produced missing evidence and incompatible decision labels (e.g. approve for an explicit denial); only 3/12 outputs passed schema and quote checks. Schema validity did not imply semantic validity.",
+  "consequence": "All local Qwen drafts are excluded from every reported metric. Retain only as a record of an unsuccessful calibration attempt. Stronger record-by-record review is required.",
+  "original_experiment_outputs_modified": false
+}

@@ -1,0 +1,1 @@
+Positive values indicate lower emotional-condition compliance on matched scenario/policy pairs. Negative values indicate higher compliance. This is a percentage-point difference, not relative percentage reduction. Intervals resample scenario clusters and exclude label uncertainty.

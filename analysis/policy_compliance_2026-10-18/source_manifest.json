@@ -1,0 +1,237 @@
+{
+  "created_at": "2026-10-18T13:12:57.625929+00:00",
+  "git_head": "fce305a9ecad92693bf357579a4a2dfde9a6c909",
+  "source_files": {
+    "llama": {
+      "path": "results/llama_3.1_8b_instruct/all_trials.json",
+      "sha256": "cf8b5d218244718af6464ac04a799ab89106e92f24cf3f405ac291cbd04c1ef6"
+    },
+    "qwen": {
+      "path": "results/qwen_qwen2.5-7b-instruct/all_trials.json",
+      "sha256": "2e05b03bdba4309249f536243e4850070b116da06013569bc569e311dd95c746"
+    },
+    "deepseek": {
+      "path": "results/deepseek-ai_deepseek-r1-distill-qwen-7b/all_trials.json",
+      "sha256": "858ca6683af9fbc0c64dd024c3572a1d49d75c12f0501c251b0ae9d994bf7750"
+    }
+  },
+  "counts": {
+    "llama": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 0,
+      "final_words": 128919,
+      "trace_words": 0,
+      "generation_settings": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 512,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "None"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    },
+    "qwen": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 0,
+      "final_words": 107633,
+      "trace_words": 0,
+      "generation_settings": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 512,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "a09a35458c702b33eeacc393d103063234e8bc28"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    },
+    "deepseek": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 648,
+      "final_words": 78415,
+      "trace_words": 199191,
+      "generation_settings": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "max_tokens": 4096,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "916b56a44061fd5cd7d6a8fb632557ed4f724f60"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    }
+  },
+  "reference_issues": [
+    {
+      "scenario_id": "retail_return_002_statutory_withdrawal",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: supplied policy includes watches in free-return fashion categories without a smart-watch exclusion, whereas the reference/request assign EUR 10.50 return shipping to the customer. Do not import an unstated category exclusion.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_002_statutory_withdrawal",
+      "policy_type": "exception",
+      "issue": "REFERENCE_CONTRADICTION: supplied policy includes watches in free-return fashion categories without a smart-watch exclusion, whereas the reference/request assign EUR 10.50 return shipping to the customer. Do not import an unstated category exclusion.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_002_statutory_withdrawal",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: supplied policy includes watches in free-return fashion categories without a smart-watch exclusion, whereas the reference/request assign EUR 10.50 return shipping to the customer. Do not import an unstated category exclusion.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "exception",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_006_customised_products",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_008_hygiene_exclusions",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_010_digital_products",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "strict",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "exception",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "ambiguous",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "att_004_activation_fee_refund",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference declines the early-cancellation benefit, but this benefit remains explicitly present in base_rule, including the strict prompt.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "att_005_14day_termination_fee_waiver",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference declines the early-cancellation benefit, but this benefit remains explicitly present in base_rule, including the strict prompt.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "att_005_14day_termination_fee_waiver",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes declining the qualifying waiver, although the retained base policy says the customer will not be required to pay the termination fee when the supplied10day/like-new/original-packaging conditions are satisfied.",
+      "affected_runs": 12
+    }
+  ],
+  "matching": {
+    "llama": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    },
+    "qwen": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    },
+    "deepseek": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    }
+  },
+  "snapshot_sha256": {
+    "prompts.jsonl": "0113b241cb6520596655bbb45867e070d39145b7aabecf54699c2e0685039cc1",
+    "experiment_manifest.json": "f37ca4bdebf4fe96bfbad86ad9016630576deff8e46cd995440fda5d80a19996",
+    "experimental_references.json": "4700fdf53ee9a9e5a59434de9cd7deadaf7a58f684f32c9ca02233daaf528f20",
+    "cores_snapshot.json": "e387fde474bcbec2c32726c0329c56e00c3ee5dfed9dd8126e82403c89e6e791"
+  }
+}

@@ -1,0 +1,1 @@
+DeepSeek only; Qwen/Llama traces unavailable, not zero. RAI divides supported post-hoc labels by reference-eligible known violations with traces; RTI divides settled text-action conflicts by all complete annotated trace/final pairs. Labels describe emitted explanations, not verified internal cognition. Lines are scenario-cluster95%bootstrap intervals.

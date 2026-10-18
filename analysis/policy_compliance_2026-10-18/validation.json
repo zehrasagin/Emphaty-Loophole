@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source_files_preserved": true,
+  "frozen_inputs_preserved": true,
+  "original_tracked_files_unchanged": true,
+  "final_reviews": 1944,
+  "trace_reviews": 648,
+  "all_evidence_exact_source_substrings": true,
+  "positive_rti_has_both_trace_and_final_evidence": true,
+  "reference_excluded_runs": 180,
+  "uncertain_annotations": 11,
+  "figure_sets_png_pdf_svg": 7,
+  "markdown_links_exist": true,
+  "semantic_labels_independently_human_validated": false,
+  "tests": {
+    "analysis_unittest_passed": 28,
+    "repository_unittest_passed": 46
+  }
+}

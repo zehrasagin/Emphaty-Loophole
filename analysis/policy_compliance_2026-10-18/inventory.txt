@@ -1,0 +1,191 @@
+{
+  "counts": {
+    "llama": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 0,
+      "final_words": 128919,
+      "trace_words": 0,
+      "generation_settings": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 512,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "None"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    },
+    "qwen": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 0,
+      "final_words": 107633,
+      "trace_words": 0,
+      "generation_settings": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 512,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "a09a35458c702b33eeacc393d103063234e8bc28"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    },
+    "deepseek": {
+      "runs": 648,
+      "scenarios": 54,
+      "by_domain": {
+        "telecom": 132,
+        "hotels": 120,
+        "airlines": 156,
+        "retail": 120,
+        "customer_support": 120
+      },
+      "by_policy": {
+        "strict": 216,
+        "exception": 216,
+        "ambiguous": 216
+      },
+      "by_emotion": {
+        "neutral": 162,
+        "anger": 162,
+        "guilt": 162,
+        "fear": 162
+      },
+      "trace_available": 648,
+      "final_words": 78415,
+      "trace_words": 199191,
+      "generation_settings": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "max_tokens": 4096,
+        "seed": 42
+      },
+      "recorded_revisions": [
+        "916b56a44061fd5cd7d6a8fb632557ed4f724f60"
+      ],
+      "literal_backslash_n_in_prompt": 0
+    }
+  },
+  "matching": {
+    "llama": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    },
+    "qwen": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    },
+    "deepseek": {
+      "same_condition_set": true,
+      "content_mismatches": []
+    }
+  },
+  "reference_issues": [
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "exception",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_003_product_condition",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: reference approves a worn/scratched used speaker; model-facing policy requires original condition with no additional wear and gives no condition-deduction permission. Exclude from primary PCR; descriptive policy audit retained.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_006_customised_products",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_008_hygiene_exclusions",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "retail_return_010_digital_products",
+      "policy_type": "ambiguous",
+      "issue": "REFERENCE_CONTRADICTION: acceptable_actions includes discretionary override of an explicit product exclusion, but the supplied policy forbids overriding explicit exclusions.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "strict",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "exception",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "easyhotel_001_flexible_duplicate",
+      "policy_type": "ambiguous",
+      "issue": "MISSING_REFERENCE: no evaluation.reference_decisions supplied in frozen core.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "att_004_activation_fee_refund",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference declines the early-cancellation benefit, but this benefit remains explicitly present in base_rule, including the strict prompt.",
+      "affected_runs": 12
+    },
+    {
+      "scenario_id": "att_005_14day_termination_fee_waiver",
+      "policy_type": "strict",
+      "issue": "REFERENCE_CONTRADICTION: reference declines the early-cancellation benefit, but this benefit remains explicitly present in base_rule, including the strict prompt.",
+      "affected_runs": 12
+    }
+  ]
+}

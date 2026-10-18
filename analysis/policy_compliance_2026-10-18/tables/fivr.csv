@@ -1,0 +1,13 @@
+model,emotion,final_evaluable,final_fact_invention,final_fivr,final_scenario_cluster_ci95,final_plus_available_trace_evaluable,final_or_trace_fact_invention,final_or_trace_fivr,note
+llama,neutral,162,5,0.030864197530864196,"[0.0, 0.06790123456790123]",162,5,0.030864197530864196,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+llama,anger,162,9,0.05555555555555555,"[0.012345679012345678, 0.10493827160493827]",162,9,0.05555555555555555,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+llama,guilt,162,7,0.043209876543209874,"[0.006172839506172839, 0.09259259259259259]",162,7,0.043209876543209874,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+llama,fear,162,5,0.030864197530864196,"[0.0, 0.07407407407407407]",162,5,0.030864197530864196,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+qwen,neutral,162,4,0.024691358024691357,"[0.0, 0.06172839506172839]",162,4,0.024691358024691357,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+qwen,anger,162,4,0.024691358024691357,"[0.006172839506172839, 0.04938271604938271]",162,4,0.024691358024691357,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+qwen,guilt,162,6,0.037037037037037035,"[0.006172839506172839, 0.08024691358024691]",162,6,0.037037037037037035,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+qwen,fear,162,5,0.030864197530864196,"[0.006172839506172839, 0.05555555555555555]",162,5,0.030864197530864196,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+deepseek,neutral,162,23,0.1419753086419753,"[0.08024691358024691, 0.20987654320987653]",162,44,0.2716049382716049,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+deepseek,anger,162,16,0.09876543209876543,"[0.04938271604938271, 0.15432098765432098]",162,36,0.2222222222222222,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+deepseek,guilt,162,16,0.09876543209876543,"[0.05555555555555555, 0.1419753086419753]",162,31,0.19135802469135801,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.
+deepseek,fear,162,16,0.09876543209876543,"[0.04938271604938271, 0.16049382716049382]",162,36,0.2222222222222222,Only DeepSeek emits a trace. Cross-model FIVR comparisons must use final-only rates.

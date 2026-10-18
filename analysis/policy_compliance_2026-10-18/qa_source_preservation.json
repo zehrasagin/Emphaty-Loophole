@@ -1,0 +1,10 @@
+{
+  "source_hashes_match_initial_manifest": {
+    "llama": true,
+    "qwen": true,
+    "deepseek": true
+  },
+  "final_reviews": 1944,
+  "trace_reviews": 648,
+  "no_local_calibration_drafts_used": true
+}

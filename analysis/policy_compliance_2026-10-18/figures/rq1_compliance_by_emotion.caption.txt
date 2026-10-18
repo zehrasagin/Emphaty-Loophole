@@ -1,0 +1,1 @@
+Counts and denominators: tables/compliance_rates.csv. Lines: 95% scenario-cluster bootstrap intervals (5,000 resamples). Reference conflicts excluded; unknown judgments excluded and reported separately. Labels are provisional AI-assisted annotations, not human-validated results.

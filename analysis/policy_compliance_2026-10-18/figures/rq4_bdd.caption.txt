@@ -1,0 +1,1 @@
+Denominator: all evaluable noncompliant responses for each model. Primary hierarchy FIH > UEG > PRI > DPB; over-refusals/omissions without a four-category mechanism remain in an explicit residual. Secondary labels are retained in annotations. AI-assisted, not independently human validated.
