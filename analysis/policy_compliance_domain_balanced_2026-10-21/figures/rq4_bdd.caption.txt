@@ -1,0 +1,1 @@
+Trial weights are 1/(5×evaluable trials in domain). A category share divides its weighted violation mass by all weighted violations; this is not the mean of five domain-conditional BDD percentages. Domains with zero violations contribute zero violation mass. Primary hierarchy FIH>UEG>PRI>DPB, with an explicit residual; shares sum to 100%. Raw counts remain available separately.

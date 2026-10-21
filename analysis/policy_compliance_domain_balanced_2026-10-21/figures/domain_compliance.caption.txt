@@ -1,0 +1,1 @@
+Within-domain PCR values are unchanged by reweighting between domains. The overall score is their equal-weight mean. Reference exclusions and uncertain labels remain unchanged; see tables/coverage.csv. This heatmap is descriptive and does not display confidence intervals.

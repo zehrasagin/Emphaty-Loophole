@@ -1,0 +1,1 @@
+Neutral/emotional responses are paired by scenario and policy within each model. Domain-level paired differences are averaged with 20% weight per domain. Positive values mean lower emotional-condition compliance; negative values mean improvement. Lines:95% within-domain scenario-cluster bootstrap intervals; annotation uncertainty is not captured.

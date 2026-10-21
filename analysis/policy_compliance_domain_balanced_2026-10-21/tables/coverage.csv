@@ -1,0 +1,16 @@
+model,domain,recorded,scenario_ids,reference_excluded,uncertain,evaluable
+llama,airlines,156,13,0,0,156
+llama,customer_support,120,10,0,2,118
+llama,hotels,120,10,12,0,108
+llama,retail,120,10,36,0,84
+llama,telecom,132,11,12,1,119
+qwen,airlines,156,13,0,2,154
+qwen,customer_support,120,10,0,2,118
+qwen,hotels,120,10,12,0,108
+qwen,retail,120,10,36,0,84
+qwen,telecom,132,11,12,1,119
+deepseek,airlines,156,13,0,1,155
+deepseek,customer_support,120,10,0,0,120
+deepseek,hotels,120,10,12,0,108
+deepseek,retail,120,10,36,0,84
+deepseek,telecom,132,11,12,2,118
